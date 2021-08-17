@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">SiriusProject</string>
+    <string name="coshelok">КошелОК</string>
+    <string name="settings">settings</string>
+    <string name="wallet_1">Кошелек 1</string>
+    <string name="zero_rub">0 ₽</string>
+    <string name="add_operation">Добавить операцию</string>
+    <string name="income">Доход</string>
+    <string name="outcome">Расход</string>
+    <string name="op_added">\"Added operation\"</string>
+    <string name="example_volume">12 000 ₽</string>
+    <string name="no_records_yet">У вас пока нет записей</string>
     <string name="auth_button_text">Войти с помощью Google</string>
     <string name="onboarding_welcome">Добро пожаловать \nв КошелОК</string>
     <string name="onboarding_tip">Тут вы сможете контролировать свои \nдоходы и расходы</string>
