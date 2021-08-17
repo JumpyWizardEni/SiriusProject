@@ -10,9 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SiriusProject">
 
-        <activity
-            android:name=".MainScreenActivity"
-            android:exported="true" />
+        <activity android:name=".MainScreenActivity" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
