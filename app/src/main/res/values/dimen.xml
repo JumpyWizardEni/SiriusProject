@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splash_text_size">24sp</dimen>
+    <dimen name="splash_screen_margin">24dp</dimen>
+    <dimen name="normal_margin">16dp</dimen>
+    <dimen name="wallet_top_margin">8dp</dimen>
+    <dimen name="main_screen_card_height">79dp</dimen>
+    <dimen name="main_screen_card_width">160dp</dimen>
+</resources>
