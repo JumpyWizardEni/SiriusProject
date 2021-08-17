@@ -30,10 +30,10 @@
 
     <TextView
         android:id="@+id/current_volume"
-        android:layout_marginTop="6dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="6dp"
         android:text="@string/zero_rub"
         android:textColor="@color/black"
         android:textSize="32sp"
@@ -43,10 +43,10 @@
     </TextView>
 
     <LinearLayout
-        android:layout_marginTop="@dimen/normal_margin"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_margin"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,6 +55,8 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             style="@style/CardViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginEnd="8dp"
             android:layout_weight="0.5">
@@ -86,6 +88,8 @@
 
         <androidx.cardview.widget.CardView
             style="@style/CardViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/normal_margin"
             android:layout_weight="0.5">
 
@@ -127,7 +131,6 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:textColor="@color/white"
         android:id="@+id/add_operation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -137,6 +140,7 @@
         android:background="@drawable/bg_add_button"
         android:text="@string/add_operation"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
