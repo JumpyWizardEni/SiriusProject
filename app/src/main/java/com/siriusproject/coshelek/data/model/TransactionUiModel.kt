@@ -9,11 +9,11 @@ enum class TransactionType {
 
 //TODO Все поля в принципе могут быть null
 data class TransactionUiModel(
-    var id: Int,
-    var name: String,
-    var category: CategoryUiModel,
-    var type: TransactionType,
-    var amount: Int,
-    var currency: String,
+    val id: Int,
+    val name: String,
+    val category: CategoryUiModel,
+    val type: TransactionType,
+    val amount: Int,
+    val currency: String,
     val date: Date
 )
