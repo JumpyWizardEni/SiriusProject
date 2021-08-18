@@ -39,6 +39,7 @@ class MainScreenActivity : AppCompatActivity() {
             val intent = Intent(this, TransactionAddingActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     companion object {
