@@ -58,6 +58,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/sum_amount"
                 style="@style/GrayTextWithArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,6 +85,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/op_type"
                 style="@style/GrayTextWithArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,6 +109,7 @@
                 android:text="@string/category" />
 
             <TextView
+                android:id="@+id/category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -146,6 +149,7 @@
             android:text="@string/op_date" />
 
         <TextView
+            android:id="@+id/op_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
