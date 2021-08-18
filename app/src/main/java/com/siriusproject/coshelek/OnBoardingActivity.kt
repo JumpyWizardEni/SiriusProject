@@ -27,7 +27,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.onboarding_screen)
+        setContentView(R.layout.activity_onboarding)
 
         val googleButton = findViewById<Button>(R.id.authButton)
 
