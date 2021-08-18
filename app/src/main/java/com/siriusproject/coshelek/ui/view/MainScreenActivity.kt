@@ -1,9 +1,10 @@
-package com.siriusproject.coshelek
+package com.siriusproject.coshelek.ui.view
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.siriusproject.coshelek.R
 
 class MainScreenActivity : AppCompatActivity() {
 

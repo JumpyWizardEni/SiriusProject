@@ -4,4 +4,5 @@
     <dimen name="splash_screen_margin">24dp</dimen>
     <dimen name="normal_margin">16dp</dimen>
     <dimen name="wallet_top_margin">8dp</dimen>
+    <dimen name="large_padding">34.5dp</dimen>
 </resources>
