@@ -52,4 +52,5 @@ class OnBoardingActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
 }
