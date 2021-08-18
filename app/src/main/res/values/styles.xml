@@ -40,5 +40,9 @@
         <item name="android:drawablePadding">12dp</item>
     </style>
 
+    <style name="BlackSmallText60">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/black_60</item>
+    </style>
 
 </resources>

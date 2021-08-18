@@ -11,4 +11,5 @@
     <color name="blue_card_background">#5833EE</color>
     <color name="white_60">#99FFFFFF</color>
     <color name="light_text_secondary">#9299A2</color>
+    <color name="black_60">#99000000</color>
 </resources>

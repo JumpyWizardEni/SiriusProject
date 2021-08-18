@@ -43,7 +43,7 @@
     </TextView>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/cards_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/normal_margin"
@@ -128,7 +128,17 @@
         app:layout_constraintBottom_toTopOf="@id/add_operation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/cards_container" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/large_padding"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/add_operation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cards_container" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_operation"
@@ -144,6 +154,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/operation_view_holder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
