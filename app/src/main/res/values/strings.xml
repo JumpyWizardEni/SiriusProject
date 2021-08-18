@@ -25,6 +25,8 @@
     <string name="create_op">Создать операцию</string>
     <string name="auth_failed">Auth failed</string>
     <string name="press_back">\"Нажмите еще раз, чтобы выйти из приложения\"</string>
+    <string name="select_cat">Выберите категорию</string>
+    <string name="cat_avatar_img">cat_avatar_img</string>
     <string name="enter_sum">Введите сумму</string>
     <string name="ready_button">Готово</string>
     <string name="today">Сегодня</string>

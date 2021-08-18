@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:id="@+id/cat_item_root_view">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cat_img"
+        android:contentDescription="@string/cat_avatar_img"
+        android:src="@drawable/ic_cat_multivalue_cards"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/cat_title"
+        android:gravity="center_vertical|start"
+        android:text="Category"
+        android:textSize="16sp"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:textColor="@color/gray_primary"/>
+
+</LinearLayout>
