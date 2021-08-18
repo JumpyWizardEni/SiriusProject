@@ -6,21 +6,23 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.siriusproject.coshelek.data.model.CategoryUiModel
 
-class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val catTitle: TextView = itemView.findViewById(R.id.cat_title)
-    private val catImage: ImageView = itemView.findViewById(R.id.cat_img)
-    fun bind(item: CategoryModel) {
-        catTitle.text = item.name
-        catImage.setImageDrawable(item.picture)
+class CategoriesListAdapter(val onCategorySelected: (CategoryUiModel)->Unit):
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val catTitle: TextView = itemView.findViewById(R.id.cat_title)
+        private val catImage: ImageView = itemView.findViewById(R.id.cat_img)
+        fun bind(item: CategoryUiModel) {
+            catTitle.text = item.name
+            catImage.setImageDrawable(item.picture)
+        }
     }
-}
 
-class CategoriesListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val categories: MutableList<CategoryUiModel> = mutableListOf()
 
-    private val categories: MutableList<CategoryModel> = mutableListOf()
-
-    fun setData(newCats: MutableList<CategoryModel>) {
+    fun setData(newCats: MutableList<CategoryUiModel>) {
         categories.clear()
         categories.addAll(newCats)
         notifyDataSetChanged()
@@ -36,8 +38,8 @@ class CategoriesListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return viewHolder
     }
 
-    private fun onClicked(cat: CategoryModel) {
-
+    private fun onClicked(cat: CategoryUiModel) {
+        onCategorySelected(cat)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
