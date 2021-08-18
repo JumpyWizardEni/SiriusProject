@@ -1,9 +1,12 @@
-package com.siriusproject.coshelek
+package com.siriusproject.coshelek.ui.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.siriusproject.coshelek.R
+import com.siriusproject.coshelek.TransactionAddingActivity
+import com.siriusproject.coshelek.databinding.ActivityMainScreenBinding
 
 class MainScreenActivity : AppCompatActivity() {
 
@@ -28,12 +31,16 @@ class MainScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_screen)
+        val binding = ActivityMainScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val addButton = findViewById<Button>(R.id.add_operation)
+        val addButton = binding.addOperation
 
         addButton.setOnClickListener {
             Toast.makeText(this, resources.getString(R.string.op_added), Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, TransactionAddingActivity::class.java)
+            startActivity(intent)
         }
     }
+
 }

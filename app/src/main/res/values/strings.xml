@@ -13,6 +13,16 @@
     <string name="auth_button_text">Войти с помощью Google</string>
     <string name="onboarding_welcome">Добро пожаловать \nв КошелОК</string>
     <string name="onboarding_tip">Тут вы сможете контролировать свои \nдоходы и расходы</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_op">Новая операция</string>
+    <string name="main_options">Основные</string>
+    <string name="sum">Сумма</string>
+    <string name="type">Тип</string>
+    <string name="category">Категория</string>
+    <string name="extra_options">Дополнительные настройки</string>
+    <string name="op_date">Дата операции</string>
+    <string name="create_op">Создать операцию</string>
     <string name="auth_failed">Auth failed</string>
     <string name="press_back">\"Нажмите еще раз, чтобы выйти из приложения\"</string>
 </resources>
