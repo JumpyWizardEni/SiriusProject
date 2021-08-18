@@ -10,14 +10,14 @@ import com.siriusproject.coshelek.databinding.ActivityMainScreenBinding
 
 class MainScreenActivity : AppCompatActivity() {
 
-    companion object {
-        const val BACK_PRESS_TIME = 3000L
-    }
+    private var previousBackPressedTime: Long = 0
 
-    var previousBackPressedTime: Long = 0
+    private val activityTransactionAddingLauncher =
+        registerForActivityResult(TransactionAddingActivityContract()) { result ->
+            // adding transaction to recycler
+        }
 
     override fun onBackPressed() {
-
         if (System.currentTimeMillis() - previousBackPressedTime < BACK_PRESS_TIME) {
             super.onBackPressed()
         } else {
@@ -25,8 +25,6 @@ class MainScreenActivity : AppCompatActivity() {
                 .show()
         }
         previousBackPressedTime = System.currentTimeMillis()
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +35,15 @@ class MainScreenActivity : AppCompatActivity() {
         val addButton = binding.addOperation
 
         addButton.setOnClickListener {
-            Toast.makeText(this, resources.getString(R.string.op_added), Toast.LENGTH_SHORT).show()
+            activityTransactionAddingLauncher.launch(Unit)
             val intent = Intent(this, TransactionAddingActivity::class.java)
             startActivity(intent)
         }
     }
 
+    companion object {
+        const val BACK_PRESS_TIME = 3000L
+        const val ARG_INPUT_KEY = "my_input_key"
+        const val RESULT_KEY = "my_result_key"
+    }
 }
