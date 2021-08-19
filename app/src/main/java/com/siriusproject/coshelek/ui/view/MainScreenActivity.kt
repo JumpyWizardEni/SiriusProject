@@ -1,21 +1,37 @@
 package com.siriusproject.coshelek.ui.view
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
-import com.siriusproject.coshelek.TransactionAddingActivity
-import com.siriusproject.coshelek.databinding.ActivityMainScreenBinding
+import com.siriusproject.coshelek.TransactionAddingActivityContract
+import com.siriusproject.coshelek.databinding.ActivityMainBinding
+import com.siriusproject.coshelek.ui.adapters.TransactionsAdapter
 
-class MainScreenActivity : AppCompatActivity() {
+class MainScreenActivity : AppCompatActivity(R.layout.activity_main) {
 
     private var previousBackPressedTime: Long = 0
-
+    private val recyclerAdapter = TransactionsAdapter()
+    private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
     private val activityTransactionAddingLauncher =
         registerForActivityResult(TransactionAddingActivityContract()) { result ->
             // adding transaction to recycler
+            if (result != null) {
+                recyclerAdapter.addNewItem(result)
+                showRecordsText(recyclerAdapter.itemCount == 0)
+            }
         }
+
+    private fun showRecordsText(isRecyclerEmpty: Boolean) {
+        if (isRecyclerEmpty) {
+            binding.noRecordsYet.visibility = View.VISIBLE
+        } else {
+            binding.noRecordsYet.visibility = View.GONE
+        }
+    }
 
     override fun onBackPressed() {
         if (System.currentTimeMillis() - previousBackPressedTime < BACK_PRESS_TIME) {
@@ -29,15 +45,15 @@ class MainScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainScreenBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         val addButton = binding.addOperation
-
+        binding.recyclerView.apply {
+            adapter = recyclerAdapter
+            layoutManager = LinearLayoutManager(
+                applicationContext, LinearLayoutManager.VERTICAL, false
+            )
+        }
         addButton.setOnClickListener {
             activityTransactionAddingLauncher.launch(Unit)
-            val intent = Intent(this, TransactionAddingActivity::class.java)
-            startActivity(intent)
         }
 
     }

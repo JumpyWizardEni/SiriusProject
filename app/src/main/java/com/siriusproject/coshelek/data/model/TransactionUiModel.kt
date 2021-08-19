@@ -1,13 +1,17 @@
 package com.siriusproject.coshelek.data.model
 
-import java.util.*
+import java.io.Serializable
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 enum class TransactionType {
     Income, Expence
 }
 
+sealed class TransactionListItem : Serializable
 
 //TODO Все поля в принципе могут быть null
+
 data class TransactionUiModel(
     val id: Int,
     val name: String,
@@ -15,5 +19,9 @@ data class TransactionUiModel(
     val type: TransactionType,
     val amount: Int,
     val currency: String,
-    val date: Date
-)
+    val date: LocalDateTime
+) : Serializable, TransactionListItem()
+
+data class TransactionHeaderModel(
+    val date: LocalDate
+) : TransactionListItem()

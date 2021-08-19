@@ -1,20 +1,24 @@
 package com.siriusproject.coshelek
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.siriusproject.coshelek.TransactionAddingActivityContract.Companion.RESULT_TAG
 import com.siriusproject.coshelek.data.model.CategoryUiModel
 import com.siriusproject.coshelek.data.model.TransactionType
 import com.siriusproject.coshelek.data.model.TransactionUiModel
 import com.siriusproject.coshelek.ui.view.TransactionViewModel
 import com.siriusproject.coshelek.ui.view.fragments.OperationChangeFragment
-import java.util.*
+import java.time.LocalDateTime
 
 class TransactionAddingActivity : AppCompatActivity() {
 
     private val viewModel: TransactionViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction_adding)
@@ -26,20 +30,28 @@ class TransactionAddingActivity : AppCompatActivity() {
             TransactionType.Income,
             30,
             "",
-            Date(System.currentTimeMillis())
+            LocalDateTime.now()
         )
         supportFragmentManager.commit {
             replace<OperationChangeFragment>(R.id.fragment_container)
+            setReorderingAllowed(true)
+            addToBackStack(null)
         }
     }
 
 
     override fun onBackPressed() {
         val count = supportFragmentManager.backStackEntryCount
-        if (count == 0) {
-            super.onBackPressed()
+        if (count <= 1) {
+            finish()
         } else {
             supportFragmentManager.popBackStack()
         }
+    }
+
+    fun finishWithResult() {
+        val dataIntent = Intent().apply { putExtra(RESULT_TAG, viewModel.transactionModel) }
+        setResult(Activity.RESULT_OK, dataIntent)
+        finish()
     }
 }

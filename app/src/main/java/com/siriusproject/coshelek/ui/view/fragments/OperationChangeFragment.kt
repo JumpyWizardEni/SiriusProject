@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.siriusproject.coshelek.R
+import com.siriusproject.coshelek.TransactionAddingActivity
 import com.siriusproject.coshelek.data.model.TransactionType
 import com.siriusproject.coshelek.data.model.TransactionUiModel
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
@@ -32,10 +33,12 @@ class OperationChangeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.transactionModel?.let { setUiData(it) }
         binding.createOpButton.setOnClickListener {
-            activity?.finish()
+            if (activity != null) {
+                (activity as TransactionAddingActivity).finishWithResult()
+            }
         }
         binding.toolbar.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.popBackStack()
+            activity?.onBackPressed()
         }
     }
 
