@@ -2,13 +2,12 @@ package com.siriusproject.coshelek
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.siriusproject.coshelek.data.model.CategoryUiModel
 import com.siriusproject.coshelek.databinding.CategoryItemBinding
-import com.siriusproject.coshelek.ui.adapters.CategoryViewHolder
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.DiffUtil.DiffResult
 import com.siriusproject.coshelek.ui.adapters.CategoriesDiffUtil
+import com.siriusproject.coshelek.ui.adapters.CategoryViewHolder
 
 
 class CategoriesListAdapter(val onCategorySelected: (CategoryUiModel)->Unit):
