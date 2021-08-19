@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".wallet_information.ui.view.fragments.OperationChangeFragment">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:title="@string/new_op"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back"
-        app:title="@string/new_op"
-        app:titleTextAppearance="@style/ToolbarTextStyle" />
+        app:navigationIcon="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/main_options"
