@@ -23,6 +23,8 @@ class TransactionAddingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction_adding)
 
+
+        //TODO viewModel.addNewTransaction(args)
         viewModel.transactionModel = TransactionUiModel(
             0,
             "1",
@@ -35,17 +37,6 @@ class TransactionAddingActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             replace<OperationChangeFragment>(R.id.fragment_container)
             setReorderingAllowed(true)
-            addToBackStack(null)
-        }
-    }
-
-
-    override fun onBackPressed() {
-        val count = supportFragmentManager.backStackEntryCount
-        if (count <= 1) {
-            finish()
-        } else {
-            supportFragmentManager.popBackStack()
         }
     }
 
