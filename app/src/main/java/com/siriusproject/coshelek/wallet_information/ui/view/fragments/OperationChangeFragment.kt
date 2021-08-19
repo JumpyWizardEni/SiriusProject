@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.ui.view.fragments
+package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.siriusproject.coshelek.R
-import com.siriusproject.coshelek.TransactionAddingActivity
-import com.siriusproject.coshelek.data.model.TransactionType
-import com.siriusproject.coshelek.data.model.TransactionUiModel
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
-import com.siriusproject.coshelek.ui.view.TransactionViewModel
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
+import com.siriusproject.coshelek.wallet_information.ui.view.TransactionAddingActivity
+import com.siriusproject.coshelek.wallet_information.ui.view.TransactionViewModel
 
 class OperationChangeFragment : Fragment() {
 

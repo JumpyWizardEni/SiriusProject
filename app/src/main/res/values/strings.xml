@@ -27,4 +27,6 @@
     <string name="press_back">\"Нажмите еще раз, чтобы выйти из приложения\"</string>
     <string name="enter_sum">Введите сумму</string>
     <string name="ready_button">Готово</string>
+    <string name="today">Сегодня</string>
+    <string name="yesterday">Вчера</string>
 </resources>
