@@ -1,14 +1,7 @@
 package com.siriusproject.coshelek.domain
 
 import android.graphics.Color
-
-data class Category(
-    val id: Int,
-    val name: String,
-    val type: Int,
-    val picture: String,
-    val color: Int
-)
+import com.siriusproject.coshelek.domain.model.Category
 
 class GetCategories: () -> List<Category> {
 

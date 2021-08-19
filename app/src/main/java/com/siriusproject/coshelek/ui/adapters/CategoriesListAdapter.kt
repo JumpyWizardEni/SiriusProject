@@ -1,32 +1,20 @@
 package com.siriusproject.coshelek
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.siriusproject.coshelek.data.model.CategoryUiModel
 import com.siriusproject.coshelek.databinding.CategoryItemBinding
-import com.siriusproject.coshelek.databinding.OperationViewHolderBinding
+import com.siriusproject.coshelek.ui.adapters.CategoryViewHolder
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.DiffResult
+import com.siriusproject.coshelek.ui.adapters.CategoriesDiffUtil
+
 
 class CategoriesListAdapter(val onCategorySelected: (CategoryUiModel)->Unit):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var selectedCat = 0
-
-    class CategoryViewHolder(private val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: CategoryUiModel, selected: Boolean) {
-            with(binding){
-                catTitle.text = item.name
-                catImg.setImageDrawable(item.picture)
-                select(selected)
-            }
-        }
-        fun select(selected: Boolean){
-            binding.selectedCatIcon.visibility = if(selected) View.VISIBLE else View.GONE
-        }
-    }
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
@@ -42,9 +30,11 @@ class CategoriesListAdapter(val onCategorySelected: (CategoryUiModel)->Unit):
     private val categories = mutableListOf<CategoryUiModel>()
 
     fun setData(newCats: MutableList<CategoryUiModel>) {
+        val productDiffUtilCallback = CategoriesDiffUtil(categories, newCats)
+        val productDiffResult = DiffUtil.calculateDiff(productDiffUtilCallback)
         categories.clear()
         categories.addAll(newCats)
-        notifyDataSetChanged()
+        productDiffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

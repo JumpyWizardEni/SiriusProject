@@ -1,11 +1,13 @@
 package com.siriusproject.coshelek
 
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,11 +44,17 @@ class CategorySelectFragment: Fragment() {
     private fun initCategories(){
         categories.addAll(
             viewModel.getCategories()
-                .map { CategoryUiModel(
+                .map {
+                    val resources: Resources = requireContext().resources
+                    val pictureID: Int = resources.getIdentifier(
+                        it.picture, "drawable",
+                        requireContext().packageName
+                    )
+                    CategoryUiModel(
                     id = it.id,
                     name = it.name,
                     type = if(it.type==1) TransactionType.Income else TransactionType.Expence,
-                    picture = Drawable.createFromPath(it.picture)!!,
+                    picture = ContextCompat.getDrawable(requireContext(), pictureID)!!,
                     color = it.color) }
                 .filter { it.type ==  showCatType }
         )
