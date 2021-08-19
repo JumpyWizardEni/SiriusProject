@@ -3,24 +3,27 @@ package com.siriusproject.coshelek.wallet_information.ui.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.ActivityMainBinding
 import com.siriusproject.coshelek.wallet_information.ui.adapters.TransactionsAdapter
+import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel
 
 class MainScreenActivity : AppCompatActivity(R.layout.activity_main) {
 
     private var previousBackPressedTime: Long = 0
     private val recyclerAdapter = TransactionsAdapter()
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
+    private val viewModel: WalletViewModel by viewModels()
     private val activityTransactionAddingLauncher =
         registerForActivityResult(TransactionAddingActivityContract()) { result ->
             // adding transaction to recycler
             if (result != null) {
-                recyclerAdapter.addNewItem(result)
-                showRecordsText(recyclerAdapter.itemCount == 0)
+                viewModel.addNewTransaction(result)
             }
         }
 
@@ -54,7 +57,10 @@ class MainScreenActivity : AppCompatActivity(R.layout.activity_main) {
         addButton.setOnClickListener {
             activityTransactionAddingLauncher.launch(Unit)
         }
-
+        viewModel.transactions.observe(this, Observer {
+            recyclerAdapter.setTransactions(it)
+            showRecordsText(recyclerAdapter.itemCount == 0)
+        })
     }
 
     companion object {
