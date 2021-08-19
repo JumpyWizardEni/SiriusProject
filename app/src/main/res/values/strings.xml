@@ -29,6 +29,7 @@
     <string name="cat_avatar_img">cat_avatar_img</string>
     <string name="enter_sum">Введите сумму</string>
     <string name="ready_button">Готово</string>
+    <string name="selector_icon">selector_icon</string>
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
     <string name="server_client_id">0</string>

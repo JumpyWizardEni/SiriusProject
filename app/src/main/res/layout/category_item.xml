@@ -24,7 +24,16 @@
         android:text="Category"
         android:textSize="16sp"
         android:layout_marginStart="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/normal_margin"
         android:textColor="@color/gray_primary"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/selected_cat_icon"
+        android:src="@drawable/ic_selected_cat"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:contentDescription="@string/selector_icon"
+        android:layout_gravity="center"/>
+
 
 </LinearLayout>
