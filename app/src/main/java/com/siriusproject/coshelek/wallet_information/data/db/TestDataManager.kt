@@ -9,15 +9,7 @@ import java.time.LocalDateTime
 class TestDataManager : DataSource {
     override fun getTransactions(): List<TransactionUiModel> {
         return listOf(
-            TransactionUiModel(
-                0,
-                "2",
-                CategoryUiModel("Мой доход"),
-                TransactionType.Income,
-                13333,
-                "",
-                LocalDateTime.now()
-            )
+
         )
     }
 

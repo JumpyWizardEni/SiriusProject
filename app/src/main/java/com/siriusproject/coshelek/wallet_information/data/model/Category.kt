@@ -1,9 +1,9 @@
 package com.siriusproject.coshelek.wallet_information.data.model
 
-data class CategoryUiModel(
+data class Category(
     val id: Int,
     val name: String,
-    val type: TransactionType,
-    val picture: Int,
+    val type: Int,
+    val picture: String,
     val color: Int
 )

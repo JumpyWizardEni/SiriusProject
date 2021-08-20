@@ -13,13 +13,13 @@ sealed class TransactionListItem : Serializable
 //TODO Все поля в принципе могут быть null
 
 data class TransactionUiModel(
-    val id: Int,
-    val name: String,
-    val category: CategoryUiModel,
-    val type: TransactionType,
-    val amount: Int,
-    val currency: String,
-    val date: LocalDateTime
+    var id: Int,
+    var name: String,
+    var category: CategoryUiModel,
+    var type: TransactionType,
+    var amount: Int,
+    var currency: String,
+    var date: LocalDateTime
 ) : Serializable, TransactionListItem()
 
 data class TransactionHeaderModel(
