@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/walletFragment">
+
+    <fragment
+        android:id="@+id/enterSumFragment"
+        android:name="com.siriusproject.coshelek.ui.view.fragments.EnterSumFragment"
+        android:label="EnterSumFragment">
+        <action
+            android:id="@+id/action_enterSumFragment_to_walletFragment"
+            app:destination="@id/walletFragment"
+            app:popUpTo="@id/walletFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_enterSumFragment_to_typeOperationFragment"
+            app:destination="@id/typeOperationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/operationChangeFragment"
+        android:name="com.siriusproject.coshelek.ui.view.fragments.OperationChangeFragment"
+        android:label="fragment_operation_change"
+        tools:layout="@layout/fragment_operation_change">
+        <action
+            android:id="@+id/action_operationChangeFragment_to_typeOperationFragment"
+            app:destination="@id/typeOperationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.siriusproject.coshelek.ui.view.fragments.WalletFragment"
+        android:label="WalletFragment">
+        <action
+            android:id="@+id/action_walletFragment_to_enterSumFragment"
+            app:destination="@id/enterSumFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/typeOperationFragment"
+        android:name="com.siriusproject.coshelek.ui.view.fragments.TypeOperationFragment"
+        android:label="fragment_type_operation"
+        tools:layout="@layout/fragment_type_operation">
+        <action
+            android:id="@+id/action_typeOperationFragment_to_enterSumFragment"
+            app:destination="@id/enterSumFragment" />
+        <action
+            android:id="@+id/action_typeOperationFragment_to_operationChangeFragment"
+            app:destination="@id/operationChangeFragment" />
+    </fragment>
+</navigation>

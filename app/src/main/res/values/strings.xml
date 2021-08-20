@@ -29,4 +29,6 @@
     <string name="ready_button">Готово</string>
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
+    <string name="select_type_operation">Выбирите тип операции</string>
+    <string name="consumption">Расход</string>
 </resources>
