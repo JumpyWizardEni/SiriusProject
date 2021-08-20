@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.ui.adapters
+package com.siriusproject.coshelek.wallet_information.ui.viewholders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

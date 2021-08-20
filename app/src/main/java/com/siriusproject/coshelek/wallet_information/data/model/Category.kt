@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.domain.model
+package com.siriusproject.coshelek.wallet_information.data.model
 
 data class Category(
     val id: Int,

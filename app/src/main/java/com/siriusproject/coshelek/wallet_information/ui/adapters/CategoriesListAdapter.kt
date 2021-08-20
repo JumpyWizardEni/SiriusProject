@@ -1,10 +1,12 @@
-package com.siriusproject.coshelek.ui.adapters
+package com.siriusproject.coshelek.wallet_information.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.siriusproject.coshelek.databinding.CategoryItemBinding
+import com.siriusproject.coshelek.utils.CategoriesDiffUtil
+import com.siriusproject.coshelek.wallet_information.ui.viewholders.CategoryViewHolder
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 
 class CategoriesListAdapter(val onCategorySelected: (CategoryUiModel) -> Unit) :

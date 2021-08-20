@@ -1,7 +1,7 @@
-package com.siriusproject.coshelek.domain
+package com.siriusproject.coshelek.wallet_information.domain.use_cases
 
 import android.graphics.Color
-import com.siriusproject.coshelek.domain.model.Category
+import com.siriusproject.coshelek.wallet_information.data.model.Category
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 
 class GetCategories(

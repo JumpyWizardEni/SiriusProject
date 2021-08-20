@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.ui.adapters
+package com.siriusproject.coshelek.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel

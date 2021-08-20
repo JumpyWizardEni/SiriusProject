@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.ui.view.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
+import com.siriusproject.coshelek.wallet_information.data.model.Category
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
@@ -43,7 +45,12 @@ class OperationChangeFragment : Fragment() {
                 TransactionUiModel(
                     0,
                     "1",
-                    CategoryUiModel("Зп"),
+                    CategoryUiModel(
+                        id=0,
+                        name = "Зарплата",
+                        type = TransactionType.Income,
+                        picture = R.drawable.ic_cat_multivalue_cards,
+                        color = Color.GREEN),
                     TransactionType.Income,
                     30,
                     "",
