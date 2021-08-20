@@ -94,4 +94,21 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    fun setTransactions(newList: List<TransactionUiModel>?) {
+        transactions.clear()
+        previousDate = null
+        newList?.forEach { model ->
+            if (previousDate != model.date.toLocalDate()) { //Нужен новый разделитель
+                transactions.add(TransactionHeaderModel(model.date.toLocalDate()))
+                transactions.add(model)
+//                notifyItemRangeChanged(transactions.size - 2, 2, null)
+            } else {
+                transactions.add(model)
+//                notifyItemInserted(transactions.size - 1)
+            }
+            previousDate = model.date.toLocalDate()
+        }
+        notifyItemRangeChanged(0, transactions.size)
+    }
+
 }

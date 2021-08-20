@@ -29,6 +29,8 @@
     <string name="ready_button">Готово</string>
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
+    <string name="server_client_id">0</string>
+    <string name="client_id">647473667859-bku4suoquvmh65uas95jq8jpvirk4lg5.apps.googleusercontent.com</string>
     <string name="select_type_operation">Выбирите тип операции</string>
     <string name="consumption">Расход</string>
 </resources>

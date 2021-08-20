@@ -2,6 +2,7 @@ package com.siriusproject.coshelek.wallet_information.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 
@@ -12,6 +13,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         val account = GoogleSignIn.getLastSignedInAccount(this)
         if (account != null) {
+            Log.d(javaClass.toString(), "Token: ${account.idToken}, Email: ${account.email}")
             startMainScreen()
         } else {
             startOnBoard()

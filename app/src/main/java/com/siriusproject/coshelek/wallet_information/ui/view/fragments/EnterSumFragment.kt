@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.ui.view.fragments
+package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentEnterSumBinding
-import com.siriusproject.coshelek.ui.view.TransactionViewModel
+import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 
 class EnterSumFragment : Fragment() {
 

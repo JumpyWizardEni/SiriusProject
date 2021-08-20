@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/enterSumFragment"
-        android:name="com.siriusproject.coshelek.ui.view.fragments.EnterSumFragment"
+        android:name="com.siriusproject.coshelek.wallet_information.ui.view.fragments.EnterSumFragment"
         android:label="EnterSumFragment">
         <action
             android:id="@+id/action_enterSumFragment_to_walletFragment"
@@ -26,10 +26,13 @@
         <action
             android:id="@+id/action_operationChangeFragment_to_typeOperationFragment"
             app:destination="@id/typeOperationFragment" />
+        <action
+            android:id="@+id/action_operationChangeFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
     </fragment>
     <fragment
         android:id="@+id/walletFragment"
-        android:name="com.siriusproject.coshelek.ui.view.fragments.WalletFragment"
+        android:name="com.siriusproject.coshelek.wallet_information.ui.view.fragments.WalletFragment"
         android:label="WalletFragment">
         <action
             android:id="@+id/action_walletFragment_to_enterSumFragment"
@@ -37,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/typeOperationFragment"
-        android:name="com.siriusproject.coshelek.ui.view.fragments.TypeOperationFragment"
+        android:name="com.siriusproject.coshelek.wallet_information.ui.view.fragments.TypeOperationFragment"
         android:label="fragment_type_operation"
         tools:layout="@layout/fragment_type_operation">
         <action
