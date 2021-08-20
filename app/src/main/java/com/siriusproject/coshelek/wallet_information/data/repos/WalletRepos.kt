@@ -4,6 +4,6 @@ import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiMod
 
 
 //Пока что непонятно, будет ли 1 репозиторий, или они будут разделены по фичам
-interface IWalletRepos {
+interface WalletRepos {
     fun getTransactions(): List<TransactionUiModel>
 }

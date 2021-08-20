@@ -8,17 +8,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.siriusproject.coshelek.R
-import com.siriusproject.coshelek.data.model.TransactionType
-import com.siriusproject.coshelek.data.model.TransactionUiModel
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
-import com.siriusproject.coshelek.ui.view.TransactionViewModel
+import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
+import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
+import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel
+import java.time.LocalDateTime
 
 class OperationChangeFragment : Fragment() {
 
     private var _binding: FragmentOperationChangeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TransactionViewModel by activityViewModels()
-
+    private val walletViewModel: WalletViewModel by activityViewModels()
+    private val transactionViewModel: TransactionViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,11 +34,24 @@ class OperationChangeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.transactionModel?.let { setUiData(it) }
+        transactionViewModel.transactionModel?.let { setUiData(it) }
 
         val amount = arguments?.getString("sum")
         binding.sumAmount.text = amount.toString()
-
+        binding.createOpButton.setOnClickListener {
+            walletViewModel.addNewTransaction(
+                TransactionUiModel(
+                    0,
+                    "1",
+                    CategoryUiModel("Зп"),
+                    TransactionType.Income,
+                    30,
+                    "",
+                    LocalDateTime.now()
+                )
+            )
+            findNavController().navigate(R.id.action_operationChangeFragment_to_walletFragment)
+        }
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_operationChangeFragment_to_typeOperationFragment)
         }

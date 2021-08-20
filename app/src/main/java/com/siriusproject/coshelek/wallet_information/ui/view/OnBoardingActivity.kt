@@ -2,6 +2,7 @@ package com.siriusproject.coshelek.wallet_information.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,15 +15,25 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private val loginResultHandler =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            Log.d(javaClass.toString(), result.toString())
             val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
-            val account = task.result
 
-            if (account != null) {
-                startWalletActivity()
-            } else {
-                Toast.makeText(this, resources.getString(R.string.auth_failed), Toast.LENGTH_LONG)
-                    .show()
+            task.addOnCompleteListener {
+                val account = task.result
+                if (account != null) {
+                    Log.d(javaClass.toString(), "Google Token: ${account.idToken}")
+                    startWalletActivity()
+                } else {
+                    Toast.makeText(
+                        this,
+                        resources.getString(R.string.auth_failed),
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                }
             }
+
+
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +51,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
+            .requestIdToken(getString(R.string.client_id))
             .build()
 
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)

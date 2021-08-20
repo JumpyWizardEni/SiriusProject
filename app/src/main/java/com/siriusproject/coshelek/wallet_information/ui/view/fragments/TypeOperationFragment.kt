@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.ui.view.fragments
+package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

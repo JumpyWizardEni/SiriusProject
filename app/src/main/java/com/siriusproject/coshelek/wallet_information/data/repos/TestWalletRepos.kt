@@ -1,13 +1,13 @@
 package com.siriusproject.coshelek.wallet_information.data.repos
 
-import com.siriusproject.coshelek.wallet_information.data.db.IDatabaseSource
-import com.siriusproject.coshelek.wallet_information.data.db.TestDataManagerImpl
+import com.siriusproject.coshelek.wallet_information.data.db.DataSource
+import com.siriusproject.coshelek.wallet_information.data.db.TestDataManager
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 
-class TestWalletReposImpl : IWalletRepos {
+class TestWalletRepos : WalletRepos {
 
     //TODO DI
-    private val dbSource: IDatabaseSource = TestDataManagerImpl()
+    private val dbSource: DataSource = TestDataManager()
 
     override fun getTransactions(): List<TransactionUiModel> {
         return dbSource.getTransactions()

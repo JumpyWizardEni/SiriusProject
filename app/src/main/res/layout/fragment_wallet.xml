@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.view.MainScreenActivity">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -43,7 +42,7 @@
     </TextView>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/cards_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/normal_margin"
@@ -120,6 +119,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/no_records_yet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_records_yet"
@@ -128,7 +128,20 @@
         app:layout_constraintBottom_toTopOf="@id/add_operation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/cards_container" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/large_padding"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/add_operation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cards_container"
+        tools:listitem="@layout/operation_view_holder" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_operation"

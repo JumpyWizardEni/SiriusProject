@@ -6,7 +6,7 @@ import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiMod
 import java.time.LocalDateTime
 
 //Класс-заглушка для получения моделек с транзакциями
-class TestDataManagerImpl : IDatabaseSource {
+class TestDataManager : DataSource {
     override fun getTransactions(): List<TransactionUiModel> {
         return listOf(
             TransactionUiModel(
