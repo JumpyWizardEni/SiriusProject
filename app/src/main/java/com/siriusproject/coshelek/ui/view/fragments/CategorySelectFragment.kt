@@ -1,75 +1,54 @@
 package com.siriusproject.coshelek
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.siriusproject.coshelek.databinding.FragmentCategorySelectionBinding
+import com.siriusproject.coshelek.ui.adapters.CategoriesListAdapter
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 
 
-class CategorySelectFragment: Fragment() {
+class CategorySelectFragment : Fragment() {
 
-    private val categories: MutableList<CategoryUiModel> = mutableListOf()
-    private var showCatType: TransactionType = TransactionType.Income
     private lateinit var catListAdapter: CategoriesListAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var buttonNext: Button
-
+    private lateinit var viewBinding: FragmentCategorySelectionBinding
     private val viewModel: TransactionViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_category_selection, container, false)
-        buttonNext = rootView.findViewById(R.id.cat_next_btn)
-        buttonNext.setOnClickListener { viewModel.onCategoryNextButton() }
-        initType()
-        initRecyclerView(rootView)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        viewBinding = FragmentCategorySelectionBinding.inflate(inflater, container, false)
+        viewBinding.catNextBtn.setOnClickListener { viewModel.onCategoryNextButton() }
+        initRecyclerView()
         initCategories()
-        return rootView
+        return viewBinding.root
     }
 
-    private fun initType(){
-        showCatType = viewModel.transactionModel!!.type
-    }
-
-    private fun initCategories(){
+    private fun initCategories() {
+        val categories = mutableListOf<CategoryUiModel>()
         categories.addAll(
             viewModel.getCategories()
-                .map {
-                    val resources: Resources = requireContext().resources
-                    val pictureID: Int = resources.getIdentifier(
-                        it.picture, "drawable",
-                        requireContext().packageName
-                    )
-                    CategoryUiModel(
-                    id = it.id,
-                    name = it.name,
-                    type = if(it.type==1) TransactionType.Income else TransactionType.Expence,
-                    picture = ContextCompat.getDrawable(requireContext(), pictureID)!!,
-                    color = it.color) }
-                .filter { it.type ==  showCatType }
+                .filter { it.type == viewModel.transactionModel!!.type }
         )
         catListAdapter.setData(categories)
     }
 
-    private fun initRecyclerView(rootView: View){
+    private fun initRecyclerView() {
         catListAdapter = CategoriesListAdapter(::onCategorySelected)
-        recyclerView = rootView.findViewById(R.id.category_list)
-        recyclerView.apply {
+        viewBinding.categoryList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = catListAdapter
         }
     }
 
-    private fun onCategorySelected(cat: CategoryUiModel){
+    private fun onCategorySelected(cat: CategoryUiModel) {
         viewModel.transactionModel!!.category = cat
     }
 

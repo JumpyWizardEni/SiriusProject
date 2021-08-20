@@ -9,7 +9,7 @@ class CategoryViewHolder(private val binding: CategoryItemBinding) : RecyclerVie
     fun bind(item: CategoryUiModel, selected: Boolean) {
         with(binding){
             catTitle.text = item.name
-            catImg.setImageDrawable(item.picture)
+            catImg.setImageResource(item.picture)
             select(selected)
         }
     }

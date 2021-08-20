@@ -2,10 +2,13 @@ package com.siriusproject.coshelek.domain
 
 import android.graphics.Color
 import com.siriusproject.coshelek.domain.model.Category
+import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 
-class GetCategories: () -> List<Category> {
+class GetCategories(
+    private val categoriesMapper: CategoriesMapper
+): () -> List<CategoryUiModel> {
 
-    override fun invoke(): List<Category> {
+    override fun invoke(): List<CategoryUiModel> {
         return listOf(
             Category(
                 id=0,
@@ -31,6 +34,6 @@ class GetCategories: () -> List<Category> {
                 type = 1,
                 picture = "ic_cat_other_percent",
                 color = Color.GREEN)
-        )
+        ).map(categoriesMapper)
     }
 }

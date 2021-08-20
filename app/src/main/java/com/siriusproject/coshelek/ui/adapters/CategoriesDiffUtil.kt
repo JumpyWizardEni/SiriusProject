@@ -6,13 +6,14 @@ import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 class CategoriesDiffUtil(
     private val oldList: List<CategoryUiModel>,
     private val newList: List<CategoryUiModel>
-): DiffUtil.Callback() {
+) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldList.size
-    override fun getNewListSize()= newList.size
+    override fun getNewListSize() = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
         oldList[oldItemPosition].id == newList[newItemPosition].id
+
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
         oldList[oldItemPosition].equals(newList[newItemPosition])
 }
