@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".wallet_information.ui.view.fragments.OperationChangeFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <include
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         app:title="@string/new_op"
+        layout="@layout/app_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -159,14 +158,13 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/create_op_button"
+        style="@style/GrayNextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/normal_margin"
-        android:background="@drawable/bg_add_button"
         android:text="@string/create_op"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
-        android:textAppearance="@style/WhiteText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
