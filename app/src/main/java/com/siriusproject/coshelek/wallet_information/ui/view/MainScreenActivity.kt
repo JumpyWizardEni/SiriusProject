@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.ui.view
+package com.siriusproject.coshelek.wallet_information.ui.view
 
 import android.os.Bundle
 import android.view.View
@@ -7,9 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
-import com.siriusproject.coshelek.TransactionAddingActivityContract
 import com.siriusproject.coshelek.databinding.ActivityMainBinding
-import com.siriusproject.coshelek.ui.adapters.TransactionsAdapter
+import com.siriusproject.coshelek.wallet_information.ui.adapters.TransactionsAdapter
 
 class MainScreenActivity : AppCompatActivity(R.layout.activity_main) {
 

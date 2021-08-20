@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek
+package com.siriusproject.coshelek.wallet_information.ui.view
 
 import android.app.Activity
 import android.content.Intent
@@ -7,12 +7,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.siriusproject.coshelek.TransactionAddingActivityContract.Companion.RESULT_TAG
-import com.siriusproject.coshelek.data.model.CategoryUiModel
-import com.siriusproject.coshelek.data.model.TransactionType
-import com.siriusproject.coshelek.data.model.TransactionUiModel
-import com.siriusproject.coshelek.ui.view.TransactionViewModel
-import com.siriusproject.coshelek.ui.view.fragments.OperationChangeFragment
+import com.siriusproject.coshelek.R
+import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
+import com.siriusproject.coshelek.wallet_information.ui.view.TransactionAddingActivityContract.Companion.RESULT_TAG
+import com.siriusproject.coshelek.wallet_information.ui.view.fragments.OperationChangeFragment
 import java.time.LocalDateTime
 
 class TransactionAddingActivity : AppCompatActivity() {

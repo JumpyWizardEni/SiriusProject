@@ -1,17 +1,20 @@
-package com.siriusproject.coshelek.ui.adapters
+package com.siriusproject.coshelek.wallet_information.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.siriusproject.coshelek.R
-import com.siriusproject.coshelek.data.model.TransactionHeaderModel
-import com.siriusproject.coshelek.data.model.TransactionListItem
-import com.siriusproject.coshelek.data.model.TransactionUiModel
 import com.siriusproject.coshelek.databinding.DateViewHolderBinding
 import com.siriusproject.coshelek.databinding.OperationViewHolderBinding
+import com.siriusproject.coshelek.utils.DateTimeConverter
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionHeaderModel
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionListItem
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import java.time.LocalDate
 
 class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    //TODO converter injection
 
     class TransactionViewHolder(
         private val binding: OperationViewHolderBinding
@@ -19,11 +22,12 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(model: TransactionUiModel) {
             with(binding) {
                 //TODO icon, пока что заглушка
+                val converter = DateTimeConverter(binding.root.context)
                 categoryIc.setImageResource(R.drawable.ic_supermarket)
                 categoryText.text = model.category.name
                 opName.text = model.name
                 amount.text = model.amount.toString()
-                opTime.text = model.date.toLocalTime().toString()
+                opTime.text = converter.getCurrentTime(model.date.toLocalTime())
             }
         }
     }
@@ -34,7 +38,8 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(model: TransactionHeaderModel) {
             with(binding) {
                 //TODO конвертирование в Сегодня/Вчера/дата
-                dateText.text = model.date.toString()
+                val converter = DateTimeConverter(binding.root.context)
+                dateText.text = converter.getCurrentDate(model.date)
             }
         }
     }

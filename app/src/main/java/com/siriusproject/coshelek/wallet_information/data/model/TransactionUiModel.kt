@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.data.model
+package com.siriusproject.coshelek.wallet_information.data.model
 
 import java.io.Serializable
 import java.time.LocalDate

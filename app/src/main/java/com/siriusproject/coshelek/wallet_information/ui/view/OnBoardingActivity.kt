@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek
+package com.siriusproject.coshelek.wallet_information.ui.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.siriusproject.coshelek.ui.view.MainScreenActivity
+import com.siriusproject.coshelek.R
 
 class OnBoardingActivity : AppCompatActivity() {
 

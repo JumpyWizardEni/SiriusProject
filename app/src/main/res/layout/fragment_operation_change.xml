@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.fragments.OperationChangeFragment">
+    tools:context=".wallet_information.ui.view.fragments.OperationChangeFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

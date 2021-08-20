@@ -1,10 +1,9 @@
-package com.siriusproject.coshelek.ui.view
+package com.siriusproject.coshelek.wallet_information.ui.view
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.siriusproject.coshelek.OnBoardingActivity
 
 
 class SplashScreenActivity : AppCompatActivity() {
