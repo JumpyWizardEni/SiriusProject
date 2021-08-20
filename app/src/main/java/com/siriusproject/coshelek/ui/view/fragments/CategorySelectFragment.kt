@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.siriusproject.coshelek.data.model.CategoryUiModel
-import com.siriusproject.coshelek.data.model.TransactionType
-import com.siriusproject.coshelek.ui.view.TransactionViewModel
+import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
+import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 
 
 class CategorySelectFragment: Fragment() {
