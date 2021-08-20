@@ -10,7 +10,9 @@ import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentWalletBinding
 import com.siriusproject.coshelek.wallet_information.ui.adapters.TransactionsAdapter
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WalletFragment : Fragment() {
 
     private var _binding: FragmentWalletBinding? = null

@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentEnterSumBinding
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EnterSumFragment : Fragment() {
 
     private var _binding: FragmentEnterSumBinding? = null

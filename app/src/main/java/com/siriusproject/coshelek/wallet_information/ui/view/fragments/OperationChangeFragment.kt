@@ -10,14 +10,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
-import com.siriusproject.coshelek.wallet_information.data.model.Category
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 
+@AndroidEntryPoint
 class OperationChangeFragment : Fragment() {
 
     private var _binding: FragmentOperationChangeBinding? = null

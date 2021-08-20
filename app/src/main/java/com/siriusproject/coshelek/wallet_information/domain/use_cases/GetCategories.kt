@@ -3,15 +3,16 @@ package com.siriusproject.coshelek.wallet_information.domain.use_cases
 import android.graphics.Color
 import com.siriusproject.coshelek.wallet_information.data.model.Category
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
+import javax.inject.Inject
 
-class GetCategories(
+class GetCategories @Inject constructor(
     private val categoriesMapper: CategoriesMapper
-): () -> List<CategoryUiModel> {
+) : () -> List<CategoryUiModel> {
 
     override fun invoke(): List<CategoryUiModel> {
         return listOf(
             Category(
-                id=0,
+                id = 0,
                 name = "Зарплата",
                 type = 1,
                 picture = "ic_cat_multivalue_cards",
