@@ -1,15 +1,16 @@
 package com.siriusproject.coshelek.wallet_information.ui.view.view_models
 
 import androidx.lifecycle.ViewModel
-import com.siriusproject.coshelek.wallet_information.domain.use_cases.GetCategories
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
-import com.siriusproject.coshelek.wallet_information.domain.use_cases.CategoriesMapper
+import com.siriusproject.coshelek.wallet_information.domain.use_cases.GetCategories
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class TransactionViewModel(
-
+@HiltViewModel
+class TransactionViewModel @Inject constructor(
+    private val getCategoriesUseCase: GetCategories
 ) : ViewModel() {
 
-    private val getCategoriesUseCase = GetCategories(CategoriesMapper())
     var transactionModel: TransactionUiModel? = null
 
     fun onCategoryNextButton() {

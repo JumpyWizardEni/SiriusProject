@@ -10,8 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.siriusproject.coshelek.R
+import com.siriusproject.coshelek.utils.GoogleAuthRepository
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class OnBoardingActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var googleAuthRepository: GoogleAuthRepository
 
     private val loginResultHandler =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -22,6 +29,8 @@ class OnBoardingActivity : AppCompatActivity() {
                 val account = task.result
                 if (account != null) {
                     Log.d(javaClass.toString(), "Google Token: ${account.idToken}")
+                    account.email?.let { googleAuthRepository.email = it }
+                    account.idToken?.let { googleAuthRepository.token = it }
                     startWalletActivity()
                 } else {
                     Toast.makeText(

@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.siriusproject.coshelek.databinding.FragmentCategorySelectionBinding
-import com.siriusproject.coshelek.wallet_information.ui.adapters.CategoriesListAdapter
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
+import com.siriusproject.coshelek.wallet_information.ui.adapters.CategoriesListAdapter
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CategorySelectFragment : Fragment() {
 
     private lateinit var catListAdapter: CategoriesListAdapter

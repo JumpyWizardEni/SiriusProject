@@ -1,12 +1,10 @@
 package com.siriusproject.coshelek.wallet_information.data.db
 
-import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
-import java.time.LocalDateTime
+import javax.inject.Inject
 
 //Класс-заглушка для получения моделек с транзакциями
-class TestDataManager : DataSource {
+class TestDataManager @Inject constructor() : DataSource {
     override fun getTransactions(): List<TransactionUiModel> {
         return listOf(
 

@@ -14,8 +14,6 @@ import java.time.LocalDate
 
 class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    //TODO converter injection
-
     class TransactionViewHolder(
         private val binding: OperationViewHolderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -37,7 +35,6 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: TransactionHeaderModel) {
             with(binding) {
-                //TODO конвертирование в Сегодня/Вчера/дата
                 val converter = DateTimeConverter(binding.root.context)
                 dateText.text = converter.getCurrentDate(model.date)
             }
@@ -101,10 +98,8 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             if (previousDate != model.date.toLocalDate()) { //Нужен новый разделитель
                 transactions.add(TransactionHeaderModel(model.date.toLocalDate()))
                 transactions.add(model)
-//                notifyItemRangeChanged(transactions.size - 2, 2, null)
             } else {
                 transactions.add(model)
-//                notifyItemInserted(transactions.size - 1)
             }
             previousDate = model.date.toLocalDate()
         }

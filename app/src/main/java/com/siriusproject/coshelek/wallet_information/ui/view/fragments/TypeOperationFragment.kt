@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentTypeOperationBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TypeOperationFragment : Fragment() {
 
     private var _binding: FragmentTypeOperationBinding? = null
