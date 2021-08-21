@@ -37,7 +37,7 @@ class TypeOperationFragment : Fragment() {
             setStateButton()
         }
 
-        binding.toolbar.setNavigationOnClickListener {
+        binding.toolbarHolder.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_typeOperationFragment_to_enterSumFragment)
         }
 

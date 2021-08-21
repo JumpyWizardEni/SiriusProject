@@ -8,7 +8,7 @@
     <include
         layout="@layout/app_toolbar"
         app:title="@string/enter_sum"
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="@string/enter_sum"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="16dp">

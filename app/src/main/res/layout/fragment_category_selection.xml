@@ -4,15 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <include
+        layout="@layout/app_toolbar"
         android:id="@+id/cat_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/main_screen_menu"
-        app:navigationIcon="@drawable/ic_back"
         app:title="@string/select_cat"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,17 +23,14 @@
         app:layout_constraintTop_toBottomOf="@+id/cat_toolbar" />
 
     <androidx.appcompat.widget.AppCompatButton
+        style="@style/GrayNextButton"
         android:id="@+id/cat_next_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
         android:layout_marginBottom="@dimen/normal_margin"
-        android:background="@drawable/bg_add_button"
         android:text="@string/add_operation"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

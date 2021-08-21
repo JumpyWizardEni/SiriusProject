@@ -6,22 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".wallet_information.ui.view.fragments.TypeOperationFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <include
+        layout="@layout/app_toolbar"
+        android:id="@+id/toolbar_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/select_type_operation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:id="@+id/incomeLayout"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_holder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="UseCompoundDrawables">
@@ -77,17 +77,15 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        style="@style/GrayNextButton"
         android:id="@+id/enterButton"
         android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_margin"
         android:background="@drawable/bg_add_button"
         android:text="@string/ready_button"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

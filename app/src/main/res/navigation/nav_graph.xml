@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/operationChangeFragment"
-        android:name="com.siriusproject.coshelek.ui.view.fragments.OperationChangeFragment"
+        android:name="com.siriusproject.coshelek.wallet_information.ui.view.fragments.OperationChangeFragment"
         android:label="fragment_operation_change"
         tools:layout="@layout/fragment_operation_change">
         <action

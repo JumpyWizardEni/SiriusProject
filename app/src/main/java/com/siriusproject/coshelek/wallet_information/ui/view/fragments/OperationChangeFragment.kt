@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.ui.view.fragments
+package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
 import android.graphics.Color
 import android.os.Bundle
@@ -60,7 +60,7 @@ class OperationChangeFragment : Fragment() {
             )
             findNavController().navigate(R.id.action_operationChangeFragment_to_walletFragment)
         }
-        binding.toolbar.setNavigationOnClickListener {
+        binding.toolbarHolder.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_operationChangeFragment_to_typeOperationFragment)
         }
 
