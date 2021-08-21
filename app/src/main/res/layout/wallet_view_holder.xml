@@ -26,7 +26,7 @@
         tools:text="Кошелек 1" />
 
     <TextView
-        android:id="@+id/amount"
+        android:id="@+id/wallet_balance"
         style="@style/MiddleSizedRegularTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
