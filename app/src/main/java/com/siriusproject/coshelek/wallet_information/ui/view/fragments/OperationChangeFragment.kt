@@ -64,7 +64,7 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
                 TransactionType.Consumption -> resources.getString(R.string.outcome)
                 null -> ""
             }
-            category.text = transactionViewModel.category
+            category.text = transactionViewModel.category?.name
         }
     }
 }

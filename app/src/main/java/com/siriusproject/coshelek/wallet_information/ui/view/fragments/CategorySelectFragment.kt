@@ -26,14 +26,13 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.catNextBtn.setOnClickListener { viewModel.onCategoryNextButton() }
-
         initRecyclerView()
         initCategories()
 
         binding.catNextBtn.setOnClickListener {
             findNavController().navigate(R.id.action_categorySelectFragment_to_operationChangeFragment)
         }
+        binding.catNextBtn.isEnabled = false
 
         binding.catToolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_categorySelectFragment_to_typeOperationFragment)
@@ -41,12 +40,11 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
     }
 
     private fun initCategories() {
-        val categories = mutableListOf<CategoryUiModel>()
-        categories.addAll(
-            viewModel.getCategories()
+        catListAdapter.setData(
+            viewModel
+                .getCategories()
                 .filter { it.type == viewModel.type }
         )
-        catListAdapter.setData(categories)
     }
 
     private fun initRecyclerView() {
@@ -57,8 +55,9 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
         }
     }
 
-    private fun onCategorySelected(cat: CategoryUiModel) {
-        viewModel.category = cat.name
+    private fun onCategorySelected(cat: CategoryUiModel?, selected: Boolean) {
+        binding.catNextBtn.isEnabled = selected
+        viewModel.category = cat
     }
 
 }
