@@ -36,4 +36,9 @@
     <string name="client_id">647473667859-bku4suoquvmh65uas95jq8jpvirk4lg5.apps.googleusercontent.com</string>
     <string name="select_type_operation">Выбирите тип операции</string>
     <string name="consumption">Расход</string>
+    <string name="add_wallet">Создать кошелек</string>
+    <string name="total_balance">Общий баланс</string>
+    <string name="total_income">Общий доход</string>
+    <string name="total_expense">Общий расход</string>
+    <string name="no_wallets_yet">У вас пока нет созданных кошельков</string>
 </resources>
