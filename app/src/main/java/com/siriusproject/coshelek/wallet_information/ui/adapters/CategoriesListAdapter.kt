@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.siriusproject.coshelek.databinding.CategoryItemBinding
 import com.siriusproject.coshelek.utils.CategoriesDiffUtil
-import com.siriusproject.coshelek.wallet_information.ui.viewholders.CategoryViewHolder
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
+import com.siriusproject.coshelek.wallet_information.ui.viewholders.CategoryViewHolder
 
 class CategoriesListAdapter(val onCategorySelected: (CategoryUiModel) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -39,10 +39,10 @@ class CategoriesListAdapter(val onCategorySelected: (CategoryUiModel) -> Unit) :
             CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = CategoryViewHolder(binding)
         binding.root.setOnClickListener {
-            if (viewHolder.bindingAdapterPosition != RecyclerView.NO_POSITION)
+            if (viewHolder.adapterPosition != RecyclerView.NO_POSITION)
                 onClicked(
-                    categories[viewHolder.bindingAdapterPosition],
-                    viewHolder.bindingAdapterPosition
+                    categories[viewHolder.adapterPosition],
+                    viewHolder.adapterPosition
                 )
         }
         return viewHolder

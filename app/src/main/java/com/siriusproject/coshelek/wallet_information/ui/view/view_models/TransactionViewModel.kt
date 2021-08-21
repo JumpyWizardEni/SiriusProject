@@ -7,9 +7,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class TransactionViewModel @Inject constructor(
-    private val getCategoriesUseCase: GetCategories
+class TransactionViewModel @Inject constructor(private val getCategoriesUseCase: GetCategories
 ) : ViewModel() {
+
+    private val getCategoriesUseCase = GetCategories(CategoriesMapper())
+
+    var amount: String? = null
+    var type: TransactionType? = null
+    var category: String? = null
 
     var transactionModel: TransactionUiModel? = null
 

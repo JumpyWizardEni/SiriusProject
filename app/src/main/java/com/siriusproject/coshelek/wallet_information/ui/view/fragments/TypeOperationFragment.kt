@@ -1,27 +1,27 @@
 package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentTypeOperationBinding
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
+import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TypeOperationFragment : Fragment() {
+class TypeOperationFragment : Fragment(R.layout.fragment_type_operation) {
 
-    private var _binding: FragmentTypeOperationBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentTypeOperationBinding::bind)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentTypeOperationBinding.inflate(layoutInflater)
+    private val viewModel: TransactionViewModel by activityViewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.enterButton.isEnabled = false
 
@@ -42,19 +42,20 @@ class TypeOperationFragment : Fragment() {
         }
 
         binding.enterButton.setOnClickListener {
-            findNavController().navigate(R.id.action_typeOperationFragment_to_operationChangeFragment)
+            setCategoryType()
+            findNavController().navigate(R.id.action_typeOperationFragment_to_categorySelectFragment)
         }
-
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setStateButton() {
         binding.enterButton.isEnabled =
             !(!binding.imageCheckIncome.isVisible && !binding.imageCheckConsumption.isVisible)
+    }
+
+    private fun setCategoryType() {
+        viewModel.type = when (binding.imageCheckIncome.isVisible) {
+            true -> TransactionType.Income
+            false -> TransactionType.Consumption
+        }
     }
 }

@@ -48,4 +48,5 @@
     <string name="limit">Лимит</string>
     <string name="set_wallet_name">Придумайте название</string>
     <string name="new_wallet">Новый кошелек</string>
+    <string name="wrong_amount">Введите корректную сумму</string>
 </resources>

@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
-@HiltViewModel
+    @HiltViewModel
 class WalletViewModel @Inject constructor(
     private val addTransactionUseCase: GetTransactionUseCase
 ) :
