@@ -2,6 +2,8 @@ package com.siriusproject.coshelek.di
 
 import com.siriusproject.coshelek.wallet_information.data.repos.TestWalletRepos
 import com.siriusproject.coshelek.wallet_information.data.repos.WalletRepos
+import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
+import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +16,6 @@ abstract class RepositoryModule {
     @Binds
     abstract fun bindTransactionsRepos(repos: TestWalletRepos): WalletRepos
 
-
+    @Binds
+    abstract fun bindWalletRepos(repos: WalletsRepositoryImpl): WalletsRepository
 }

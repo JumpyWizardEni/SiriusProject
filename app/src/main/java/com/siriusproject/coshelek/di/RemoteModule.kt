@@ -3,6 +3,7 @@ package com.siriusproject.coshelek.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
+import com.siriusproject.coshelek.wallet_list.data.remote.WalletService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,5 +44,10 @@ object RemoteModule {
     @Provides
     @Singleton
     fun provideGoogleAuth() = GoogleAuthRepository()
+
+    @Provides
+    @Singleton
+    fun provideWalletService(retrofit: Retrofit): WalletService =
+        retrofit.create(WalletService::class.java)
 
 }

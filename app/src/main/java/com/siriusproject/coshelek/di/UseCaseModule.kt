@@ -10,6 +10,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+
+//Отсюда перейдет в UseCaseBindsModule
 @Module
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
