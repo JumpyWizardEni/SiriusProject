@@ -1,23 +1,26 @@
 package com.siriusproject.coshelek.wallet_list.ui.view.view_models
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.siriusproject.coshelek.wallet_list.domain.use_cases.CreateWalletUseCase
-import com.siriusproject.coshelek.wallet_list.domain.use_cases.GetWalletsUseCase
+import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
 import com.siriusproject.coshelek.wallet_list.ui.model.WalletUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 import javax.inject.Inject
 
 
 @HiltViewModel
 class WalletListViewModel @Inject constructor(
-    private val createWalletUseCase: CreateWalletUseCase,
-    private val getWalletsUseCase: GetWalletsUseCase
+    private val repos: WalletsRepository
 ) : ViewModel() {
 
-    val wallets = MutableLiveData<List<WalletUiModel>>()
+    val wallets = MutableStateFlow<List<WalletUiModel>>(listOf())
+    val mainBalance = MutableStateFlow<BigDecimal>(BigDecimal(0))
+    val income = MutableStateFlow<BigDecimal>(BigDecimal(0))
+    val expense = MutableStateFlow<BigDecimal>(BigDecimal(0))
 
     init {
         getWallets()
@@ -25,13 +28,14 @@ class WalletListViewModel @Inject constructor(
 
     fun getWallets() {
         viewModelScope.launch {
-            wallets.value = getWalletsUseCase.getWallets()
+            repos.getWallets().collect {
+                wallets.value = it
+                mainBalance.value = wallets.value.sumOf { it.balance }
+                income.value = wallets.value.sumOf { it.income }
+                expense.value = wallets.value.sumOf { it.expense }
+            }
+
         }
     }
 
-    fun getMainBalance() = wallets.value?.sumOf { it.balance }
-
-    fun getMainIncome() = wallets.value?.sumOf { it.income }
-
-    fun getMainExpense() = wallets.value?.sumOf { it.expense }
 }

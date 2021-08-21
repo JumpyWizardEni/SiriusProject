@@ -5,7 +5,7 @@ import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiMod
 import javax.inject.Inject
 
 class TestWalletRepos @Inject constructor(
-    private val dbSource: DataSource
+    private val dbSource: DataSource,
 ) : WalletRepos {
 
     override fun getTransactions(): List<TransactionUiModel> {

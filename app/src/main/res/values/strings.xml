@@ -41,4 +41,6 @@
     <string name="total_income">Общий доход</string>
     <string name="total_expense">Общий расход</string>
     <string name="no_wallets_yet">У вас пока нет созданных кошельков</string>
+    <string name="next_button">Далее</string>
+    <string name="enter_wallet_name">Введите название кошелька</string>
 </resources>

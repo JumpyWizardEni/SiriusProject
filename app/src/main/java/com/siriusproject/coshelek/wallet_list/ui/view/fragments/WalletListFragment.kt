@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
@@ -11,6 +14,8 @@ import com.siriusproject.coshelek.databinding.FragmentWalletListBinding
 import com.siriusproject.coshelek.wallet_list.ui.adapters.WalletListAdapter
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
@@ -29,23 +34,38 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
             context, LinearLayoutManager.VERTICAL, false
         )
 
-        walletsViewModel.wallets.observe(viewLifecycleOwner, {
-            adapter.setItems(it)
-            with(binding) {
-                with(walletsViewModel) {
-                    getMainBalance()?.let {
-                        balance.text = it.toString()
-                    }
-                    getMainExpense()?.let {
-                        incomeAmount.text = it.toString()
-                    }
-                    getMainIncome()?.let {
-                        expenseAmount.text = it.toString()
-                    }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletsViewModel.wallets.collect { it ->
+                    adapter.setItems(it)
+                    showRecordsText(adapter.itemCount == 0)
                 }
             }
-            showRecordsText(adapter.itemCount == 0)
-        })
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletsViewModel.mainBalance.collect {
+                    binding.balance.text = it.toPlainString()
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletsViewModel.income.collect {
+                    binding.incomeAmount.text = it.toPlainString()
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletsViewModel.expense.collect {
+                    binding.expenseAmount.text = it.toPlainString()
+                }
+            }
+        }
     }
 
     private fun showRecordsText(show: Boolean) {

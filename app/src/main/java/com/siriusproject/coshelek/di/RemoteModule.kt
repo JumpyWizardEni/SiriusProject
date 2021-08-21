@@ -1,34 +1,37 @@
 package com.siriusproject.coshelek.di
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
-import com.siriusproject.coshelek.wallet_list.data.remote.WalletService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object RemoteModule {
+    @OptIn(ExperimentalSerializationApi::class)
     @Provides
     @Singleton
-    //TODO URL
-    fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit = Retrofit.Builder()
-        .client(client)
-        .baseUrl("")
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
+    fun provideRetrofit(json: Json, client: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .client(client)
+            .baseUrl(
+                "http://35.228.164.200:9090/"
+            )
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .build()
 
     @Provides
     @Singleton
-    fun provideGsonFactory(): Gson = GsonBuilder().setLenient().create()
+    fun provideJson(): Json = Json { ignoreUnknownKeys = true }
 
     @Provides
     @Singleton
@@ -45,9 +48,9 @@ object RemoteModule {
     @Singleton
     fun provideGoogleAuth() = GoogleAuthRepository()
 
-    @Provides
-    @Singleton
-    fun provideWalletService(retrofit: Retrofit): WalletService =
-        retrofit.create(WalletService::class.java)
+//    @Provides
+//    @Singleton
+//    fun provideWalletService(retrofit: Retrofit): WalletService =
+//        retrofit.create(WalletService::class.java)
 
 }
