@@ -179,17 +179,14 @@
         tools:listitem="@layout/wallet_view_holder" />
 
     <androidx.appcompat.widget.AppCompatButton
+        style="@style/GrayNextButton"
         android:id="@+id/add_operation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
         android:layout_marginBottom="@dimen/normal_margin"
-        android:background="@drawable/bg_add_button"
         android:text="@string/add_wallet"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

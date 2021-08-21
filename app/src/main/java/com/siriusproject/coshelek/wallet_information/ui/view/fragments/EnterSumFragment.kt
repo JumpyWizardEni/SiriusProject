@@ -37,7 +37,7 @@ class EnterSumFragment : Fragment() {
             )
         }
 
-        binding.toolbar.setNavigationOnClickListener {
+        binding.toolbarHolder.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_enterSumFragment_to_walletFragment)
         }
 

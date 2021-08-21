@@ -6,15 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".wallet_information.ui.view.fragments.OperationChangeFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <include
+        layout="@layout/app_toolbar"
+        android:id="@+id/toolbar_holder"
         app:title="@string/new_op"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/main_options"
@@ -25,7 +23,7 @@
         android:layout_marginTop="@dimen/normal_margin"
         android:text="@string/main_options"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_holder">
 
     </TextView>
 
@@ -159,14 +157,13 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/create_op_button"
+        style="@style/GrayNextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/normal_margin"
-        android:background="@drawable/bg_add_button"
         android:text="@string/create_op"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
-        android:textAppearance="@style/WhiteText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
