@@ -8,8 +8,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
+import com.siriusproject.coshelek.categories_info.data.model.CategoryUiModel
 import com.siriusproject.coshelek.databinding.FragmentCategorySelectionBinding
-import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
+import com.siriusproject.coshelek.utils.LoadResult
+import com.siriusproject.coshelek.utils.collectWhenStarted
 import com.siriusproject.coshelek.wallet_information.ui.adapters.CategoriesListAdapter
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,9 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
 
     private val binding by viewBinding(FragmentCategorySelectionBinding::bind)
-
     private lateinit var catListAdapter: CategoriesListAdapter
-
     private val viewModel: TransactionViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,11 +41,17 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
     }
 
     private fun initCategories() {
-        catListAdapter.setData(
-            viewModel
-                .getCategories()
-                .filter { it.type == viewModel.type }
-        )
+        viewModel.categories.collectWhenStarted(this, { state ->
+            when (state) {
+                is LoadResult.Success -> catListAdapter.setData(state.data)
+                is LoadResult.Error -> {
+                    //TODO
+                }
+                LoadResult.Loading -> {
+                    //TODO
+                }
+            }
+        })
     }
 
     private fun initRecyclerView() {
@@ -58,7 +64,7 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
 
     private fun onCategorySelected(cat: CategoryUiModel?, selected: Boolean) {
         binding.catNextBtn.isEnabled = selected
-        viewModel.category = cat!!.name
+        viewModel.pushCategory(cat)
     }
 
 }

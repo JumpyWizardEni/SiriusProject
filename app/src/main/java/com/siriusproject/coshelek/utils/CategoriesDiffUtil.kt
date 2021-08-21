@@ -1,7 +1,7 @@
 package com.siriusproject.coshelek.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
+import com.siriusproject.coshelek.categories_info.data.model.CategoryUiModel
 
 class CategoriesDiffUtil(
     private val oldList: List<CategoryUiModel>,

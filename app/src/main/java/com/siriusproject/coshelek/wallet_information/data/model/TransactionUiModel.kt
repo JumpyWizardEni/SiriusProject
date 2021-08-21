@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_information.data.model
 
+import com.siriusproject.coshelek.categories_info.data.model.CategoryUiModel
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate

@@ -53,9 +53,11 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation) {
     }
 
     private fun setCategoryType() {
-        viewModel.type = when (binding.imageCheckIncome.isVisible) {
-            true -> TransactionType.Income
-            false -> TransactionType.Expence
-        }
+        viewModel.pushType(
+            when (binding.imageCheckIncome.isVisible) {
+                true -> TransactionType.Income
+                false -> TransactionType.Consumption
+            }
+        )
     }
 }

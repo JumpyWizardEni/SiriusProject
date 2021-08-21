@@ -1,5 +1,9 @@
 package com.siriusproject.coshelek.di
 
+import com.siriusproject.coshelek.categories_info.data.repos.CategoriesRepo
+import com.siriusproject.coshelek.categories_info.data.repos.CategoriesRepoImpl
+import com.siriusproject.coshelek.categories_info.domain.use_cases.GetCategories
+import com.siriusproject.coshelek.categories_info.domain.use_cases.GetCategoriesUseCase
 import com.siriusproject.coshelek.wallet_information.data.repos.TestWalletRepos
 import com.siriusproject.coshelek.wallet_information.data.repos.TransactionsRepository
 import com.siriusproject.coshelek.wallet_information.data.repos.TransactionsRepositoryImpl
@@ -17,6 +21,9 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindTransactionsRepos(repos: TestWalletRepos): WalletRepos
+
+    @Binds
+    abstract fun bindCategoriesRepos(repos: CategoriesRepoImpl): CategoriesRepo
 
     @Binds
     abstract fun bindWalletRepos(repos: WalletsRepositoryImpl): WalletsRepository

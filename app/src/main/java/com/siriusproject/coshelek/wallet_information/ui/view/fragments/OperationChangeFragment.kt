@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
+import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
@@ -29,17 +31,7 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
         setSummary()
 
         binding.createOpButton.setOnClickListener {
-            walletViewModel.addNewTransaction(
-                TransactionUiModel(
-                    0,
-                    "1",
-                    "category 1",
-                    TransactionType.Income,
-                    transactionViewModel.amount!!.toBigDecimal(),
-                    "",
-                    LocalDateTime.now()
-                )
-            )
+            transactionViewModel.onCreateTransactionButton()
             findNavController().navigate(R.id.action_operationChangeFragment_to_walletFragment)
         }
 
@@ -50,14 +42,16 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
     }
 
     private fun setSummary() {
-        with(binding) {
-            sumAmount.text = transactionViewModel.amount.toString()
-            opType.text = when (transactionViewModel.type) {
+        transactionViewModel.amount.filterNotNull().collectWhenStarted(this) {
+            binding.sumAmount.text = it
+        }
+        transactionViewModel.type.filterNotNull().collectWhenStarted(this) {
+            binding.opType.text = when (it) {
                 TransactionType.Income -> resources.getString(R.string.income)
-                TransactionType.Expence -> resources.getString(R.string.outcome)
+                TransactionType.Consumption -> resources.getString(R.string.outcome)
                 null -> ""
             }
-            category.text = transactionViewModel.category
+            category.text = transactionViewModel.category?.name
         }
     }
 }

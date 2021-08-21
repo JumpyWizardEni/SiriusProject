@@ -37,14 +37,21 @@ object RemoteModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(authRepos: GoogleAuthRepository): OkHttpClient =
-        OkHttpClient.Builder().addInterceptor { chain ->
+    fun provideOkHttpClient(authRepos: GoogleAuthRepository): OkHttpClient {
+        val builder = OkHttpClient.Builder().addInterceptor { chain ->
             val newRequest: Request = chain.request().newBuilder()
                 .addHeader("Authorization", authRepos.token)
                 .addHeader("email", authRepos.email)
                 .build()
             chain.proceed(newRequest)
-        }.build()
+        }
+        if (BuildConfig.DEBUG) {
+            builder.addNetworkInterceptor(HttpLoggingInterceptor().apply {
+                setLevel(HttpLoggingInterceptor.Level.BODY)
+            })
+        }
+        return builder.build()
+    }
 
     @Provides
     @Singleton
@@ -54,6 +61,11 @@ object RemoteModule {
     @Singleton
     fun provideWalletService(retrofit: Retrofit): WalletService =
         retrofit.create(WalletService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideCategoriesRemoteSource(retrofit: Retrofit): CategoriesApi =
+        retrofit.create(CategoriesApi::class.java)
 
 //    @Provides
 //    @Singleton

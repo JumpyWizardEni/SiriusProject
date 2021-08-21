@@ -2,10 +2,8 @@ package com.siriusproject.coshelek.di
 
 import com.siriusproject.coshelek.wallet_information.data.db.DataSource
 import com.siriusproject.coshelek.wallet_information.data.db.TestDataManager
-import com.siriusproject.coshelek.wallet_information.data.network.MockTransactionRemote
 import com.siriusproject.coshelek.wallet_information.data.network.RemoteSource
 import com.siriusproject.coshelek.wallet_information.data.network.ServerRemoteSource
-import com.siriusproject.coshelek.wallet_information.data.network.TransactionService
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,6 +21,10 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindRemoteDataSource(remote: ServerRemoteSource): RemoteSource
+
+    @Binds
+    @Singleton
+    abstract fun bindCategoriesDataSource(local: CategoriesDataSourceMock): CategoriesDataSource
 
 //    @Binds
 //    @Singleton

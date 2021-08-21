@@ -55,6 +55,6 @@ class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
     }
 
     private fun setAmount() {
-        viewModel.amount = binding.sumEditText.text.toString()
+        viewModel.pushAmount(binding.sumEditText.text.toString())
     }
 }

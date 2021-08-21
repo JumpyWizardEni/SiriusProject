@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.math.BigDecimal
-import java.net.ConnectException
 import javax.inject.Inject
 
 class WalletsRepositoryImpl @Inject constructor(

@@ -7,4 +7,5 @@ interface DataSource {
     fun getTransactions(): List<TransactionUiModel>
 
     fun addTransaction(model: TransactionUiModel)
+
 }
