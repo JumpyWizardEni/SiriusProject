@@ -28,7 +28,9 @@ class WalletCreatingInfoFragment : Fragment(R.layout.fragment_wallet_creating_in
             walletCreatingViewModel.onCreateWalletPressed()
         }
         binding.toolbarLayout.toolbar.title = getString(R.string.new_wallet)
-
+        binding.walletNameText.setOnClickListener {
+            walletCreatingViewModel.onWalletNamePressed()
+        }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletCreatingViewModel.walletName.collect {

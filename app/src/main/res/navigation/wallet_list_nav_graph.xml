@@ -35,5 +35,10 @@
             app:enterAnim="@anim/from_left"
             app:popUpTo="@id/walletListFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_walletCreatingInfoFragment_to_walletNameFragment"
+            app:destination="@id/walletNameFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

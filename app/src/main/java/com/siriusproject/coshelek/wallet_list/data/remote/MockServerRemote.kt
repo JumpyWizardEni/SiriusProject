@@ -58,6 +58,8 @@ class MockServerRemote @Inject constructor() : WalletService {
     }
 
     override suspend fun deleteWallet(id: Int) {
-        //TODO("Not yet implemented")
+        wallets = wallets.filter {
+            it.id != id
+        }.toMutableList()
     }
 }

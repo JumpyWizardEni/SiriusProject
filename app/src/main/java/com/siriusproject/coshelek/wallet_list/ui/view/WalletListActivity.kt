@@ -56,7 +56,13 @@ class WalletListActivity : AppCompatActivity(R.layout.activity_wallet_list) {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        navigationDispatcher.navigationEmitter.value = null
+    }
+
     override fun onBackPressed() {
+        Log.d(javaClass.name, "BackPressed")
         if (!navController.popBackStack()) {
             super.onBackPressed()
         }

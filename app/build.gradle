@@ -9,7 +9,6 @@ plugins {
 
 android {
     compileSdk 30
-
     defaultConfig {
         applicationId "com.siriusproject.coshelek"
         minSdk 21
@@ -42,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

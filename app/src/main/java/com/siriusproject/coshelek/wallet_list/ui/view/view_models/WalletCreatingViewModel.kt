@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_list.ui.view.view_models
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
@@ -24,6 +25,7 @@ class WalletCreatingViewModel @Inject constructor(
     val walletCreated: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     fun onNameReadyPressed(name: String) {
+        Log.d(javaClass.name, "OnNameReadyPressed($name)")
         walletCreated.value = false
         walletName.value = name
         navigationDispatcher.emit { navController ->
@@ -31,7 +33,15 @@ class WalletCreatingViewModel @Inject constructor(
         }
     }
 
+    fun onWalletNamePressed() {
+        Log.d(javaClass.name, "OnWalletNamePressed")
+        navigationDispatcher.emit { navController ->
+            navController.navigate(R.id.action_walletCreatingInfoFragment_to_walletNameFragment)
+        }
+    }
+
     fun onCreateWalletPressed() {
+        Log.d(javaClass.name, "OnCreateWalletPressed")
         viewModelScope.launch {
             walletRepos.createWallet(walletName.value, currency.value, BigDecimal(0), limit.value)
             walletCreated.value = true

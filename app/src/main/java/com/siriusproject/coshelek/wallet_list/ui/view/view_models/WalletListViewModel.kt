@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_list.ui.view.view_models
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
@@ -43,8 +44,22 @@ class WalletListViewModel @Inject constructor(
 
     fun onCreateWalletPressed() {
         navigationDispatcher.emit { navController ->
+            Log.d(javaClass.name, "Creating wallet...")
             navController.navigate(R.id.action_walletListFragment_to_walletNameFragment)
         }
+    }
+
+
+    fun deleteWallet(id: Int) {
+        viewModelScope.launch {
+            Log.d(javaClass.name, "Deleting wallet...")
+            repos.deleteWallet(id)
+            getWallets()
+        }
+    }
+
+    fun onEditWalletPressed() {
+        //TODO("Not yet implemented")
     }
 
 }
