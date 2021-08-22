@@ -43,4 +43,9 @@
     <string name="no_wallets_yet">У вас пока нет созданных кошельков</string>
     <string name="next_button">Далее</string>
     <string name="enter_wallet_name">Введите название кошелька</string>
+    <string name="wallet_name">Название</string>
+    <string name="currency">Валюта</string>
+    <string name="limit">Лимит</string>
+    <string name="set_wallet_name">Придумайте название</string>
+    <string name="new_wallet">Новый кошелек</string>
 </resources>

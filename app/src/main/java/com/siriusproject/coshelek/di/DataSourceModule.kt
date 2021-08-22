@@ -10,17 +10,21 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DataSourceModule {
 
     @Binds
+    @Singleton
     abstract fun bindLocalDataSource(local: TestDataManager): DataSource
 
     @Binds
+    @Singleton
     abstract fun bindRemoteDataSource(remote: ServerRemoteSource): RemoteSource
 
     @Binds
+    @Singleton
     abstract fun bindWalletRemoteService(remote: MockServerRemote): WalletService
 }

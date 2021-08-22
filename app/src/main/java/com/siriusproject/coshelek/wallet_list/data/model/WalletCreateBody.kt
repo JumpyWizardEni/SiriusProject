@@ -17,5 +17,5 @@ data class WalletCreateBody(
     @SerialName("balance")
     val balance: BigDecimal,
     @SerialName("limit")
-    val limit: BigDecimal,
+    val limit: BigDecimal
 )

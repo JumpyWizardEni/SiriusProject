@@ -1,6 +1,7 @@
 package com.siriusproject.coshelek.wallet_list.ui.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -30,6 +31,8 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
 
         val recycler = binding.recyclerView
         recycler.adapter = adapter
+        Log.d(javaClass.name, "Fragment created")
+
         recycler.layoutManager = LinearLayoutManager(
             context, LinearLayoutManager.VERTICAL, false
         )
@@ -65,6 +68,11 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     binding.expenseAmount.text = it.toPlainString()
                 }
             }
+        }
+
+        binding.addWallet.setOnClickListener {
+            Log.d(javaClass.name, "Button pressed")
+            walletsViewModel.onCreateWalletPressed()
         }
     }
 

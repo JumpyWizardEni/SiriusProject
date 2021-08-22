@@ -8,23 +8,25 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class MockServerRemote @Inject constructor() : WalletService {
-    override suspend fun getWalletsList(): List<WalletRemoteModel> {
-        return listOf(
-            WalletRemoteModel(
-                0,
-                "кошелек 1",
-                BigDecimal(100),
-                BigDecimal(100),
-                BigDecimal(100),
-                "руб",
-                true,
-                BigDecimal(100)
-            )
+
+    private var wallets = mutableListOf<WalletRemoteModel>(
+        WalletRemoteModel(
+            0,
+            "кошелек 1",
+            BigDecimal(100),
+            BigDecimal(100),
+            BigDecimal(100),
+            "руб",
+            true,
+            BigDecimal(100)
         )
+    )
+
+    override suspend fun getWalletsList(): List<WalletRemoteModel> {
+        return wallets
     }
 
     override suspend fun getWalletInfo(id: Int): WalletInfoRemoteModel {
-        //TODO("Not yet implemented")
         return WalletInfoRemoteModel(
             "a",
             BigDecimal(0),
@@ -35,7 +37,20 @@ class MockServerRemote @Inject constructor() : WalletService {
     }
 
     override suspend fun createWallet(body: WalletCreateBody) {
-        //TODO("Not yet implemented")
+
+        wallets.add(
+            WalletRemoteModel(
+                0,
+                body.name,
+                body.balance,
+                BigDecimal(0),
+                BigDecimal(0),
+                body.currency,
+                true,
+                body.limit
+            )
+        )
+
     }
 
     override suspend fun changeWallet(id: Int, body: WalletChangeBody) {

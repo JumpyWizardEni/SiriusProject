@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class WalletsRepositoryImpl @Inject constructor(
@@ -21,9 +22,10 @@ class WalletsRepositoryImpl @Inject constructor(
 
     override suspend fun getWallets(): Flow<List<WalletUiModel>> =
         flow {
-            emit(walletRemote.getWalletsList().map {
+            val list = walletRemote.getWalletsList().map {
                 mapper.map(it)
-            })
+            }
+            emit(list)
         }.flowOn(Dispatchers.IO)
 
     override suspend fun getWalletInfo(
@@ -36,9 +38,15 @@ class WalletsRepositoryImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun createWallet(body: WalletCreateBody) {
-        //TODO("Not yet implemented")
+    override suspend fun createWallet(
+        name: String,
+        currency: String,
+        balance: BigDecimal,
+        limit: BigDecimal
+    ) {
+        walletRemote.createWallet(WalletCreateBody(name, currency, balance, limit))
     }
+
 
     override suspend fun changeWallet(id: Int, body: WalletChangeBody) {
         //TODO("Not yet implemented")

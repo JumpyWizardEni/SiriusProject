@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name="androidx.navigation.fragment.NavHostFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:navGraph="@navigation/wallet_list_nav_graph"
     android:id="@+id/wallets_list_container"
-    android:name="com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:layout="@layout/fragment_wallet_list" />
