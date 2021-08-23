@@ -28,7 +28,7 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initSummary()
+        setSummary()
 
         binding.createOpButton.setOnClickListener {
             walletViewModel.addNewTransaction(
@@ -37,12 +37,13 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
                     "1",
                     CategoryUiModel(
                         id = 0,
-                        name = "Зарплата",
-                        type = TransactionType.Income,
+                        name = transactionViewModel.category!!.name,
+                        type = transactionViewModel.type!!,
                         picture = R.drawable.ic_cat_multivalue_cards,
-                        color = Color.GREEN),
+                        color = Color.GREEN
+                    ),
                     TransactionType.Income,
-                    30,
+                    amount = transactionViewModel.amount!!.toInt(),
                     "",
                     LocalDateTime.now()
                 )
@@ -56,7 +57,7 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
 
     }
 
-    private fun initSummary() {
+    private fun setSummary() {
         with(binding) {
             sumAmount.text = transactionViewModel.amount
             opType.text = when (transactionViewModel.type) {
