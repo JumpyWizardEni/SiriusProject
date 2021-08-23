@@ -1,37 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_reveal_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    app:dragEdge="right"
+    app:mode="same_level">
 
-    <ImageView
-        android:id="@+id/wallet_ic"
+    <LinearLayout
+        android:paddingBottom="@dimen/normal_margin"
+        android:paddingTop="@dimen/normal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_wallet" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/wallet_name"
-        style="@style/MiddleSizedRegularTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/wallet_ic"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Кошелек 1" />
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:src="@drawable/ic_delete" />
 
-    <TextView
-        android:id="@+id/wallet_balance"
-        style="@style/MiddleSizedRegularTextStyle"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:src="@drawable/ic_edit_wallet" />
+
+        <ImageView
+            android:id="@+id/visibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:src="@drawable/ic_visible" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_holder_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text=" 2 000 ₽" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:padding="16dp">
+
+
+        <ImageView
+            android:id="@+id/wallet_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_wallet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_wallet" />
+
+        <TextView
+            android:id="@+id/wallet_name"
+            style="@style/MiddleSizedRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/wallet_ic"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Кошелек 1" />
+
+        <TextView
+            android:id="@+id/wallet_balance"
+            style="@style/MiddleSizedRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text=" 2 000 ₽" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.chauthai.swipereveallayout.SwipeRevealLayout>

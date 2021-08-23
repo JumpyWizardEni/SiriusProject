@@ -9,21 +9,13 @@ import kotlinx.serialization.UseSerializers
 import java.math.BigDecimal
 
 @Serializable
-data class WalletRemoteModel(
-    @SerialName("id")
-    val id: Int,
+data class WalletCreateBody(
     @SerialName("name")
     val name: String,
-    @SerialName("balance")
-    val balance: BigDecimal,
-    @SerialName("income")
-    val income: BigDecimal,
-    @SerialName("expense")
-    val expense: BigDecimal,
     @SerialName("currency")
     val currency: String,
-    @SerialName("visibility")
-    val visibility: Boolean,
+    @SerialName("balance")
+    val balance: BigDecimal,
     @SerialName("limit")
     val limit: BigDecimal
 )

@@ -106,7 +106,7 @@
         android:text="@string/no_wallets_yet"
         android:textColor="@color/light_text_secondary"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@id/add_operation"
+        app:layout_constraintBottom_toTopOf="@id/add_wallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_background" />
@@ -172,7 +172,7 @@
         android:layout_marginTop="@dimen/normal_margin"
         android:clipToPadding="false"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@id/add_operation"
+        app:layout_constraintBottom_toTopOf="@id/add_wallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/currency_container"
@@ -180,7 +180,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/GrayNextButton"
-        android:id="@+id/add_operation"
+        android:id="@+id/add_wallet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"

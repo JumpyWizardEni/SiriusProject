@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/white_60">
-    <item>
-        <shape>
-            <corners android:radius="8dp" />
-            <solid android:color="@color/gray_primary" />
-        </shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <ripple android:color="@color/white_60">
+            <item>
+                <shape>
+                    <corners android:radius="8dp" />
+                    <stroke android:width="1px" android:color="@color/light_text_secondary" />
+                    <solid android:color="@color/white" />
+                </shape>
+            </item>
+        </ripple>
     </item>
-</ripple>
+    <item>
+        <ripple android:color="@color/white_60">
+            <item>
+                <shape>
+                    <corners android:radius="8dp" />
+                    <solid android:color="@color/gray_primary" />
+                </shape>
+            </item>
+        </ripple>
+    </item>
+
+</selector>
+
+
