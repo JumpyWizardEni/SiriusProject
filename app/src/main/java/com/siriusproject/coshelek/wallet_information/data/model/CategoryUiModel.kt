@@ -5,5 +5,5 @@ data class CategoryUiModel(
     val name: String,
     val type: TransactionType,
     val picture: Int,
-    val color: Int
+    val color: Int,
 )

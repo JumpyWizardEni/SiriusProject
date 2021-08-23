@@ -24,11 +24,15 @@
         android:label="fragment_operation_change"
         tools:layout="@layout/fragment_operation_change">
         <action
-            android:id="@+id/action_operationChangeFragment_to_typeOperationFragment"
-            app:destination="@id/typeOperationFragment" />
-        <action
             android:id="@+id/action_operationChangeFragment_to_walletFragment"
-            app:destination="@id/walletFragment" />
+            app:destination="@id/walletFragment"
+            app:popUpTo="@id/walletFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_operationChangeFragment_to_categorySelectFragment"
+            app:destination="@id/categorySelectFragment"
+            app:popUpTo="@id/categorySelectFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/walletFragment"
@@ -45,9 +49,24 @@
         tools:layout="@layout/fragment_type_operation">
         <action
             android:id="@+id/action_typeOperationFragment_to_enterSumFragment"
-            app:destination="@id/enterSumFragment" />
+            app:destination="@id/enterSumFragment"
+            app:popUpTo="@id/enterSumFragment"
+            app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_typeOperationFragment_to_operationChangeFragment"
+            android:id="@+id/action_typeOperationFragment_to_categorySelectFragment"
+            app:destination="@id/categorySelectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categorySelectFragment"
+        android:name="com.siriusproject.coshelek.wallet_information.ui.view.fragments.CategorySelectFragment"
+        android:label="CategorySelectFragment">
+        <action
+            android:id="@+id/action_categorySelectFragment_to_typeOperationFragment"
+            app:destination="@id/typeOperationFragment"
+            app:popUpTo="@id/typeOperationFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_categorySelectFragment_to_operationChangeFragment"
             app:destination="@id/operationChangeFragment" />
     </fragment>
 </navigation>

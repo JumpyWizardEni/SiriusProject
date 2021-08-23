@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 enum class TransactionType {
-    Income, Expence
+    Income, Consumption
 }
 
 sealed class TransactionListItem : Serializable
@@ -13,13 +13,13 @@ sealed class TransactionListItem : Serializable
 //TODO Все поля в принципе могут быть null
 
 data class TransactionUiModel(
-    var id: Int,
-    var name: String,
-    var category: CategoryUiModel,
-    var type: TransactionType,
-    var amount: Int,
-    var currency: String,
-    var date: LocalDateTime
+    val id: Int,
+    val name: String,
+    val category: CategoryUiModel,
+    val type: TransactionType,
+    val amount: Int,
+    val currency: String,
+    val date: LocalDateTime
 ) : Serializable, TransactionListItem()
 
 data class TransactionHeaderModel(

@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SiriusProject">
+        <activity android:name="com.siriusproject.coshelek.wallet_information.ui.view.MainScreenActivity" />
         <activity android:name="com.siriusproject.coshelek.wallet_information.ui.view.SplashScreenActivity" />
         <activity android:name=".wallet_information.ui.view.MainScreenActivity" />
         <activity android:name=".wallet_information.ui.view.OnBoardingActivity" />
