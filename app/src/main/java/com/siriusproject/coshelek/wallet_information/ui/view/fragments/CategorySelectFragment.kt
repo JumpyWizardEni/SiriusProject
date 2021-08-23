@@ -32,9 +32,10 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
         binding.catNextBtn.setOnClickListener {
             findNavController().navigate(R.id.action_categorySelectFragment_to_operationChangeFragment)
         }
+
         binding.catNextBtn.isEnabled = false
 
-        binding.catToolbar.setNavigationOnClickListener {
+        binding.catToolbar.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_categorySelectFragment_to_typeOperationFragment)
         }
     }

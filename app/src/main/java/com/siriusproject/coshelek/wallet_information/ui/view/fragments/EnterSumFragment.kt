@@ -30,7 +30,7 @@ class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
             )
         }
 
-        binding.toolbar.setNavigationOnClickListener {
+        binding.toolbarHolder.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_enterSumFragment_to_walletFragment)
         }
 
@@ -49,7 +49,7 @@ class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
             findNavController().navigate(R.id.action_enterSumFragment_to_typeOperationFragment)
         }
 
-        binding.toolbar.setNavigationOnClickListener {
+        binding.toolbarHolder.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_enterSumFragment_to_walletFragment)
         }
     }
