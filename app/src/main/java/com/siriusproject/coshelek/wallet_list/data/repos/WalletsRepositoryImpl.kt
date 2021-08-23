@@ -2,6 +2,7 @@ package com.siriusproject.coshelek.wallet_list.data.repos
 
 import com.siriusproject.coshelek.wallet_list.data.model.WalletChangeBody
 import com.siriusproject.coshelek.wallet_list.data.model.WalletCreateBody
+import com.siriusproject.coshelek.wallet_list.data.remote.Result
 import com.siriusproject.coshelek.wallet_list.data.remote.WalletService
 import com.siriusproject.coshelek.wallet_list.domain.mappers.WalletMapper
 import com.siriusproject.coshelek.wallet_list.ui.model.WalletUiModel
@@ -20,12 +21,16 @@ class WalletsRepositoryImpl @Inject constructor(
 
     //TODO DB, error handling
 
-    override suspend fun getWallets(): Flow<List<WalletUiModel>> =
+    override suspend fun getWallets(): Flow<Result<List<WalletUiModel>>> =
         flow {
-            val list = walletRemote.getWalletsList().map {
-                mapper.map(it)
+            val response = walletRemote.getWalletsList()
+            if (response.isSuccessful && response.body() != null) {
+                emit(Result.Success(response.body()!!.map {
+                    mapper.map(it)
+                }))
+            } else {
+                emit(Result.Error(Exception(response.errorBody()?.string())))
             }
-            emit(list)
         }.flowOn(Dispatchers.IO)
 
     override suspend fun getWalletInfo(
@@ -48,8 +53,13 @@ class WalletsRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun changeWallet(id: Int, body: WalletChangeBody) {
-        //TODO("Not yet implemented")
+    override suspend fun changeWallet(
+        id: Int, name: String?,
+        currency: String?,
+        limit: BigDecimal?,
+        visibility: Boolean?
+    ) {
+        walletRemote.changeWallet(id, WalletChangeBody(name, currency, limit, visibility))
     }
 
     override suspend fun deleteWallet(id: Int) {

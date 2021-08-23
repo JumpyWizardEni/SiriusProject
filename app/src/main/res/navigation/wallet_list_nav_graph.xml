@@ -13,6 +13,10 @@
             android:id="@+id/action_walletListFragment_to_walletNameFragment"
             app:destination="@id/walletNameFragment"
             app:enterAnim="@anim/from_right" />
+        <action
+            android:id="@+id/action_walletListFragment_to_walletChangingFragment"
+            app:destination="@id/walletChangingFragment"
+            app:enterAnim="@anim/from_right" />
     </fragment>
     <fragment
         android:id="@+id/walletNameFragment"
@@ -22,7 +26,14 @@
         <action
             android:id="@+id/action_walletNameFragment_to_walletCreatingInfoFragment"
             app:destination="@id/walletCreatingInfoFragment"
-            app:enterAnim="@anim/from_right" />
+            app:enterAnim="@anim/from_right"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_walletNameFragment_to_walletChangingFragment"
+            app:destination="@id/walletChangingFragment"
+            app:popUpTo="@id/walletChangingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/walletCreatingInfoFragment"
@@ -39,6 +50,25 @@
             android:id="@+id/action_walletCreatingInfoFragment_to_walletNameFragment"
             app:destination="@id/walletNameFragment"
             app:launchSingleTop="true"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/walletNameFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_walletCreatingInfoFragment_to_walletChangingFragment"
+            app:destination="@id/walletChangingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletChangingFragment"
+        android:name="com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletChangingFragment"
+        android:label="fragment_wallet_changing"
+        tools:layout="@layout/fragment_wallet_changing">
+        <action
+            android:id="@+id/action_walletChangingFragment_to_walletListFragment"
+            app:destination="@id/walletListFragment"
+            app:enterAnim="@anim/from_right"
+            app:popUpTo="@id/walletListFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_walletChangingFragment_to_walletNameFragment"
+            app:destination="@id/walletNameFragment" />
     </fragment>
 </navigation>

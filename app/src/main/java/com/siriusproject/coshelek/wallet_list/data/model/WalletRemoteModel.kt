@@ -15,15 +15,15 @@ data class WalletRemoteModel(
     @SerialName("name")
     val name: String,
     @SerialName("balance")
-    val balance: BigDecimal,
+    val balance: BigDecimal?,
     @SerialName("income")
-    val income: BigDecimal,
+    val income: BigDecimal?,
     @SerialName("expense")
-    val expense: BigDecimal,
+    val expense: BigDecimal?,
     @SerialName("currency")
     val currency: String,
     @SerialName("visibility")
-    val visibility: Boolean,
+    val visibility: Boolean?,
     @SerialName("limit")
     val limit: BigDecimal
 )

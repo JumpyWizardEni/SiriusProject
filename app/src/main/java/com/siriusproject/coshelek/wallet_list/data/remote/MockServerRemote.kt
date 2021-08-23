@@ -4,11 +4,15 @@ import com.siriusproject.coshelek.wallet_list.data.model.WalletChangeBody
 import com.siriusproject.coshelek.wallet_list.data.model.WalletCreateBody
 import com.siriusproject.coshelek.wallet_list.data.model.WalletInfoRemoteModel
 import com.siriusproject.coshelek.wallet_list.data.model.WalletRemoteModel
+import kotlinx.coroutines.delay
+import retrofit2.Response
 import java.math.BigDecimal
 import javax.inject.Inject
 
 class MockServerRemote @Inject constructor() : WalletService {
 
+
+    private var nextId = 1
     private var wallets = mutableListOf<WalletRemoteModel>(
         WalletRemoteModel(
             0,
@@ -22,17 +26,21 @@ class MockServerRemote @Inject constructor() : WalletService {
         )
     )
 
-    override suspend fun getWalletsList(): List<WalletRemoteModel> {
-        return wallets
+    override suspend fun getWalletsList(): Response<List<WalletRemoteModel>> {
+        delay(1000) //имитация загрузки
+        return Response.success(wallets)
     }
 
     override suspend fun getWalletInfo(id: Int): WalletInfoRemoteModel {
+        val wallet = wallets.find {
+            it.id == id
+        }!!
         return WalletInfoRemoteModel(
-            "a",
-            BigDecimal(0),
-            BigDecimal(0),
-            BigDecimal(0),
-            BigDecimal(0)
+            wallet.name,
+            wallet.balance!!,
+            wallet.income!!,
+            wallet.expense!!,
+            wallet.limit
         )
     }
 
@@ -40,7 +48,7 @@ class MockServerRemote @Inject constructor() : WalletService {
 
         wallets.add(
             WalletRemoteModel(
-                0,
+                nextId++,
                 body.name,
                 body.balance,
                 BigDecimal(0),
@@ -54,7 +62,22 @@ class MockServerRemote @Inject constructor() : WalletService {
     }
 
     override suspend fun changeWallet(id: Int, body: WalletChangeBody) {
-        //TODO("Not yet implemented")
+        val wallet = wallets.find {
+            it.id == id
+        }!!
+        val walletId = wallets.indexOf(wallet)
+        val newModel = WalletRemoteModel(
+            id,
+            body.name ?: wallet.name,
+            wallet.balance,
+            wallet.income,
+            wallet.expense,
+            body.currency ?: wallet.currency,
+            body.visibility ?: wallet.visibility,
+            body.limit ?: wallet.limit
+        )
+        wallets.removeAt(walletId)
+        wallets.add(walletId, newModel)
     }
 
     override suspend fun deleteWallet(id: Int) {

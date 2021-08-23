@@ -11,10 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentWalletListBinding
 import com.siriusproject.coshelek.wallet_information.ui.view.MainScreenActivity
 import com.siriusproject.coshelek.wallet_list.ui.adapters.WalletListAdapter
+import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -29,20 +31,29 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
 
     private val binding: FragmentWalletListBinding by viewBinding(FragmentWalletListBinding::bind)
     private val walletsViewModel: WalletListViewModel by activityViewModels()
+    private lateinit var adapter: WalletListAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val deleteClickLambda: (Int) -> Unit = {
-            walletsViewModel.deleteWallet(it)
+            MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialog)
+                .setMessage(resources.getString(R.string.delete_message))
+                .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(resources.getString(R.string.delete)) { dialog, which ->
+                    walletsViewModel.deleteWallet(it)
+                }
+                .show()
         }
         val onWalletClickLambda: (Int) -> Unit = {
             startWalletInfoActivity(it)
         }
         val onEditClickLambda: (Int) -> Unit = {
-            walletsViewModel.onEditWalletPressed()
+            walletsViewModel.onEditWalletPressed(it)
         }
-        val adapter = WalletListAdapter(deleteClickLambda, onWalletClickLambda)
+        adapter = WalletListAdapter(deleteClickLambda, onWalletClickLambda, onEditClickLambda)
         val recycler = binding.recyclerView
         recycler.adapter = adapter
         Log.d(javaClass.name, "Fragment created")
@@ -84,9 +95,34 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
             }
         }
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletsViewModel.loadingState.collect {
+                    showState(it)
+                }
+            }
+        }
+
         binding.addWallet.setOnClickListener {
             Log.d(javaClass.name, "Button pressed")
             walletsViewModel.onCreateWalletPressed()
+        }
+    }
+
+    private fun showState(loadingState: LoadingState) {
+        when (loadingState) {
+            LoadingState.Loading -> {
+                binding.noWalletsYet.visibility = View.GONE
+                binding.recyclerView.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            LoadingState.Error -> {
+                //TODO
+            }
+            LoadingState.Ready -> {
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.GONE
+            }
         }
     }
 
