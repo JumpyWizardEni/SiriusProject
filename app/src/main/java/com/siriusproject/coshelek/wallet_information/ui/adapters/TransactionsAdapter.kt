@@ -7,9 +7,9 @@ import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.DateViewHolderBinding
 import com.siriusproject.coshelek.databinding.OperationViewHolderBinding
 import com.siriusproject.coshelek.utils.DateTimeConverter
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionHeaderModel
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionListItem
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
+import com.siriusproject.coshelek.wallet_information.ui.model.TransactionHeaderModel
+import com.siriusproject.coshelek.wallet_information.ui.model.TransactionListItem
+import com.siriusproject.coshelek.wallet_information.ui.model.TransactionUiModel
 import java.time.LocalDate
 
 class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

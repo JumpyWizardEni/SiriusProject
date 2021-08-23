@@ -1,6 +1,8 @@
-package com.siriusproject.coshelek.wallet_information.data.model
+package com.siriusproject.coshelek.wallet_information.ui.model
 
+import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 import java.io.Serializable
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -17,7 +19,7 @@ data class TransactionUiModel(
     var name: String,
     var category: CategoryUiModel,
     var type: TransactionType,
-    var amount: Int,
+    var amount: BigDecimal,
     var currency: String,
     var date: LocalDateTime
 ) : Serializable, TransactionListItem()

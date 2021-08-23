@@ -1,8 +1,8 @@
 package com.siriusproject.coshelek.wallet_information.ui.view.view_models
 
 import androidx.lifecycle.ViewModel
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.domain.use_cases.GetCategories
+import com.siriusproject.coshelek.wallet_information.ui.model.TransactionUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package com.siriusproject.coshelek.wallet_information.data.repos
 
 import com.siriusproject.coshelek.wallet_information.data.db.DataSource
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
+import com.siriusproject.coshelek.wallet_information.ui.model.TransactionUiModel
 import javax.inject.Inject
 
 class TestWalletRepos @Inject constructor(

@@ -2,6 +2,7 @@ package com.siriusproject.coshelek.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
+import com.siriusproject.coshelek.wallet_information.data.network.TransactionService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,5 +53,10 @@ object RemoteModule {
 //    @Singleton
 //    fun provideWalletService(retrofit: Retrofit): WalletService =
 //        retrofit.create(WalletService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideTransactionService(retrofit: Retrofit): TransactionService =
+        retrofit.create(TransactionService::class.java)
 
 }

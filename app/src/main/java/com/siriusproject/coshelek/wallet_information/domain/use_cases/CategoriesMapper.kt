@@ -3,7 +3,7 @@ package com.siriusproject.coshelek.wallet_information.domain.use_cases
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.wallet_information.data.model.Category
 import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
+import com.siriusproject.coshelek.wallet_information.ui.model.TransactionType
 
 class CategoriesMapper : (Category) -> CategoryUiModel {
 
