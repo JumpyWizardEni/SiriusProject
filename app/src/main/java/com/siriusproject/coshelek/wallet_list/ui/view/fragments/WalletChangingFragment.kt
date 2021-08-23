@@ -9,27 +9,35 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
-import com.siriusproject.coshelek.databinding.FragmentWalletCreatingInfoBinding
+import com.siriusproject.coshelek.databinding.FragmentWalletChangingBinding
+import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_ID
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletCreatingViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+class WalletChangingFragment : Fragment(R.layout.fragment_wallet_changing) {
 
-class WalletCreatingInfoFragment : Fragment(R.layout.fragment_wallet_creating_info) {
 
+    private val binding by viewBinding(FragmentWalletChangingBinding::bind)
     private val walletCreatingViewModel: WalletCreatingViewModel by activityViewModels()
-    private val binding: FragmentWalletCreatingInfoBinding by viewBinding(
-        FragmentWalletCreatingInfoBinding::bind
-    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (arguments != null) {
+            walletCreatingViewModel.getWalletInfo(requireArguments().getInt(WALLET_ID))
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.addWallet.setOnClickListener {
-            walletCreatingViewModel.onCreateWalletPressed()
-        }
-        binding.toolbarLayout.toolbar.title = getString(R.string.new_wallet)
+        binding.toolbarLayout.toolbar.title = getString(R.string.edit_wallet)
+
         binding.walletNameLayout.setOnClickListener {
-            walletCreatingViewModel.onWalletNamePressed(R.layout.fragment_wallet_creating_info)
+            walletCreatingViewModel.onWalletNamePressed(R.layout.fragment_wallet_changing)
+        }
+        binding.editWallet.setOnClickListener {
+            walletCreatingViewModel.onEditWalletPressed()
         }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -54,6 +62,7 @@ class WalletCreatingInfoFragment : Fragment(R.layout.fragment_wallet_creating_in
                 }
             }
         }
-
     }
+
+
 }

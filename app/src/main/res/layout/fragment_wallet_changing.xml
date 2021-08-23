@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".wallet_list.ui.view.fragments.WalletCreatingInfoFragment">
+    tools:context=".wallet_list.ui.view.fragments.WalletChangingFragment">
 
     <include
         android:id="@+id/toolbar_layout"
@@ -109,14 +109,14 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/edit_wallet"
         style="@style/GrayNextButton"
-        android:id="@+id/add_wallet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
         android:layout_marginBottom="@dimen/normal_margin"
-        android:text="@string/add_wallet"
+        android:text="@string/edit_wallet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

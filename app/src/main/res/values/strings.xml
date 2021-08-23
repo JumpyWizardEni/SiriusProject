@@ -49,4 +49,8 @@
     <string name="set_wallet_name">Придумайте название</string>
     <string name="new_wallet">Новый кошелек</string>
     <string name="wrong_amount">Введите корректную сумму</string>
+    <string name="edit_wallet">Редактировать кошелек</string>
+    <string name="delete">Удалить</string>
+    <string name="decline">Отменить</string>
+    <string name="delete_message">Уверены что хотите удалить кошелек?</string>
 </resources>

@@ -2,6 +2,7 @@ package com.siriusproject.coshelek.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
+import com.siriusproject.coshelek.wallet_list.data.remote.WalletService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +18,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RemoteModule {
+    const val BASE_URL = "http://35.228.164.200:9090/"
     @OptIn(ExperimentalSerializationApi::class)
     @Provides
     @Singleton
@@ -24,7 +26,7 @@ object RemoteModule {
         Retrofit.Builder()
             .client(client)
             .baseUrl(
-                "http://35.228.164.200:9090/"
+                BASE_URL
             )
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
@@ -39,7 +41,7 @@ object RemoteModule {
         OkHttpClient.Builder().addInterceptor { chain ->
             val newRequest: Request = chain.request().newBuilder()
                 .addHeader("Authorization", "Bearer " + authRepos.token)
-                .addHeader("email", authRepos.token)
+                .addHeader("email", authRepos.email)
                 .build()
             chain.proceed(newRequest)
         }.build()
@@ -48,9 +50,9 @@ object RemoteModule {
     @Singleton
     fun provideGoogleAuth() = GoogleAuthRepository()
 
-//    @Provides
-//    @Singleton
-//    fun provideWalletService(retrofit: Retrofit): WalletService =
-//        retrofit.create(WalletService::class.java)
+    @Provides
+    @Singleton
+    fun provideWalletService(retrofit: Retrofit): WalletService =
+        retrofit.create(WalletService::class.java)
 
 }

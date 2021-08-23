@@ -13,7 +13,8 @@ import com.siriusproject.coshelek.wallet_list.ui.view.viewholder.WalletViewHolde
 
 class WalletListAdapter(
     private val delete: (Int) -> Unit,
-    private val openWalletInfo: (Int) -> Unit
+    private val openWalletInfo: (Int) -> Unit,
+    private val editWallet: (Int) -> Unit
 ) :
     RecyclerView.Adapter<WalletViewHolder>() {
 
@@ -30,6 +31,10 @@ class WalletListAdapter(
         holder.binding.viewHolderLayout.setOnClickListener {
             if (holder.bindingAdapterPosition != RecyclerView.NO_POSITION)
                 openWalletInfo.invoke(wallets[holder.bindingAdapterPosition].id)
+        }
+        holder.binding.edit.setOnClickListener {
+            if (holder.bindingAdapterPosition != RecyclerView.NO_POSITION)
+                editWallet.invoke(wallets[holder.bindingAdapterPosition].id)
         }
         return holder
     }

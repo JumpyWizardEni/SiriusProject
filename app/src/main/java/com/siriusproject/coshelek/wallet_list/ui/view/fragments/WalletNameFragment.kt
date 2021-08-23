@@ -10,6 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentWalletNameBinding
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletCreatingViewModel
+import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
 
 
 class WalletNameFragment : Fragment(R.layout.fragment_wallet_name) {
@@ -22,7 +23,10 @@ class WalletNameFragment : Fragment(R.layout.fragment_wallet_name) {
         binding.toolbarHolder.toolbar.title = getString(R.string.set_wallet_name)
         binding.enterButton.setOnClickListener {
             Log.d(javaClass.name, "EnterButton pressed")
-            walletCreatingViewModel.onNameReadyPressed(binding.sumEditText.text.toString())
+            walletCreatingViewModel.onNameReadyPressed(
+                binding.sumEditText.text.toString(),
+                requireArguments().getInt(PREVIOUS_FRAGMENT)
+            )
         }
         binding.sumEditText.doOnTextChanged { text, start, before, count ->
             val button = binding.enterButton

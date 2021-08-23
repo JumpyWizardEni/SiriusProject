@@ -35,12 +35,11 @@ class WalletListActivity : AppCompatActivity(R.layout.activity_wallet_list) {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.wallets_list_container) as NavHostFragment
         navController = navHostFragment.navController
-
         lifecycleScope.launch(Dispatchers.Main) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                navigationDispatcher.navigationEmitter.collect {
+                navigationDispatcher.navigationCommands.collect {
                     Log.d(javaClass.name, "Nav Command invoking...")
-                    it?.invoke(navController)
+                    it.invoke(navController)
                 }
             }
         }
@@ -49,6 +48,7 @@ class WalletListActivity : AppCompatActivity(R.layout.activity_wallet_list) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletsCreatingViewModel.walletCreated.collect { walletCreated ->
                     if (walletCreated) {
+                        Log.d(javaClass.name, "Wallet created, getting new info...")
                         walletsViewModel.getWallets()
                     }
                 }
@@ -56,10 +56,6 @@ class WalletListActivity : AppCompatActivity(R.layout.activity_wallet_list) {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        navigationDispatcher.navigationEmitter.value = null
-    }
 
     override fun onBackPressed() {
         Log.d(javaClass.name, "BackPressed")

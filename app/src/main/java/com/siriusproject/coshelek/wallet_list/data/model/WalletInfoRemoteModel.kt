@@ -13,11 +13,11 @@ data class WalletInfoRemoteModel(
     @SerialName("name")
     val name: String,
     @SerialName("balance")
-    val balance: BigDecimal,
+    val balance: BigDecimal?,
     @SerialName("income")
-    val income: BigDecimal,
+    val income: BigDecimal?,
     @SerialName("expense")
-    val expense: BigDecimal,
+    val expense: BigDecimal?,
     @SerialName("limit")
     val limit: BigDecimal
 )
