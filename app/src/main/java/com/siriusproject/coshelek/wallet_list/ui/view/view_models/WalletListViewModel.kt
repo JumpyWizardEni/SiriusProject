@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
-import com.siriusproject.coshelek.wallet_list.data.remote.Result
+import com.siriusproject.coshelek.utils.LoadResult
 import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
 import com.siriusproject.coshelek.wallet_list.ui.model.WalletUiModel
 import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
@@ -45,21 +45,21 @@ class WalletListViewModel @Inject constructor(
             loadingState.value = LoadingState.Loading
             repos.getWallets().collect {
                 when (it) {
-                    is Result.Success -> {
+                    is LoadResult.Success -> {
                         loadingState.value = LoadingState.Ready
                         wallets.value = it.data!!
                         mainBalance.value = wallets.value.sumOf { it.balance }
                         income.value = wallets.value.sumOf { it.income }
                         expense.value = wallets.value.sumOf { it.expense }
                     }
-                    is Result.Loading -> {
+                    is LoadResult.Loading -> {
                         loadingState.value = LoadingState.Loading
                     }
-                    is Result.NoConnection -> {
+                    is LoadResult.NoConnection -> {
                         loadingState.value = LoadingState.NoConnection
                         Log.e(javaClass.name, it.toString())
                     }
-                    is Result.Error -> {
+                    is LoadResult.Error -> {
                         loadingState.value = LoadingState.UnexpectedError
                         Log.e(javaClass.name, "NoConnection: $it")
                     }
@@ -98,7 +98,6 @@ class WalletListViewModel @Inject constructor(
                 }
             }
             fetchWallets()
-
 
         }
     }

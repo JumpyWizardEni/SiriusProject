@@ -4,23 +4,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
+import com.siriusproject.coshelek.utils.collectWhenStarted
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
-import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDateTime
+import kotlinx.coroutines.flow.filterNotNull
 
 @AndroidEntryPoint
 class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
 
     private val binding by viewBinding(FragmentOperationChangeBinding::bind)
 
-    private val walletViewModel: WalletViewModel by activityViewModels()
     private val transactionViewModel: TransactionViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,36 +25,30 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
 
         setSummary()
 
+        binding.toolbarHolder.toolbar.title = getString(R.string.create_op)
         binding.createOpButton.setOnClickListener {
-            walletViewModel.addNewTransaction(
-                TransactionUiModel(
-                    0,
-                    "1",
-                    "category 1",
-                    TransactionType.Income,
-                    transactionViewModel.amount!!.toBigDecimal(),
-                    "",
-                    LocalDateTime.now()
-                )
-            )
-            findNavController().navigate(R.id.action_operationChangeFragment_to_walletFragment)
+            transactionViewModel.onCreateTransactionButton()
         }
 
         binding.toolbarHolder.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_operationChangeFragment_to_categorySelectFragment)
+            activity?.onBackPressed()
         }
 
     }
 
     private fun setSummary() {
-        with(binding) {
-            sumAmount.text = transactionViewModel.amount.toString()
-            opType.text = when (transactionViewModel.type) {
+        transactionViewModel.amount.filterNotNull().collectWhenStarted(this) {
+            binding.sumAmount.text = it
+        }
+        transactionViewModel.type.filterNotNull().collectWhenStarted(this) {
+            binding.opType.text = when (it) {
                 TransactionType.Income -> resources.getString(R.string.income)
                 TransactionType.Expence -> resources.getString(R.string.outcome)
                 null -> ""
             }
-            category.text = transactionViewModel.category
+        }
+        transactionViewModel.category.filterNotNull().collectWhenStarted(this) {
+            binding.category.text = it.name
         }
     }
 }

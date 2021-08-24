@@ -2,11 +2,9 @@ package com.siriusproject.coshelek.wallet_list.ui.view.view_models
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
-import com.siriusproject.coshelek.wallet_list.data.remote.Result
 import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
 import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.navigation.NavigationDispatcher
@@ -15,7 +13,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.math.BigDecimal
 import javax.inject.Inject
 

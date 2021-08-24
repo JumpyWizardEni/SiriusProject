@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_information.data.repos
 
+import com.siriusproject.coshelek.utils.LoadResult
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +13,7 @@ interface TransactionsRepository {
         id: Int,
         numberOfItems: Int,
         pageNumber: Int
-    ): Flow<List<TransactionUiModel>>
+    ): Flow<LoadResult<List<TransactionUiModel>>>
 
     suspend fun createTransaction(
         walletId: Int,

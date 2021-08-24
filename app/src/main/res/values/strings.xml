@@ -55,4 +55,7 @@
     <string name="delete_message">Уверены что хотите удалить кошелек?</string>
     <string name="no_internet">Нет соединения с интернетом</string>
     <string name="try_again">Error, try again</string>
+    <string name="delete_transaction_message">Уверены, что хотите удалить транзакцию?</string>
+    <string name="pick_type">Выберите тип операции</string>
+    <string name="pick_category">Выберите категорию</string>
 </resources>

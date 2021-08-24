@@ -4,7 +4,6 @@ import com.siriusproject.coshelek.wallet_list.data.model.WalletChangeBody
 import com.siriusproject.coshelek.wallet_list.data.model.WalletCreateBody
 import com.siriusproject.coshelek.wallet_list.data.model.WalletInfoRemoteModel
 import com.siriusproject.coshelek.wallet_list.data.model.WalletRemoteModel
-import retrofit2.Response
 import retrofit2.http.*
 
 interface WalletService {

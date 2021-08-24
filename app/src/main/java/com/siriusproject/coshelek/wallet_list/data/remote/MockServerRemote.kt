@@ -5,7 +5,6 @@ import com.siriusproject.coshelek.wallet_list.data.model.WalletCreateBody
 import com.siriusproject.coshelek.wallet_list.data.model.WalletInfoRemoteModel
 import com.siriusproject.coshelek.wallet_list.data.model.WalletRemoteModel
 import kotlinx.coroutines.delay
-import retrofit2.Response
 import java.math.BigDecimal
 import javax.inject.Inject
 

@@ -6,7 +6,16 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 enum class TransactionType {
-    Income, Expence
+    Income {
+        override fun toString(): String {
+            return "INCOME"
+        }
+    },
+    Expence {
+        override fun toString(): String {
+            return "EXPENCE"
+        }
+    }
 }
 
 sealed class TransactionListItem : Serializable

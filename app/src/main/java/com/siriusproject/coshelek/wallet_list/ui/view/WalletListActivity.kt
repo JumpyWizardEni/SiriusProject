@@ -13,7 +13,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.ActivityWalletListBinding
 import com.siriusproject.coshelek.wallet_list.ui.view.navigation.NavigationDispatcher
-import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletCreatingViewModel
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers

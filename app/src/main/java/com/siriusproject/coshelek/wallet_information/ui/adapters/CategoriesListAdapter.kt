@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.siriusproject.coshelek.categories_info.data.model.CategoryUiModel
 import com.siriusproject.coshelek.databinding.CategoryItemBinding
 import com.siriusproject.coshelek.utils.CategoriesDiffUtil
-import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 import com.siriusproject.coshelek.wallet_information.ui.viewholders.CategoryViewHolder
 
 class CategoriesListAdapter(val onCategorySelected: (CategoryUiModel?, Boolean) -> Unit) :
@@ -43,7 +43,7 @@ class CategoriesListAdapter(val onCategorySelected: (CategoryUiModel?, Boolean) 
         val viewHolder = CategoryViewHolder(binding)
         binding.root.setOnClickListener {
             if (viewHolder.bindingAdapterPosition != RecyclerView.NO_POSITION)
-                onClicked(categories[viewHolder.bindingAdapterPosition],)
+                onClicked(categories[viewHolder.bindingAdapterPosition])
         }
         return viewHolder
     }

@@ -1,6 +1,6 @@
 package com.siriusproject.coshelek.wallet_list.data.repos
 
-import com.siriusproject.coshelek.wallet_list.data.remote.Result
+import com.siriusproject.coshelek.utils.LoadResult
 import com.siriusproject.coshelek.wallet_list.ui.model.WalletUiModel
 import kotlinx.coroutines.flow.Flow
 import java.math.BigDecimal
@@ -8,7 +8,7 @@ import java.math.BigDecimal
 
 interface WalletsRepository {
 
-    suspend fun getWallets(): Flow<Result<List<WalletUiModel>>>
+    suspend fun getWallets(): Flow<LoadResult<List<WalletUiModel>>>
 
     suspend fun getWalletInfo(id: Int, currency: String, visibility: Boolean): Flow<WalletUiModel>
 

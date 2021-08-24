@@ -27,12 +27,12 @@ class MockTransactionRemote @Inject constructor() : TransactionService {
     override suspend fun createTransaction(walletId: Int, body: TransactionCreateBody) {
         transactions.add(
             TransactionRemoteModel(
-                0,
-                "transaction 1",
-                "category 1",
-                BigDecimal(1000),
-                "RUB",
-                "INCOME",
+                walletId,
+                body.type.toString(),
+                body.category,
+                body.amount,
+                body.currency,
+                body.type.toString(),
                 LocalDateTime.now(),
                 BigDecimal(10000)
             )
