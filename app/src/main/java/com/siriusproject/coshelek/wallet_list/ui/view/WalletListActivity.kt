@@ -19,12 +19,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class WalletListActivity : AppCompatActivity(R.layout.activity_wallet_list) {
     private val walletsViewModel: WalletListViewModel by viewModels()
-    private val walletsCreatingViewModel: WalletCreatingViewModel by viewModels()
     private val binding: ActivityWalletListBinding by viewBinding(ActivityWalletListBinding::bind)
 
     @Inject
@@ -44,16 +44,7 @@ class WalletListActivity : AppCompatActivity(R.layout.activity_wallet_list) {
             }
         }
 
-        lifecycleScope.launch(Dispatchers.Main) {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletsCreatingViewModel.walletCreated.collect { walletCreated ->
-                    if (walletCreated) {
-                        Log.d(javaClass.name, "Wallet created, getting new info...")
-                        walletsViewModel.getWallets()
-                    }
-                }
-            }
-        }
+        Log.e(javaClass.name, LocalDateTime.now().toString())
     }
 
 

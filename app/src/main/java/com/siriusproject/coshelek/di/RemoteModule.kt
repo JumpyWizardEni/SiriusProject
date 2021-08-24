@@ -40,7 +40,7 @@ object RemoteModule {
     fun provideOkHttpClient(authRepos: GoogleAuthRepository): OkHttpClient =
         OkHttpClient.Builder().addInterceptor { chain ->
             val newRequest: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer " + authRepos.token)
+                .addHeader("Authorization", authRepos.token)
                 .addHeader("email", authRepos.email)
                 .build()
             chain.proceed(newRequest)

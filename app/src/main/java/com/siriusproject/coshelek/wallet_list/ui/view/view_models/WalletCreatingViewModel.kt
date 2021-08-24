@@ -2,16 +2,20 @@ package com.siriusproject.coshelek.wallet_list.ui.view.view_models
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
+import com.siriusproject.coshelek.wallet_list.data.remote.Result
 import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
+import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.navigation.NavigationDispatcher
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -26,15 +30,11 @@ class WalletCreatingViewModel @Inject constructor(
     val walletName = MutableStateFlow("")
     val currency = MutableStateFlow("Российский рубль")
     val limit = MutableStateFlow(BigDecimal.ZERO)
-
-    val walletCreated: MutableStateFlow<Boolean> = MutableStateFlow(false)
-
+    val loadingState = MutableStateFlow(LoadingState.Loading)
     fun onNameReadyPressed(name: String, previosId: Int) {
         Log.d(javaClass.name, "OnNameReadyPressed($name)")
-        walletCreated.value = false
         walletName.value = name
         when (previosId) {
-
             R.layout.fragment_wallet_list, R.layout.fragment_wallet_creating_info -> navigationDispatcher.emit { navController ->
                 Log.d(javaClass.name, "Navigating to WalletCreatingInfoFragment")
                 navController.navigate(R.id.action_walletNameFragment_to_walletCreatingInfoFragment)
@@ -50,7 +50,6 @@ class WalletCreatingViewModel @Inject constructor(
     fun onWalletNamePressed(fragmentLayout: Int) {
         Log.d(javaClass.name, "OnWalletNamePressed")
         val data = Bundle()
-        walletCreated.value = false
         data.putInt(PREVIOUS_FRAGMENT, fragmentLayout)
         navigationDispatcher.emit { navController ->
             when (fragmentLayout) {
@@ -70,11 +69,21 @@ class WalletCreatingViewModel @Inject constructor(
     fun onCreateWalletPressed() {
         Log.d(javaClass.name, "OnCreateWalletPressed")
         viewModelScope.launch {
-            walletRepos.createWallet(walletName.value, currency.value, BigDecimal(0), limit.value)
-            walletCreated.value = true
-            navigationDispatcher.emit { navController ->
-                navController.navigate(R.id.action_walletCreatingInfoFragment_to_walletListFragment)
+            try {
+                loadingState.value = LoadingState.Loading
+                walletRepos.createWallet(
+                    walletName.value,
+                    currency.value,
+                    BigDecimal(0),
+                    limit.value
+                )
+                navigationDispatcher.emit { navController ->
+                    navController.navigate(R.id.action_walletCreatingInfoFragment_to_walletListFragment)
+                }
+            } catch (e: Exception) {
+                loadingState.value = LoadingState.UnexpectedError
             }
+
         }
 
     }
@@ -92,10 +101,14 @@ class WalletCreatingViewModel @Inject constructor(
 
     fun onEditWalletPressed() {
         viewModelScope.launch {
-            walletRepos.changeWallet(currWalletId, walletName.value, null, null, null)
-            walletCreated.value = true
-            navigationDispatcher.emit { navController ->
-                navController.navigate(R.id.action_walletChangingFragment_to_walletListFragment)
+            try {
+                loadingState.value = LoadingState.Loading
+                walletRepos.changeWallet(currWalletId, walletName.value, null, null, null)
+                navigationDispatcher.emit { navController ->
+                    navController.navigate(R.id.action_walletChangingFragment_to_walletListFragment)
+                }
+            } catch (e: Exception) {
+                loadingState.value = LoadingState.UnexpectedError
             }
         }
     }

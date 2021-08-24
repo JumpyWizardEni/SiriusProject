@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 interface WalletService {
     @GET("wallets")
-    suspend fun getWalletsList(): Response<List<WalletRemoteModel>>
+    suspend fun getWalletsList(): List<WalletRemoteModel>
 
     @GET("wallet/{id}")
     suspend fun getWalletInfo(@Path("id") id: Int): WalletInfoRemoteModel
