@@ -2,6 +2,7 @@ package com.siriusproject.coshelek.wallet_list.ui.view.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -10,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentWalletChangingBinding
+import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_ID
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletCreatingViewModel
 import kotlinx.coroutines.flow.collect
@@ -59,6 +61,16 @@ class WalletChangingFragment : Fragment(R.layout.fragment_wallet_changing) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletCreatingViewModel.limit.collect {
                     binding.limit.text = it.toPlainString()
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletCreatingViewModel.loadingState.collect {
+                    if (it == LoadingState.UnexpectedError) {
+                        Toast.makeText(context, getString(R.string.try_again), Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }

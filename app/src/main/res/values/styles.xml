@@ -75,21 +75,21 @@
     <style name="AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog">
         <item name="android:textColor">#000000</item>
         <item name="buttonBarPositiveButtonStyle">@style/AlertButtonPositive</item>
-        <item name="buttonBarNegativeButtonStyle">@style/AlertButtonPositive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/AlertButtonNegative</item>
         <item name="android:textAppearance">@style/AlertDialogText</item>
     </style>
 
-    <style name="AlertButtonPositive">
+    <style name="AlertButtonPositive" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/red</item>
         <item name="backgroundColor">@color/white</item>
     </style>
 
-    <style name="AlertButtonNegative">
+    <style name="AlertButtonNegative" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/light_blue</item>
         <item name="backgroundColor">@color/white</item>
     </style>
 
-    <style name="AlertDialogText">
+    <style name="AlertDialogText" >
         <item name="android:textSize">20sp</item>
         <item name="backgroundColor">@color/black</item>
     </style>

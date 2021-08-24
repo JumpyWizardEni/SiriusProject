@@ -4,8 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -14,6 +15,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentWalletListBinding
+import com.siriusproject.coshelek.utils.CurrencyFormatter
 import com.siriusproject.coshelek.wallet_information.ui.view.MainScreenActivity
 import com.siriusproject.coshelek.wallet_list.ui.adapters.WalletListAdapter
 import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
@@ -21,6 +23,7 @@ import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
@@ -30,9 +33,11 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
     }
 
     private val binding: FragmentWalletListBinding by viewBinding(FragmentWalletListBinding::bind)
-    private val walletsViewModel: WalletListViewModel by activityViewModels()
+    private val walletsViewModel: WalletListViewModel by viewModels()
     private lateinit var adapter: WalletListAdapter
 
+    @Inject
+    lateinit var formatter: CurrencyFormatter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,7 +79,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletsViewModel.mainBalance.collect {
-                    binding.balance.text = it.toPlainString()
+                    binding.balance.text = formatter.formatBigDecimal(it)
                 }
             }
         }
@@ -82,7 +87,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletsViewModel.income.collect {
-                    binding.incomeAmount.text = it.toPlainString()
+                    binding.incomeAmount.text = formatter.formatBigDecimal(it)
                 }
             }
         }
@@ -90,7 +95,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletsViewModel.expense.collect {
-                    binding.expenseAmount.text = it.toPlainString()
+                    binding.expenseAmount.text = formatter.formatBigDecimal(it)
                 }
             }
         }
@@ -107,21 +112,49 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
             Log.d(javaClass.name, "Button pressed")
             walletsViewModel.onCreateWalletPressed()
         }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            walletsViewModel.fetchWallets()
+        }
+
+        walletsViewModel.fetchWallets()
+
     }
 
     private fun showState(loadingState: LoadingState) {
         when (loadingState) {
             LoadingState.Loading -> {
-                binding.noWalletsYet.visibility = View.GONE
-                binding.recyclerView.visibility = View.GONE
-                binding.progressBar.visibility = View.VISIBLE
+                with(binding) {
+                    noWalletsYet.visibility = View.GONE
+                    swipeRefreshLayout.isRefreshing = true
+                    recyclerView.visibility = View.GONE
+                    noInternet.visibility = View.GONE
+                }
             }
-            LoadingState.Error -> {
-                //TODO
+            LoadingState.NoConnection -> {
+                with(binding) {
+                    swipeRefreshLayout.isRefreshing = false
+                    noWalletsYet.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                    noInternet.visibility = View.VISIBLE
+                }
+            }
+            LoadingState.UnexpectedError -> {
+                with(binding) {
+                    swipeRefreshLayout.isRefreshing = false
+                    noWalletsYet.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                    noInternet.visibility = View.VISIBLE
+                }
+
             }
             LoadingState.Ready -> {
-                binding.recyclerView.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.GONE
+                with(binding) {
+                    swipeRefreshLayout.isRefreshing = false
+                    noWalletsYet.isVisible = adapter.itemCount == 0
+                    recyclerView.visibility = View.VISIBLE
+                    noInternet.visibility = View.GONE
+                }
             }
         }
     }

@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
+import java.net.ConnectException
 import javax.inject.Inject
 
 
@@ -36,10 +37,10 @@ class WalletListViewModel @Inject constructor(
     val loadingState = MutableStateFlow(LoadingState.Loading)
 
     init {
-        getWallets()
+        fetchWallets()
     }
 
-    fun getWallets() {
+    fun fetchWallets() {
         viewModelScope.launch {
             loadingState.value = LoadingState.Loading
             repos.getWallets().collect {
@@ -54,9 +55,13 @@ class WalletListViewModel @Inject constructor(
                     is Result.Loading -> {
                         loadingState.value = LoadingState.Loading
                     }
-                    is Result.Error -> {
-                        loadingState.value = LoadingState.Error
+                    is Result.NoConnection -> {
+                        loadingState.value = LoadingState.NoConnection
                         Log.e(javaClass.name, it.toString())
+                    }
+                    is Result.Error -> {
+                        loadingState.value = LoadingState.UnexpectedError
+                        Log.e(javaClass.name, "NoConnection: $it")
                     }
                 }
 
@@ -82,8 +87,19 @@ class WalletListViewModel @Inject constructor(
     fun deleteWallet(id: Int) {
         viewModelScope.launch {
             Log.d(javaClass.name, "Deleting wallet...")
-            repos.deleteWallet(id)
-            getWallets()
+            try {
+                repos.deleteWallet(id)
+            } catch (e: Exception) {
+                if (e is ConnectException) {
+                    loadingState.value = LoadingState.NoConnection
+                } else {
+                    loadingState.value = LoadingState.UnexpectedError
+
+                }
+            }
+            fetchWallets()
+
+
         }
     }
 

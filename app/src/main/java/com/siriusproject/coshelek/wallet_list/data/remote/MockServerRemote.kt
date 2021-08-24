@@ -26,9 +26,9 @@ class MockServerRemote @Inject constructor() : WalletService {
         )
     )
 
-    override suspend fun getWalletsList(): Response<List<WalletRemoteModel>> {
+    override suspend fun getWalletsList(): List<WalletRemoteModel> {
         delay(1000) //имитация загрузки
-        return Response.success(wallets)
+        return wallets
     }
 
     override suspend fun getWalletInfo(id: Int): WalletInfoRemoteModel {

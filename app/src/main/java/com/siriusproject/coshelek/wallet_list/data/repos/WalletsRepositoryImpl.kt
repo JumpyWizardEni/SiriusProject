@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.math.BigDecimal
+import java.net.ConnectException
 import javax.inject.Inject
 
 class WalletsRepositoryImpl @Inject constructor(
@@ -23,13 +24,18 @@ class WalletsRepositoryImpl @Inject constructor(
 
     override suspend fun getWallets(): Flow<Result<List<WalletUiModel>>> =
         flow {
-            val response = walletRemote.getWalletsList()
-            if (response.isSuccessful && response.body() != null) {
-                emit(Result.Success(response.body()!!.map {
+            try {
+                val response = walletRemote.getWalletsList()
+                emit(Result.Success(response.map {
                     mapper.map(it)
                 }))
-            } else {
-                emit(Result.Error(Exception(response.errorBody()?.string())))
+            } catch (e: Exception) {
+                if (e is ConnectException) {
+                    emit(Result.NoConnection(e))
+                } else {
+                    emit(Result.Error(e))
+
+                }
             }
         }.flowOn(Dispatchers.IO)
 
