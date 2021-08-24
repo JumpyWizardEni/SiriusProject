@@ -27,8 +27,8 @@ class CategoriesMapper : (Category) -> CategoryUiModel {
 
     private fun intTypeToTransactionType(type: Int): TransactionType =
         when (type) {
-            0 -> TransactionType.Consumption
+            0 -> TransactionType.Expence
             1 -> TransactionType.Income
-            else -> TransactionType.Consumption
+            else -> TransactionType.Expence
         }
 }
