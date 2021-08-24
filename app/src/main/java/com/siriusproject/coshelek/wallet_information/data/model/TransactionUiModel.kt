@@ -1,13 +1,21 @@
 package com.siriusproject.coshelek.wallet_information.data.model
 
-import com.siriusproject.coshelek.categories_info.data.model.CategoryUiModel
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 enum class TransactionType {
-    Income, Expence
+    Income {
+        override fun toString(): String {
+            return "INCOME"
+        }
+    },
+    Expence {
+        override fun toString(): String {
+            return "EXPENCE"
+        }
+    }
 }
 
 sealed class TransactionListItem : Serializable

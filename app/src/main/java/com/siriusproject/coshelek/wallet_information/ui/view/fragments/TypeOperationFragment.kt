@@ -5,7 +5,6 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentTypeOperationBinding
@@ -36,14 +35,14 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation) {
             binding.imageCheckIncome.isVisible = false
             setStateButton()
         }
-
+        binding.toolbarHolder.toolbar.title = getString(R.string.pick_type)
         binding.toolbarHolder.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_typeOperationFragment_to_enterSumFragment)
+            activity?.onBackPressed()
         }
 
         binding.enterButton.setOnClickListener {
             setCategoryType()
-            findNavController().navigate(R.id.action_typeOperationFragment_to_categorySelectFragment)
+            viewModel.onTypeReadyPressed()
         }
     }
 
@@ -56,7 +55,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation) {
         viewModel.pushType(
             when (binding.imageCheckIncome.isVisible) {
                 true -> TransactionType.Income
-                false -> TransactionType.Consumption
+                false -> TransactionType.Expence
             }
         )
     }

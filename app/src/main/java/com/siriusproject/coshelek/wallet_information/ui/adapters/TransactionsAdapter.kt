@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_information.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,10 +13,11 @@ import com.siriusproject.coshelek.wallet_information.data.model.TransactionListI
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import java.time.LocalDate
 
-class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TransactionsAdapter(private val delete: (Int) -> Unit, private val edit: (Int) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class TransactionViewHolder(
-        private val binding: OperationViewHolderBinding
+        val binding: OperationViewHolderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: TransactionUiModel) {
             with(binding) {
@@ -55,7 +57,19 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     parent,
                     false
                 )
-            TransactionViewHolder(binding)
+            val holder = TransactionViewHolder(binding)
+            holder.binding.delete.setOnClickListener {
+                if (holder.bindingAdapterPosition != RecyclerView.NO_POSITION)
+
+                    delete.invoke((transactions[holder.bindingAdapterPosition] as TransactionUiModel).id)
+            }
+            holder.binding.edit.setOnClickListener {
+                if (holder.bindingAdapterPosition != RecyclerView.NO_POSITION)
+                    edit.invoke(
+                        (transactions[holder.bindingAdapterPosition] as TransactionUiModel).id
+                    )
+            }
+            holder
         }
 
 
@@ -91,6 +105,7 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setTransactions(newList: List<TransactionUiModel>?) {
         transactions.clear()
         previousDate = null
@@ -103,7 +118,7 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             previousDate = model.date.toLocalDate()
         }
-        notifyItemRangeChanged(0, transactions.size)
+        notifyDataSetChanged()
     }
 
 }

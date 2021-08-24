@@ -8,22 +8,22 @@ import retrofit2.http.*
 
 interface TransactionService {
 
-    @GET("/wallet/{id}/transactions")
+    @GET("wallet/{id}/transactions")
     suspend fun getTransactions(
         @Path("id") id: Int,
         @Body body: TransactionInfoBody
     ): TransactionInfo
 
-    @POST("/transaction/{walletId}")
+    @POST("transaction")
     suspend fun createTransaction(
-        @Path("walletId") walletId: Int,
+        @Query("walletId") walletId: Int,
         @Body body: TransactionCreateBody
     )
 
-    @PUT("/transaction/{id}")
+    @PUT("transaction/{id}")
     suspend fun editingTransaction(@Path("id") id: Int, @Body body: TransactionEditBody)
 
-    @DELETE("/transaction/{id}")
+    @DELETE("transaction/{id}")
     suspend fun deleteTransaction(@Path("id") id: Int)
 
 }

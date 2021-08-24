@@ -6,12 +6,12 @@
     android:layout_height="match_parent">
 
     <include
-        layout="@layout/app_toolbar"
         android:id="@+id/toolbar_holder"
+        layout="@layout/app_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/main_screen_menu"/>
+        app:menu="@menu/main_screen_menu" />
 
     <TextView
         android:id="@+id/wallet_label"
@@ -128,22 +128,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cards_container" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:clipToPadding="false"
-        android:layout_width="match_parent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/large_padding"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@id/add_operation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cards_container"
-        tools:listitem="@layout/operation_view_holder" />
+        app:layout_constraintTop_toBottomOf="@id/cards_container">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_padding"
+            android:clipToPadding="false"
+            tools:listitem="@layout/operation_view_holder" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/no_internet_header"
+        layout="@layout/no_internet_layout"
+        android:layout_width="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/GrayNextButton"
         android:id="@+id/add_operation"
+        style="@style/GrayNextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"

@@ -5,7 +5,6 @@ import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentEnterSumBinding
@@ -23,15 +22,9 @@ class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.enterButton.isEnabled = false
-
-        binding.enterButton.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_enterSumFragment_to_typeOperationFragment
-            )
-        }
-
+        binding.toolbarHolder.toolbar.title = getString(R.string.enter_sum)
         binding.toolbarHolder.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_enterSumFragment_to_walletFragment)
+            activity?.onBackPressed()
         }
 
         binding.sumEditText.doOnTextChanged { text, _, _, _ ->
@@ -46,12 +39,9 @@ class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
 
         binding.enterButton.setOnClickListener {
             setAmount()
-            findNavController().navigate(R.id.action_enterSumFragment_to_typeOperationFragment)
+            viewModel.onSumReadyPressed()
         }
 
-        binding.toolbarHolder.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_enterSumFragment_to_walletFragment)
-        }
     }
 
     private fun setAmount() {

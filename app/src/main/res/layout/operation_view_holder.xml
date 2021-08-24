@@ -1,60 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_reveal_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    app:dragEdge="right"
+    app:mode="same_level">
 
-    <ImageView
-        android:id="@+id/category_ic"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_supermarket" />
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingBottom="@dimen/normal_margin">
 
-    <TextView
-        android:id="@+id/category_text"
-        style="@style/MiddleSizedRegularTextStyle"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:src="@drawable/ic_edit_wallet" />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:src="@drawable/ic_delete" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
-        app:layout_constraintStart_toEndOf="@id/category_ic"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Cупермаркеты" />
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/op_name"
-        style="@style/BlackSmallText60"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/category_ic"
-        app:layout_constraintTop_toBottomOf="@id/category_text"
-        tools:text="Траты" />
+        <ImageView
+            android:id="@+id/category_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_supermarket" />
+
+        <TextView
+            android:id="@+id/category_text"
+            style="@style/MiddleSizedRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            app:layout_constraintStart_toEndOf="@id/category_ic"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Cупермаркеты" />
+
+        <TextView
+            android:id="@+id/op_name"
+            style="@style/BlackSmallText60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/category_ic"
+            app:layout_constraintTop_toBottomOf="@id/category_text"
+            tools:text="Траты" />
 
 
-    <TextView
+        <TextView
 
-        android:id="@+id/amount"
-        style="@style/MiddleSizedRegularTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="–12 000 ₽" />
+            android:id="@+id/amount"
+            style="@style/MiddleSizedRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="–12 000 ₽" />
 
-    <TextView
-        android:id="@+id/op_time"
-        style="@style/BlackSmallText60"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/amount"
-        tools:text="15:00" />
+        <TextView
+            android:id="@+id/op_time"
+            style="@style/BlackSmallText60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/amount"
+            tools:text="15:00" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.chauthai.swipereveallayout.SwipeRevealLayout>

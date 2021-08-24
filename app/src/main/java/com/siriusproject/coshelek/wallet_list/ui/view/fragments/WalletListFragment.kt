@@ -30,6 +30,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
 
     companion object {
         const val WALLET_ID = "wallet_id"
+        const val WALLET_NAME = "wallet_name"
     }
 
     private val binding: FragmentWalletListBinding by viewBinding(FragmentWalletListBinding::bind)
@@ -52,8 +53,8 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                 }
                 .show()
         }
-        val onWalletClickLambda: (Int) -> Unit = {
-            startWalletInfoActivity(it)
+        val onWalletClickLambda: (Int, String) -> Unit = { id, name ->
+            startWalletInfoActivity(id, name)
         }
         val onEditClickLambda: (Int) -> Unit = {
             walletsViewModel.onEditWalletPressed(it)
@@ -128,7 +129,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     noWalletsYet.visibility = View.GONE
                     swipeRefreshLayout.isRefreshing = true
                     recyclerView.visibility = View.GONE
-                    noInternet.visibility = View.GONE
+                    noInternetHeader.noInternet.visibility = View.GONE
                 }
             }
             LoadingState.NoConnection -> {
@@ -136,7 +137,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     swipeRefreshLayout.isRefreshing = false
                     noWalletsYet.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
-                    noInternet.visibility = View.VISIBLE
+                    noInternetHeader.noInternet.visibility = View.VISIBLE
                 }
             }
             LoadingState.UnexpectedError -> {
@@ -144,7 +145,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     swipeRefreshLayout.isRefreshing = false
                     noWalletsYet.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
-                    noInternet.visibility = View.VISIBLE
+                    noInternetHeader.noInternet.visibility = View.VISIBLE
                 }
 
             }
@@ -153,15 +154,16 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     swipeRefreshLayout.isRefreshing = false
                     noWalletsYet.isVisible = adapter.itemCount == 0
                     recyclerView.visibility = View.VISIBLE
-                    noInternet.visibility = View.GONE
+                    noInternetHeader.noInternet.visibility = View.GONE
                 }
             }
         }
     }
 
-    private fun startWalletInfoActivity(walletId: Int) {
+    private fun startWalletInfoActivity(walletId: Int, walletName: String) {
         val intent = Intent(activity, MainScreenActivity::class.java)
         intent.putExtra(WALLET_ID, walletId)
+        intent.putExtra(WALLET_NAME, walletName)
         startActivity(intent)
     }
 

@@ -1,6 +1,7 @@
 package com.siriusproject.coshelek.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.siriusproject.coshelek.BuildConfig
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
 import com.siriusproject.coshelek.wallet_list.data.remote.WalletService
 import dagger.Module
@@ -12,6 +13,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -62,10 +64,10 @@ object RemoteModule {
     fun provideWalletService(retrofit: Retrofit): WalletService =
         retrofit.create(WalletService::class.java)
 
-    @Provides
-    @Singleton
-    fun provideCategoriesRemoteSource(retrofit: Retrofit): CategoriesApi =
-        retrofit.create(CategoriesApi::class.java)
+//    @Provides
+//    @Singleton
+//    fun provideCategoriesRemoteSource(retrofit: Retrofit): CategoriesApi =
+//        retrofit.create(CategoriesApi::class.java)
 
 //    @Provides
 //    @Singleton

@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_information.data.repos
 
+import com.siriusproject.coshelek.utils.LoadResult
 import com.siriusproject.coshelek.wallet_information.data.model.*
 import com.siriusproject.coshelek.wallet_information.data.network.TransactionService
 import com.siriusproject.coshelek.wallet_information.domain.mapper.TransactionMapper
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.math.BigDecimal
+import java.net.ConnectException
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -20,20 +22,30 @@ class TransactionsRepositoryImpl @Inject constructor(
         id: Int,
         numberOfItems: Int,
         pageNumber: Int
-    ): Flow<List<TransactionUiModel>> =
+    ): Flow<LoadResult<List<TransactionUiModel>>> =
         flow {
-            val list = transactionRemote.getTransactions(
-                id,
-                TransactionInfoBody(
-                    numberOfItems,
-                    pageNumber,
-                    LocalDateTime.now(),
-                    LocalDateTime.now()
-                )
-            ).transactionsRemoteModel.map {
-                mapper.map(it)
+            try {
+                val list = transactionRemote.getTransactions(
+                    id,
+                    TransactionInfoBody(
+                        numberOfItems,
+                        pageNumber,
+                        LocalDateTime.now(),
+                        LocalDateTime.now()
+                    )
+                ).transactionsRemoteModel.map {
+                    mapper.map(it)
+                }
+                emit(LoadResult.Success(list))
+            } catch (e: Exception) {
+                if (e is ConnectException) {
+                    emit(LoadResult.NoConnection(e))
+                } else {
+                    emit(LoadResult.Error(e))
+
+                }
             }
-            emit(list)
+
         }.flowOn(Dispatchers.IO)
 
     override suspend fun createTransaction(
@@ -66,6 +78,7 @@ class TransactionsRepositoryImpl @Inject constructor(
 
     override suspend fun deleteTransaction(id: Int) {
         transactionRemote.deleteTransaction(id)
+
     }
 
 }

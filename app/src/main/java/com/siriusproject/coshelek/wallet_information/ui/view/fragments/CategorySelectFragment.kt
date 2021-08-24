@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
@@ -30,28 +29,50 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
         initCategories()
 
         binding.catNextBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_categorySelectFragment_to_operationChangeFragment)
+            viewModel.onCategoryReadyPressed()
         }
 
         binding.catNextBtn.isEnabled = false
-
+        binding.catToolbar.toolbar.title = getString(R.string.pick_category)
         binding.catToolbar.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_categorySelectFragment_to_typeOperationFragment)
+            activity?.onBackPressed()
         }
     }
 
     private fun initCategories() {
         viewModel.categories.collectWhenStarted(this, { state ->
             when (state) {
-                is LoadResult.Success -> catListAdapter.setData(state.data)
-                is LoadResult.Error -> {
-                    //TODO
+                is LoadResult.Success -> {
+                    catListAdapter.setData(state.data)
+                    showDataReady()
                 }
-                LoadResult.Loading -> {
-                    //TODO
+                is LoadResult.Error -> {
+                    showError()
+                }
+                is LoadResult.NoConnection -> {
+                    showNoConnection()
+                }
+                is LoadResult.Loading -> {
+                    showLoading()
                 }
             }
         })
+    }
+
+    private fun showLoading() {
+        //TODO("Not yet implemented")
+    }
+
+    private fun showNoConnection() {
+        //TODO("Not yet implemented")
+    }
+
+    private fun showError() {
+        //TODO("Not yet implemented")
+    }
+
+    private fun showDataReady() {
+        //TODO("Not yet implemented")
     }
 
     private fun initRecyclerView() {

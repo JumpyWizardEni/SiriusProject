@@ -1,9 +1,12 @@
 package com.siriusproject.coshelek.utils
 
+import java.net.ConnectException
+
 sealed class LoadResult<out T> {
 
     class Success<out T>(val data: T) : LoadResult<T>()
     class Error(val exception: Throwable) : LoadResult<Nothing>()
+    class NoConnection(val exception: ConnectException) : LoadResult<Nothing>()
     object Loading : LoadResult<Nothing>()
 
     override fun toString(): String {
@@ -11,6 +14,7 @@ sealed class LoadResult<out T> {
             is Success<*> -> "Success[data=$data]"
             is Error -> "Error[exception=$exception]"
             is Loading -> "Loading"
+            is NoConnection -> "Error[exception=$exception]"
         }
     }
 
@@ -18,6 +22,7 @@ sealed class LoadResult<out T> {
         is Success -> Success(transform(data))
         is Error -> this
         is Loading -> this
+        is NoConnection -> this
     }
 
 }

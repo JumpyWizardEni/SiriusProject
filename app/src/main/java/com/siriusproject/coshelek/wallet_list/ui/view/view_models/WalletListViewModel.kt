@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.utils.LoadResult
-import com.siriusproject.coshelek.wallet_list.data.remote.Result
 import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
 import com.siriusproject.coshelek.wallet_list.ui.model.WalletUiModel
 import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
@@ -99,7 +98,6 @@ class WalletListViewModel @Inject constructor(
                 }
             }
             fetchWallets()
-
 
         }
     }
