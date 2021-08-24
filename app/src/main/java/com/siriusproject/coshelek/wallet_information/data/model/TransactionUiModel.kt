@@ -1,11 +1,12 @@
 package com.siriusproject.coshelek.wallet_information.data.model
 
 import java.io.Serializable
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 enum class TransactionType {
-    Income, Consumption
+    Income, Expence
 }
 
 sealed class TransactionListItem : Serializable
@@ -15,9 +16,9 @@ sealed class TransactionListItem : Serializable
 data class TransactionUiModel(
     val id: Int,
     val name: String,
-    val category: CategoryUiModel,
+    val category: String,
     val type: TransactionType,
-    val amount: Int,
+    val amount: BigDecimal,
     val currency: String,
     val date: LocalDateTime
 ) : Serializable, TransactionListItem()

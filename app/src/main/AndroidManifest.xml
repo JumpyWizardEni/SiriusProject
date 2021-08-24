@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SiriusProject"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.siriusproject.coshelek.wallet_information.ui.view.MainScreenActivity" />
+        <activity
+            android:name="com.siriusproject.coshelek.wallet_information.ui.view.MainScreenActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.siriusproject.coshelek.wallet_information.ui.view.SplashScreenActivity" />
         <activity android:name=".wallet_information.ui.view.OnBoardingActivity" />
         <activity

@@ -55,4 +55,9 @@ object RemoteModule {
     fun provideWalletService(retrofit: Retrofit): WalletService =
         retrofit.create(WalletService::class.java)
 
+//    @Provides
+//    @Singleton
+//    fun provideTransactionService(retrofit: Retrofit): TransactionService =
+//        retrofit.create(TransactionService::class.java)
+
 }

@@ -58,7 +58,7 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
 
     private fun onCategorySelected(cat: CategoryUiModel?, selected: Boolean) {
         binding.catNextBtn.isEnabled = selected
-        viewModel.category = cat
+        viewModel.category = cat!!.name
     }
 
 }
