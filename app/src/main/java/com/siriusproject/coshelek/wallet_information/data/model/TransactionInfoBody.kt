@@ -4,29 +4,24 @@ package com.siriusproject.coshelek.wallet_information.data.model
 
 import com.siriusproject.coshelek.utils.BigDecimalSerializer
 import com.siriusproject.coshelek.utils.LocalDateTimeISO8601Serializer
-import com.siriusproject.coshelek.wallet_information.ui.model.TransactionType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
-import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Serializable
-data class TransactionEditBody(
+data class TransactionInfoBody(
 
-    @SerialName("amount")
-    val amount: BigDecimal,
+    @SerialName("numberOfItems")
+    val numberOfItems: Int,
 
-    @SerialName("type")
-    val type: TransactionType,
+    @SerialName("pageNumber")
+    val pageNumber: Int,
 
-    @SerialName("category")
-    val category: String,
+    @SerialName("dateFrom")
+    val dateFrom: LocalDateTime,
 
-    @SerialName("currency")
-    val currency: String,
-
-    @SerialName("date")
-    val date: LocalDateTime
+    @SerialName("dateTo")
+    val dateTo: LocalDateTime
 
 )

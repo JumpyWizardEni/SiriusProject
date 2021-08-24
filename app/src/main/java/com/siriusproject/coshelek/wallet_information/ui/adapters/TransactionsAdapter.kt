@@ -22,7 +22,7 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 //TODO icon, пока что заглушка
                 val converter = DateTimeConverter(binding.root.context)
                 categoryIc.setImageResource(R.drawable.ic_supermarket)
-                categoryText.text = model.category.name
+                categoryText.text = model.category
                 opName.text = model.name
                 amount.text = model.amount.toString()
                 opTime.text = converter.getCurrentTime(model.date.toLocalTime())

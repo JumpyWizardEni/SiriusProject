@@ -1,6 +1,5 @@
 package com.siriusproject.coshelek.wallet_information.ui.model
 
-import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -15,13 +14,13 @@ sealed class TransactionListItem : Serializable
 //TODO Все поля в принципе могут быть null
 
 data class TransactionUiModel(
-    var id: Int,
-    var name: String,
-    var category: CategoryUiModel,
-    var type: TransactionType,
-    var amount: BigDecimal,
-    var currency: String,
-    var date: LocalDateTime
+    val id: Int,
+    val name: String,
+    val category: String,
+    val type: TransactionType,
+    val amount: BigDecimal,
+    val currency: String,
+    val date: LocalDateTime
 ) : Serializable, TransactionListItem()
 
 data class TransactionHeaderModel(

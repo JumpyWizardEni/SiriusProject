@@ -1,13 +1,14 @@
-@file:UseSerializers(BigDecimalSerializer::class)
+@file:UseSerializers(BigDecimalSerializer::class, LocalDateTimeISO8601Serializer::class)
 
 package com.siriusproject.coshelek.wallet_information.data.model
 
 import com.siriusproject.coshelek.utils.BigDecimalSerializer
+import com.siriusproject.coshelek.utils.LocalDateTimeISO8601Serializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import java.math.BigDecimal
-import java.util.*
+import java.time.LocalDateTime
 
 @Serializable
 data class TransactionRemoteModel(
@@ -31,7 +32,7 @@ data class TransactionRemoteModel(
     val type: String,
 
     @SerialName("date")
-    val date: Date,
+    val date: LocalDateTime,
 
     @SerialName("limit")
     val limit: BigDecimal

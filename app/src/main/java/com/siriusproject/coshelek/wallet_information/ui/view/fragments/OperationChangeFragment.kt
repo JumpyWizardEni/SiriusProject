@@ -1,6 +1,5 @@
 package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +9,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
-import com.siriusproject.coshelek.wallet_information.data.model.CategoryUiModel
 import com.siriusproject.coshelek.wallet_information.ui.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.ui.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @AndroidEntryPoint
@@ -46,14 +45,9 @@ class OperationChangeFragment : Fragment() {
                 TransactionUiModel(
                     0,
                     "1",
-                    CategoryUiModel(
-                        id=0,
-                        name = "Зарплата",
-                        type = TransactionType.Income,
-                        picture = R.drawable.ic_cat_multivalue_cards,
-                        color = Color.GREEN),
+                    "category 1",
                     TransactionType.Income,
-                    30,
+                    BigDecimal(100),
                     "",
                     LocalDateTime.now()
                 )
@@ -78,7 +72,7 @@ class OperationChangeFragment : Fragment() {
                 TransactionType.Income -> resources.getString(R.string.income)
                 TransactionType.Expence -> resources.getString(R.string.outcome)
             }
-            category.text = model.category.name
+            category.text = model.category
             opDate.text = model.date.toString()
         }
     }
