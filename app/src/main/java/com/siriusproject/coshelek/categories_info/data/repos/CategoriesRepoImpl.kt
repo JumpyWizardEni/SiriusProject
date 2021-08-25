@@ -13,7 +13,7 @@ class CategoriesRepoImpl @Inject constructor(
 ) : CategoriesRepo {
 
     override suspend fun getCategories() = flow {
-        emit(dbSource.getCategories())
+        emit(categoriesApi.getCategories())
     }.flowOn(Dispatchers.IO)
 
 }

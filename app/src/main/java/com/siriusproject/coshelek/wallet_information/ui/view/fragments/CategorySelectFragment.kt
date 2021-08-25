@@ -47,6 +47,7 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
                     showDataReady()
                 }
                 is LoadResult.Error -> {
+                    state.exception.printStackTrace()
                     showError()
                 }
                 is LoadResult.NoConnection -> {
