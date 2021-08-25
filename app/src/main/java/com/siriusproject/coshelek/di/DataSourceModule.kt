@@ -2,8 +2,6 @@ package com.siriusproject.coshelek.di
 
 import com.siriusproject.coshelek.categories_info.data.db.CategoriesDataSource
 import com.siriusproject.coshelek.categories_info.data.db.CategoriesDataSourceMock
-import com.siriusproject.coshelek.categories_info.data.remote.CategoriesApi
-import com.siriusproject.coshelek.categories_info.data.remote.CategoriesApiMock
 import com.siriusproject.coshelek.wallet_information.data.network.MockTransactionRemote
 import com.siriusproject.coshelek.wallet_information.data.network.TransactionService
 import dagger.Binds
@@ -20,9 +18,10 @@ abstract class DataSourceModule {
     @Singleton
     abstract fun bindCategoriesDataSource(local: CategoriesDataSourceMock): CategoriesDataSource
 
-    @Binds
-    @Singleton
-    abstract fun bindCategoriesApi(local: CategoriesApiMock): CategoriesApi
+    //Removed with Retrofit in Remote module
+//    @Binds
+//    @Singleton
+//    abstract fun bindCategoriesApi(local: CategoriesApiMock): CategoriesApi
 
 //    @Binds
 //    @Singleton

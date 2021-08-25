@@ -2,6 +2,7 @@ package com.siriusproject.coshelek.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.siriusproject.coshelek.BuildConfig
+import com.siriusproject.coshelek.categories_info.data.remote.CategoriesApi
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
 import com.siriusproject.coshelek.wallet_list.data.remote.WalletService
 import dagger.Module
@@ -64,10 +65,10 @@ object RemoteModule {
     fun provideWalletService(retrofit: Retrofit): WalletService =
         retrofit.create(WalletService::class.java)
 
-//    @Provides
-//    @Singleton
-//    fun provideCategoriesRemoteSource(retrofit: Retrofit): CategoriesApi =
-//        retrofit.create(CategoriesApi::class.java)
+    @Provides
+    @Singleton
+    fun provideCategoriesRemoteSource(retrofit: Retrofit): CategoriesApi =
+        retrofit.create(CategoriesApi::class.java)
 
 //    @Provides
 //    @Singleton
