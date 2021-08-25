@@ -19,13 +19,16 @@ class CategoriesMapper : (List<Category>) -> List<CategoryUiModel> {
         }
     }
 
+    companion object {
+        val pictureIDbyNameMap = mapOf(
+            "icon_card" to R.drawable.ic_cat_multivalue_cards,
+            "icon_gift" to R.drawable.ic_cat_other_gift,
+            "icon_percent" to R.drawable.ic_cat_other_percent
+        )
+    }
+
     private fun iconNameToDrawable(name: String): Int =
-        when (name) {
-            "icon_card" -> R.drawable.ic_cat_multivalue_cards
-            "icon_gift" -> R.drawable.ic_cat_other_gift
-            "icon_percent" -> R.drawable.ic_cat_other_percent
-            else -> R.drawable.ic_cat_multivalue_cards //TODO default icon for unknown icon name
-        }
+        pictureIDbyNameMap[name] ?: R.drawable.ic_cat_multivalue_cards
 
     private fun intTypeToTransactionType(type: String): TransactionType =
         when (type) {
