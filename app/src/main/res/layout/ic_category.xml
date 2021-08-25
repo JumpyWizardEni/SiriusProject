@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/category_icon"
+    android:contentDescription="@string/cat_avatar_img"
+    tools:src="@drawable/ic_cat_multivalue_cards"
+    android:background="@drawable/category_background_circle"
+    tools:backgroundTint="#00F" />

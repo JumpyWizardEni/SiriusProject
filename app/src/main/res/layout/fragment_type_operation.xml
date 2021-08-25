@@ -24,7 +24,8 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar_holder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="UseCompoundDrawables">
+        tools:ignore="UseCompoundDrawables"
+        android:background="?android:attr/selectableItemBackground">
 
         <TextView
             android:layout_width="0dp"
@@ -54,7 +55,8 @@
         app:layout_constraintTop_toBottomOf="@id/incomeLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="UseCompoundDrawables">
+        tools:ignore="UseCompoundDrawables"
+        android:background="?android:attr/selectableItemBackground">
 
         <TextView
             android:layout_width="0dp"

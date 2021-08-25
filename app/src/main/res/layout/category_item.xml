@@ -6,16 +6,16 @@
     android:layout_height="wrap_content"
     android:id="@+id/cat_item_root_view"
     android:paddingTop="@dimen/half_normal_margin"
-    android:paddingBottom="@dimen/half_normal_margin">
+    android:paddingBottom="@dimen/half_normal_margin"
+    android:background="?android:attr/selectableItemBackground">
 
-    <ImageView
+    <include
+        layout="@layout/ic_category"
+        android:id="@+id/cat_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/cat_img"
-        android:contentDescription="@string/cat_avatar_img"
-        tools:src="@drawable/ic_cat_multivalue_cards"
         android:layout_marginStart="@dimen/normal_margin"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
     <TextView
         android:layout_width="0dp"
