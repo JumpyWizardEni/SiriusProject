@@ -57,7 +57,7 @@ class TransactionViewModel @Inject constructor(
                 categories.map { list -> list.filter { it.type == type } }
             }
 
-    init {
+    fun categoriesOpened() {
         viewModelScope.launch {
             checkOperation(loadingStateData) {
                 getCategoriesUseCase

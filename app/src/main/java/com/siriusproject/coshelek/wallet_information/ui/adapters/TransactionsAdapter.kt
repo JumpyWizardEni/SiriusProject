@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_information.ui.adapters
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -119,9 +120,10 @@ class TransactionsAdapter(
         private val formatter = CurrencyFormatter()
         fun bind(model: TransactionUiModel) {
             with(binding) {
-                //TODO icon, пока что заглушка
-                binding.swipeRevealLayout.close(false)
-                categoryIc.setImageResource(R.drawable.ic_supermarket)
+                swipeRevealLayout.close(false)
+                categoryIc.categoryIcon.setImageResource(model.category.picture)
+                categoryIc.categoryIcon.backgroundTintList =
+                    ColorStateList.valueOf(model.category.color)
                 categoryText.text = model.category.name
                 opName.text = model.type.toString()
                 amount.text = formatter.formatBigDecimalWithSign(model.amount, model.type)
