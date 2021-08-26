@@ -54,8 +54,9 @@ class WalletViewModel @Inject constructor(
     val expence: StateFlow<BigDecimal> = expenceData
 
     fun fetchTransactions() {
-        firstCollect = true
+
         pageNumber = 0
+        firstCollect = true
         isAllLoaded.value = false
         viewModelScope.launch {
             loadingStateData.value = LoadingState.Loading
@@ -81,7 +82,6 @@ class WalletViewModel @Inject constructor(
                         Log.e(javaClass.name, "NoConnection: $it")
                     }
                 }
-
             }
 
         }

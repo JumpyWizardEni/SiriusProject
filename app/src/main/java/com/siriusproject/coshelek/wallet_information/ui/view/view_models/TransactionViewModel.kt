@@ -1,8 +1,10 @@
 package com.siriusproject.coshelek.wallet_information.ui.view.view_models
 
+import android.annotation.SuppressLint
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.categories_info.data.model.CategoryUiModel
@@ -16,30 +18,39 @@ import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.navigation.NavigationDispatcher
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.net.ConnectException
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
 class TransactionViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategories,
     private val repos: TransactionsRepository,
-    private val navigationDispatcher: NavigationDispatcher
-) : ViewModel() {
+    private val navigationDispatcher: NavigationDispatcher, application: Application
+) : AndroidViewModel(application) {
 
+    @SuppressLint("StaticFieldLeak")
+    private val context = getApplication<Application>().applicationContext
     private val mutableAmount = MutableStateFlow<String?>(null)
     private val mutableType = MutableStateFlow<TransactionType?>(null)
     private val mutableCategory = MutableStateFlow<CategoryUiModel?>(null)
     private val loadingStateData = MutableStateFlow(LoadingState.Loading)
+    private val dateData = MutableStateFlow(LocalDateTime.now())
+    private val mutableCategories =
+        MutableStateFlow<LoadResult<List<CategoryUiModel>>>(LoadResult.Loading)
+    private val errorChannel = Channel<String>()
+    private var transactionId = 0
+    val errorFlow = errorChannel.receiveAsFlow()
+    val date: StateFlow<LocalDateTime> = dateData
     val loadingState: StateFlow<LoadingState> = loadingStateData
     val amount = mutableAmount as StateFlow<String?>
     val type = mutableType as StateFlow<TransactionType?>
     val category = mutableCategory as StateFlow<CategoryUiModel?>
     var walletId = 0
-    private val mutableCategories =
-        MutableStateFlow<LoadResult<List<CategoryUiModel>>>(LoadResult.Loading)
     val categories: Flow<LoadResult<List<CategoryUiModel>>> =
         mutableCategories
             .combine(mutableType.filterNotNull()) { categories, type ->
@@ -81,7 +92,7 @@ class TransactionViewModel @Inject constructor(
                         type.value!!,
                         category.value!!.id,
                         "RUB",
-                        LocalDateTime.now()
+                        date.value
                     )
                     navigationDispatcher.emit { navController ->
                         navController.navigate(R.id.action_operationChangeFragment_to_walletFragment)
@@ -198,12 +209,12 @@ class TransactionViewModel @Inject constructor(
         viewModelScope.launch {
             checkOperation {
                 repos.editingTransaction(
-                    walletId,
+                    transactionId,
                     amount.value?.toBigDecimal(),
                     type.value,
                     category.value?.id,
                     "RUB",
-                    LocalDateTime.now()
+                    dateData.value
                 )
                 navigationDispatcher.emit { navController ->
                     navController.navigate(R.id.action_operationEditFragment_to_walletFragment)
@@ -230,7 +241,37 @@ class TransactionViewModel @Inject constructor(
         mutableAmount.value = model.amount.toPlainString()
         mutableCategory.value = model.category
         mutableType.value = model.type
-        walletId = model.id
+        transactionId = model.id
+    }
+
+    fun pushDateTime(date: LocalDateTime) {
+        dateData.value = date
+    }
+
+    fun onQrReady(contents: String?) {
+        try {
+            if (contents == null) {
+                errorChannel.trySend(context.getString(R.string.qr_error))
+            } else {
+                Log.d(javaClass.name, contents)
+                val params = contents.split("&").associate {
+                    val newList = it.split("=")
+                    newList[0] to newList[1]
+                }
+                pushAmount(params["s"])
+                pushType(TransactionType.Expense)
+                val formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm")
+                pushDateTime(LocalDateTime.parse(params["t"], formatter))
+                val data = Bundle()
+                data.putInt(PREVIOUS_FRAGMENT, R.layout.fragment_enter_sum)
+                navigationDispatcher.emit { navController ->
+                    navController.navigate(R.id.action_enterSumFragment_to_categoryFragment, data)
+                }
+            }
+        } catch (e: Exception) {
+            errorChannel.trySend(context.getString(R.string.qr_error))
+        }
+
     }
 
 

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.siriusproject.coshelek">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
     <application
+        android:hardwareAccelerated="true"
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +25,7 @@
         <activity
             android:name=".wallet_information.ui.view.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.SiriusProject">
+            android:theme="@style/Theme.SiriusProject.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -61,6 +61,10 @@
     <string name="enter_limit">Установите лимит</string>
     <string name="limit_ready">Ввести лимит</string>
     <string name="edit_op">Изменить транзакцию</string>
+    <string name="hidden_wallets">Скрытые кошельки</string>
+    <string name="hide_wallets">Скрыть</string>
+    <string name="date_time">%1$s %2$s</string>
+    <string name="qr_error">Ошибка при сканировании кода</string>
     <string name="something_wrong">Что-то пошло не так</string>
     <string name="spending_limit_exceeded">Вы превысили лимит на траты</string>
     <string name="exceeded_limit">Превышен лимит</string>

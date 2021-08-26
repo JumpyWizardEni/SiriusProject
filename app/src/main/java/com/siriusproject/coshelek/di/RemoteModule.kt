@@ -38,14 +38,16 @@ object RemoteModule {
     @Provides
     @Singleton
     fun provideJson(): Json = Json { ignoreUnknownKeys = true }
+    val x = "Bearer aaa12332"
+    val y = "email12"
 
     @Provides
     @Singleton
     fun provideOkHttpClient(authRepos: GoogleAuthRepository): OkHttpClient {
         val builder = OkHttpClient.Builder().addInterceptor { chain ->
             val newRequest: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer aaa12332")
-                .addHeader("email", "email12")
+                .addHeader("Authorization", "Bearer " + authRepos.token)
+                .addHeader("email", authRepos.email)
                 .build()
             chain.proceed(newRequest)
         }

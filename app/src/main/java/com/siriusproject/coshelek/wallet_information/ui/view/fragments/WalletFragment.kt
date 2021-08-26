@@ -1,6 +1,7 @@
 package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -66,6 +67,7 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
         }
         binding.swipeRefreshLayout.setOnRefreshListener {
             walletViewModel.fetchTransactions()
+            walletViewModel.getWalletInfo(walletId)
         }
         binding.toolbarHolder.toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
@@ -98,8 +100,8 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
         walletViewModel.expence.collectWhenStarted(viewLifecycleOwner, {
             binding.expence.text = currencyFormatter.formatBigDecimal(it)
         })
-        walletViewModel.getWalletInfo(walletId)
         walletViewModel.fetchTransactions()
+        walletViewModel.getWalletInfo(walletId)
         walletViewModel.loadingState.collectWhenStarted(viewLifecycleOwner, {
             when (it) {
                 LoadingState.Loading -> {
@@ -138,6 +140,11 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
             }
         })
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(javaClass.name, "OnStop")
     }
 
     private fun showRecordsText(isRecyclerEmpty: Boolean) {

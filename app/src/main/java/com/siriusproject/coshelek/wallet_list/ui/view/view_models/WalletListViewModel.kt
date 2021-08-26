@@ -85,15 +85,9 @@ class WalletListViewModel @Inject constructor(
     fun deleteWallet(id: Int) {
         viewModelScope.launch {
             Log.d(javaClass.name, "Deleting wallet...")
-            try {
+            checkOperation {
                 repos.deleteWallet(id)
-            } catch (e: Exception) {
-                if (e is ConnectException) {
-                    loadingState.value = LoadingState.NoConnection
-                } else {
-                    loadingState.value = LoadingState.UnexpectedError
 
-                }
             }
             fetchWallets()
 
@@ -109,21 +103,36 @@ class WalletListViewModel @Inject constructor(
         }
     }
 
-    fun setVisibility(id: Int, visibility: Boolean) {
-
-    }
-
     fun getCurrencies() {
         viewModelScope.launch {
-            try {
-                currencies.value = repos.getCurrencies()
-            } catch (e: Exception) {
-                if (e is ConnectException) {
-                    loadingState.value = LoadingState.NoConnection
-                } else {
-                    loadingState.value = LoadingState.UnexpectedError
+            checkOperation {
+                val list = repos.getCurrencies()
+                currencies.value = list
+                Log.d(javaClass.name, list.toString())
+            }
+        }
+    }
 
-                }
+    fun onVisibilityPressed(visibility: Boolean, id: Int) {
+        viewModelScope.launch {
+            checkOperation {
+                repos.changeWallet(id, null, null, null, visibility)
+                fetchWallets()
+            }
+        }
+    }
+
+    suspend fun checkOperation(op: suspend () -> Unit) {
+        try {
+            loadingState.value = LoadingState.Loading
+            op()
+            loadingState.value = LoadingState.Ready
+        } catch (e: Exception) {
+            Log.e(javaClass.name, e.message.toString())
+            if (e is ConnectException) {
+                loadingState.value = LoadingState.NoConnection
+            } else {
+                loadingState.value = LoadingState.UnexpectedError
             }
         }
     }
