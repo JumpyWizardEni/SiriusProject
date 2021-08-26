@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/category_add_navigation"
+    app:startDestination="@id/addCategoryFragment">
+
+    <fragment
+        android:id="@+id/addCategoryFragment"
+        android:name="com.siriusproject.coshelek.categories_info.ui.view.fragments.CategoryAddFragment"
+        android:label="AddCategoryFragment">
+        <action
+            android:id="@+id/action_AddCategoryFragment_to_EnterNameFragment"
+            app:destination="@id/enterNameFragment" />
+        <action
+            android:id="@+id/action_AddCategoryFragment_to_EnterTypeFragment"
+            app:destination="@id/enterTypeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/enterNameFragment"
+        android:name="com.siriusproject.coshelek.categories_info.ui.view.fragments.CategoryNameFragment"
+        android:label="EnterNameFragment">
+        <action
+            android:id="@+id/action_enterNameFragment_to_AddCategoryFragment"
+            app:destination="@id/addCategoryFragment"
+            app:popUpTo="@id/addCategoryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/enterTypeFragment"
+        android:name="com.siriusproject.coshelek.categories_info.ui.view.fragments.TypeCategoryFragment"
+        android:label="EnterTypeFragment">
+        <action
+            android:id="@+id/action_enterTypeFragment_to_AddCategoryFragment"
+            app:destination="@id/addCategoryFragment"
+            app:popUpTo="@id/addCategoryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

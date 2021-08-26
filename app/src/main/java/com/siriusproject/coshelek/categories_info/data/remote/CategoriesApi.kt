@@ -12,5 +12,5 @@ interface CategoriesApi {
     suspend fun getCategories(): List<Category>
 
     @POST("category")
-    suspend fun createCategory(@Body body: CategoryCreatingBody): List<Category>
+    suspend fun createCategory(@Body body: CategoryCreatingBody)
 }

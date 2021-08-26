@@ -1,6 +1,7 @@
 package com.siriusproject.coshelek.categories_info.data.repos
 
 import com.siriusproject.coshelek.categories_info.data.db.CategoriesDataSource
+import com.siriusproject.coshelek.categories_info.data.model.CategoryCreatingBody
 import com.siriusproject.coshelek.categories_info.data.remote.CategoriesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -15,5 +16,9 @@ class CategoriesRepoImpl @Inject constructor(
     override suspend fun getCategories() = flow {
         emit(categoriesApi.getCategories())
     }.flowOn(Dispatchers.IO)
+
+    override suspend fun addCategory(categoryCreatingBody: CategoryCreatingBody) {
+        categoriesApi.createCategory(categoryCreatingBody)
+    }
 
 }

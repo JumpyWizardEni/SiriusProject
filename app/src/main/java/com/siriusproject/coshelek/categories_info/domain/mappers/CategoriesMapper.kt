@@ -23,7 +23,10 @@ class CategoriesMapper : (List<Category>) -> List<CategoryUiModel> {
         val pictureIDbyNameMap = mapOf(
             "icon_card" to R.drawable.ic_cat_multivalue_cards,
             "icon_gift" to R.drawable.ic_cat_other_gift,
-            "icon_percent" to R.drawable.ic_cat_other_percent
+            "icon_percent" to R.drawable.ic_cat_other_percent,
+            "icon_shop" to 0,
+            "icon_home" to 0,
+            "icon_bus" to 0
         )
     }
 

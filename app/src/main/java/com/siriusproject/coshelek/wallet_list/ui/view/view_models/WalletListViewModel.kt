@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.utils.LoadResult
+import com.siriusproject.coshelek.utils.LoadingState
 import com.siriusproject.coshelek.wallet_list.data.model.CurrencyModel
 import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
 import com.siriusproject.coshelek.wallet_list.ui.model.WalletUiModel
-import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_ID
 import com.siriusproject.coshelek.wallet_list.ui.view.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel

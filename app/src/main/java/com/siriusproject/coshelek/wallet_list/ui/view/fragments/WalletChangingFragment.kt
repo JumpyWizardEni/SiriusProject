@@ -8,8 +8,8 @@ import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentWalletChangingBinding
+import com.siriusproject.coshelek.utils.LoadingState
 import com.siriusproject.coshelek.utils.collectWhenStarted
-import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_ID
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletCreatingViewModel
 

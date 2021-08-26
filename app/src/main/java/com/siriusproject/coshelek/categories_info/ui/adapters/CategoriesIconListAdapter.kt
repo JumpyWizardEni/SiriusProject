@@ -75,4 +75,8 @@ class CategoriesIconListAdapter(val onIconSelected: (CategoryIcon) -> Unit) :
             notifyItemChanged(i, color)
     }
 
+    fun setCurrentIcon(icon: CategoryIcon) {
+        onClicked(icon)
+    }
+
 }

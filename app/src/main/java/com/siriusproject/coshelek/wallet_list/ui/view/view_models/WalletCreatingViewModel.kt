@@ -5,8 +5,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
+import com.siriusproject.coshelek.utils.LoadingState
+import com.siriusproject.coshelek.utils.checkOperation
 import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
-import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.navigation.NavigationDispatcher
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
-import java.net.ConnectException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,7 +28,7 @@ class WalletCreatingViewModel @Inject constructor(
     val walletName = MutableStateFlow("")
     val currency = MutableStateFlow("Российский рубль")
     val limit = MutableStateFlow(BigDecimal.ZERO)
-    val loadingState = MutableStateFlow(LoadingState.Loading)
+    val loadingState = MutableStateFlow(LoadingState.Initial)
     fun onNameReadyPressed(name: String, previosId: Int) {
         Log.d(javaClass.name, "OnNameReadyPressed($name)")
         walletName.value = name
@@ -67,7 +67,7 @@ class WalletCreatingViewModel @Inject constructor(
     fun onCreateWalletPressed() {
         Log.d(javaClass.name, "OnCreateWalletPressed")
         viewModelScope.launch {
-            checkOperation {
+            checkOperation(loadingState) {
                 loadingState.value = LoadingState.Loading
                 walletRepos.createWallet(
                     walletName.value,
@@ -97,7 +97,7 @@ class WalletCreatingViewModel @Inject constructor(
 
     fun onEditWalletPressed() {
         viewModelScope.launch {
-            checkOperation {
+            checkOperation(loadingState) {
                 walletRepos.changeWallet(currWalletId, walletName.value, null, limit.value, null)
                 navigationDispatcher.emit { navController ->
                     navController.navigate(R.id.action_walletChangingFragment_to_walletListFragment)
@@ -138,17 +138,4 @@ class WalletCreatingViewModel @Inject constructor(
         }
     }
 
-    suspend fun checkOperation(op: suspend () -> Unit) {
-        try {
-            loadingState.value = LoadingState.Loading
-            op()
-            loadingState.value = LoadingState.Ready
-        } catch (e: Exception) {
-            if (e is ConnectException) {
-                loadingState.value = LoadingState.NoConnection
-            } else {
-                loadingState.value = LoadingState.UnexpectedError
-            }
-        }
-    }
 }

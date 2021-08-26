@@ -17,6 +17,9 @@ import com.siriusproject.coshelek.categories_info.domain.mappers.CategoriesMappe
 import com.siriusproject.coshelek.categories_info.ui.adapters.CategoriesIconListAdapter
 import com.siriusproject.coshelek.categories_info.ui.view.view_models.CategoryAddViewModel
 import com.siriusproject.coshelek.databinding.FragmentCategoryAddBinding
+import com.siriusproject.coshelek.utils.collectWhenStarted
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
+import kotlinx.coroutines.flow.filterNotNull
 
 class CategoryAddFragment : Fragment(R.layout.fragment_category_add) {
 
@@ -28,11 +31,33 @@ class CategoryAddFragment : Fragment(R.layout.fragment_category_add) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         setOnClickListeners()
+        subscribeOnViewModel()
+    }
+
+    private fun subscribeOnViewModel() {
+        viewModel.colorState.filterNotNull().collectWhenStarted(this) {
+            setColor(it)
+        }
+        viewModel.iconState.filterNotNull().collectWhenStarted(this) {
+            //iconsAdapter.setCurrentIcon(it)
+        }
+        viewModel.categoryCreateState.filterNotNull().collectWhenStarted(this) {
+            binding.createCategoryButton.isEnabled = it
+        }
+        viewModel.nameState.filterNotNull().collectWhenStarted(this) {
+            binding.categoryTitleText.text = it
+        }
+        viewModel.typeState.filterNotNull().collectWhenStarted(this) {
+            binding.categoryTypeText.text = when (it) {
+                TransactionType.Income -> resources.getString(R.string.income)
+                TransactionType.Expense -> resources.getString(R.string.outcome)
+            }
+        }
     }
 
     private fun setOnClickListeners() {
         binding.createCategoryButton.setOnClickListener {
-            viewModel.onCategoryCreatePressed()
+            viewModel.onCategoryCreatePressed { activity?.onBackPressed() }
         }
         binding.createCategoryButton.isEnabled = false
         binding.toolbarLayout.toolbar.setNavigationOnClickListener {
@@ -44,7 +69,7 @@ class CategoryAddFragment : Fragment(R.layout.fragment_category_add) {
         binding.categoryTypeLayout.setOnClickListener {
             viewModel.onCategoryTypeButton()
         }
-        setColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        viewModel.pushCategoryColor(ContextCompat.getColor(requireContext(), R.color.blue))
         binding.categoryColor.setOnClickListener {
             pickColor()
         }
@@ -73,7 +98,6 @@ class CategoryAddFragment : Fragment(R.layout.fragment_category_add) {
     private fun setColor(color: Int) {
         binding.categoryColor.setTextColor(color)
         iconsAdapter.updateIconsColor(color)
-        viewModel.pushCategoryColor(color)
     }
 
     private fun pickColor() {
@@ -83,7 +107,9 @@ class CategoryAddFragment : Fragment(R.layout.fragment_category_add) {
             .setColorShape(ColorShape.CIRCLE)
             .setColorSwatch(ColorSwatch._300)
             .setDefaultColor(R.color.blue)
-            .setColorListener { color, _ -> setColor(color) }
+            .setColorListener { color, _ ->
+                viewModel.pushCategoryColor(color)
+            }
             .show()
     }
 

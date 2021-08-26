@@ -14,11 +14,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentWalletBinding
 import com.siriusproject.coshelek.utils.CurrencyFormatter
+import com.siriusproject.coshelek.utils.LoadingState
 import com.siriusproject.coshelek.utils.collectWhenStarted
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.ui.adapters.TransactionsAdapter
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel
-import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_ID
 import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_NAME
 import dagger.hilt.android.AndroidEntryPoint

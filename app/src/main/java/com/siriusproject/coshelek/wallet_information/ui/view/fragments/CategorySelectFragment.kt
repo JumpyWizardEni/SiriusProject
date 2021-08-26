@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.categories_info.data.model.CategoryUiModel
+import com.siriusproject.coshelek.categories_info.ui.view.AddCategoryActivity
 import com.siriusproject.coshelek.databinding.FragmentCategorySelectionBinding
 import com.siriusproject.coshelek.utils.LoadResult
 import com.siriusproject.coshelek.utils.collectWhenStarted
@@ -25,6 +27,13 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
+        binding.catToolbar.toolbar.inflateMenu(R.menu.select_category_menu)
+        binding.catToolbar.toolbar.menu.findItem(R.id.add_category).setOnMenuItemClickListener {
+            startActivity(Intent(activity, AddCategoryActivity::class.java))
+            true
+        }
 
         initRecyclerView()
         initCategories()
