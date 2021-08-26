@@ -61,10 +61,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/wallet_ic"
             app:layout_constraintStart_toEndOf="@id/wallet_ic"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Кошелек 1" />
+
+        <TextView
+            android:id="@+id/exceeded_limit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:background="@drawable/bg_exceeded_limit"
+            android:text="@string/exceeded_limit"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wallet_name"
+            app:layout_constraintStart_toStartOf="@id/wallet_name" />
 
         <TextView
             android:id="@+id/wallet_balance"
@@ -75,6 +89,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text=" 2 000 ₽" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

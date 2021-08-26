@@ -130,15 +130,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cards_container" />
 
+    <TextView
+        android:id="@+id/exceeded_limit_text"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content"
+        android:text="@string/spending_limit_exceeded"
+        android:background="@drawable/bg_spending_limit_exceeded"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cards_container" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@id/add_operation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cards_container">
+        app:layout_constraintTop_toBottomOf="@id/exceeded_limit_text">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
