@@ -68,4 +68,8 @@
     <string name="something_wrong">Что-то пошло не так</string>
     <string name="spending_limit_exceeded">Вы превысили лимит на траты</string>
     <string name="exceeded_limit">Превышен лимит</string>
+    <string name="russian_ruble">Российский рубль (RUB)</string>
+    <string name="usa_dollar">Доллар США (USD)</string>
+    <string name="eur">Евро (EUR)</string>
+    <string name="save">Сохранить</string>
 </resources>

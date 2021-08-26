@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        layout="@layout/app_toolbar"
+        app:title="@string/enter_sum"
+        android:id="@+id/toolbar_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:checkedButton="@+id/radio_button_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_holder">
+
+        <RadioButton
+            android:id="@+id/radio_button_rub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/russian_ruble"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radio_button_usd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/usa_dollar" />
+
+        <RadioButton
+            android:id="@+id/radio_button_eur"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/eur" />
+
+    </RadioGroup>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/enterButton"
+        style="@style/GrayNextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_margin"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
