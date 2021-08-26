@@ -18,6 +18,9 @@
             android:id="@+id/action_enterSumFragment_to_typeOperationFragment"
             app:destination="@id/typeOperationFragment" />
         <action
+            android:id="@+id/action_enterSumFragment_to_categoryFragment"
+            app:destination="@id/categorySelectFragment" />
+        <action
             android:id="@+id/action_enterSumFragment_to_operationEditFragment"
             app:destination="@id/operationEditFragment"
             app:popUpTo="@id/operationEditFragment"

@@ -8,12 +8,15 @@ import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
+import com.siriusproject.coshelek.utils.DateTimeConverter
+import com.siriusproject.coshelek.utils.DateTimeDialog
 import com.siriusproject.coshelek.utils.collectWhenStarted
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
+
 
 @AndroidEntryPoint
 class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
@@ -35,6 +38,10 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
 
         binding.toolbarHolder.toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
+        }
+
+        binding.dateContainer.setOnClickListener {
+            DateTimeDialog().createDialog(requireContext(), transactionViewModel)
         }
 
 
@@ -75,5 +82,13 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
         transactionViewModel.category.filterNotNull().collectWhenStarted(this) {
             binding.category.text = it.name
         }
+        transactionViewModel.date.collectWhenStarted(viewLifecycleOwner, {
+            val formatter = DateTimeConverter(requireContext())
+            binding.opDate.text = getString(
+                R.string.date_time,
+                formatter.getCurrentDate(it.toLocalDate()),
+                formatter.getCurrentTime(it.toLocalTime())
+            )
+        })
     }
 }

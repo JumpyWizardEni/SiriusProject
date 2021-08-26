@@ -57,7 +57,15 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
         val onEditClickLambda: (Int) -> Unit = {
             walletsViewModel.onEditWalletPressed(it)
         }
-        adapter = WalletListAdapter(deleteClickLambda, onWalletClickLambda, onEditClickLambda)
+        val onVisibilityChanged: (Boolean, Int) -> Unit = { visibility, id ->
+            walletsViewModel.onVisibilityPressed(visibility, id)
+        }
+        adapter = WalletListAdapter(
+            deleteClickLambda,
+            onWalletClickLambda,
+            onEditClickLambda,
+            onVisibilityChanged
+        )
         val recycler = binding.recyclerView
         recycler.adapter = adapter
         Log.d(javaClass.name, "Fragment created")
@@ -146,6 +154,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     recyclerView.visibility = View.GONE
                     noInternetHeader.noInternet.visibility = View.VISIBLE
                     somethingWrongHeader.somethingWrong.visibility = View.GONE
+                    currencyContainer.visibility = View.GONE
                 }
             }
             LoadingState.UnexpectedError -> {
@@ -164,7 +173,6 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     noWalletsYet.isVisible = adapter.itemCount == 0
                     recyclerView.visibility = View.VISIBLE
                     noInternetHeader.noInternet.visibility = View.GONE
-                    somethingWrongHeader.somethingWrong.visibility = View.GONE
                 }
             }
         }

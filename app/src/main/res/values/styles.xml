@@ -89,8 +89,13 @@
         <item name="backgroundColor">@color/white</item>
     </style>
 
-    <style name="AlertDialogText" >
+    <style name="AlertDialogText">
         <item name="android:textSize">20sp</item>
         <item name="backgroundColor">@color/black</item>
+    </style>
+
+    <style name="SmallBlueText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/blue_card_background</item>
     </style>
 </resources>

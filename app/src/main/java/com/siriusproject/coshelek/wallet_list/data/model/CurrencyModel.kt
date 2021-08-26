@@ -14,7 +14,7 @@ data class CurrencyModel(
     val name: String,
     @SerialName("rate")
     val rate: BigDecimal,
-    @SerialName("dynamic")
+    @SerialName("dynamics")
     val dynamic: String
 
 )
