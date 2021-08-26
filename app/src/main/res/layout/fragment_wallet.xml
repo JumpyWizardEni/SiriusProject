@@ -20,7 +20,7 @@
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginTop="@dimen/wallet_top_margin"
         android:layout_marginBottom="6dp"
-        android:text="@string/wallet_1"
+        tools:text="@string/wallet_1"
         android:textColor="@color/gray_primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_holder" />
@@ -80,7 +80,7 @@
                     style="@style/WhiteText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zero_rub" />
+                    tools:text="@string/zero_rub" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -113,7 +113,7 @@
                     style="@style/WhiteText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/example_volume" />
+                    tools:text="@string/example_volume" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

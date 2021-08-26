@@ -13,7 +13,8 @@ data class WalletUiModel(
     val expense: BigDecimal,
     val currency: String,
     val visibility: Boolean,
-    val limit: BigDecimal
+    val limit: BigDecimal,
+    val isLimitReached: Boolean
 ) : WalletListItem()
 
 object WalletVisibilityHeader : WalletListItem()

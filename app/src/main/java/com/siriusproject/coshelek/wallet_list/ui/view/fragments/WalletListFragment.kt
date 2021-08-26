@@ -77,19 +77,19 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
         with(walletsViewModel) {
             wallets.collectWhenStarted(viewLifecycleOwner, { it ->
                 adapter.setItems(it)
-                showRecordsText(adapter.itemCount == 0)
+                showRecordsText(adapter.isEmpty)
             })
 
             mainBalance.collectWhenStarted(viewLifecycleOwner, {
-                binding.balance.text = formatter.formatBigDecimal(it)
+                binding.balance.text = formatter.formatBigDecimal(it, "RUB")
             })
 
             income.collectWhenStarted(viewLifecycleOwner, {
-                binding.incomeAmount.text = formatter.formatBigDecimal(it)
+                binding.incomeAmount.text = formatter.formatBigDecimal(it, "RUB")
             })
 
             expense.collectWhenStarted(viewLifecycleOwner, {
-                binding.expenseAmount.text = formatter.formatBigDecimal(it)
+                binding.expenseAmount.text = formatter.formatBigDecimal(it, "RUB")
             })
 
             loadingState.collectWhenStarted(viewLifecycleOwner, {
@@ -112,12 +112,16 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            walletsViewModel.fetchWallets()
+            loadNewData()
         }
 
-        walletsViewModel.fetchWallets()
-//        walletsViewModel.getCurrencies()
+        loadNewData()
 
+    }
+
+    private fun loadNewData() {
+        walletsViewModel.fetchWallets()
+        walletsViewModel.getCurrencies()
     }
 
     private fun setCurrency(binding: CurrencyContainerBinding, model: CurrencyModel) {
@@ -127,13 +131,18 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
             val icon = when (model.dynamic) {
                 "UP" -> R.drawable.ic_green_arrow
                 "DOWN" -> R.drawable.ic_red_arrow
-                else -> R.drawable.ic_red_arrow
+                else -> R.drawable.ic_currency_not_changed
             }
             amount.setCompoundDrawablesWithIntrinsicBounds(
                 0, 0,
                 icon, 0
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadNewData()
     }
 
     private fun showState(loadingState: LoadingState) {
@@ -143,6 +152,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     noWalletsYet.visibility = View.GONE
                     swipeRefreshLayout.isRefreshing = true
                     recyclerView.visibility = View.GONE
+                    currencyContainer.visibility = View.GONE
                     noInternetHeader.noInternet.visibility = View.GONE
                     somethingWrongHeader.somethingWrong.visibility = View.GONE
                 }
@@ -170,7 +180,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
             LoadingState.Ready -> {
                 with(binding) {
                     swipeRefreshLayout.isRefreshing = false
-                    noWalletsYet.isVisible = adapter.itemCount == 0
+                    noWalletsYet.isVisible = adapter.isEmpty
                     recyclerView.visibility = View.VISIBLE
                     noInternetHeader.noInternet.visibility = View.GONE
                 }
@@ -188,6 +198,4 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
     private fun showRecordsText(show: Boolean) {
         binding.noWalletsYet.visibility = if (show) View.VISIBLE else View.GONE
     }
-
-
 }

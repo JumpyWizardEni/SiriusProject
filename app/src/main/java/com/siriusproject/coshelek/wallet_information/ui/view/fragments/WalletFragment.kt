@@ -1,7 +1,6 @@
 package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -91,14 +90,31 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
             showRecordsText(recyclerAdapter.isEmpty)
 
         })
-        walletViewModel.balance.collectWhenStarted(viewLifecycleOwner, {
-            binding.currentVolume.text = currencyFormatter.formatBigDecimal(it)
+        walletViewModel.balance.combine(
+            walletViewModel.currency
+        ) { balance, currency ->
+            Pair(balance, currency)
+        }.collectWhenStarted(viewLifecycleOwner, { (balance, currency) ->
+            binding.currentVolume.text =
+                currencyFormatter.formatBigDecimal(balance, currency ?: "RUB")
         })
-        walletViewModel.income.collectWhenStarted(viewLifecycleOwner, {
-            binding.income.text = currencyFormatter.formatBigDecimal(it)
+        walletViewModel.income.combine(
+            walletViewModel.currency
+        ) { income, currency ->
+            Pair(income, currency)
+        }.collectWhenStarted(viewLifecycleOwner, { (income, currency) ->
+            binding.income.text = currencyFormatter.formatBigDecimal(income, currency ?: "RUB")
         })
-        walletViewModel.expence.collectWhenStarted(viewLifecycleOwner, {
-            binding.expence.text = currencyFormatter.formatBigDecimal(it)
+        walletViewModel.expence.combine(
+            walletViewModel.currency
+        ) { expence, currency ->
+            Pair(expence, currency)
+        }.collectWhenStarted(viewLifecycleOwner, { (expence, currency) ->
+            binding.expence.text = currencyFormatter.formatBigDecimal(expence, currency ?: "RUB")
+        })
+
+        walletViewModel.limitReached.collectWhenStarted(viewLifecycleOwner, {
+            binding.exceededLimitText.isVisible = it
         })
         walletViewModel.fetchTransactions()
         walletViewModel.getWalletInfo(walletId)
@@ -107,6 +123,7 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
                 LoadingState.Loading -> {
                     with(binding) {
                         noRecordsYet.visibility = View.GONE
+                        exceededLimitText.visibility = View.GONE
                         swipeRefreshLayout.isRefreshing = true
                         recyclerView.visibility = View.GONE
                         noInternetHeader.noInternet.visibility = View.GONE
@@ -114,6 +131,7 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
                 }
                 LoadingState.NoConnection -> {
                     with(binding) {
+                        exceededLimitText.visibility = View.GONE
                         swipeRefreshLayout.isRefreshing = false
                         noRecordsYet.visibility = View.VISIBLE
                         recyclerView.visibility = View.GONE
@@ -123,6 +141,7 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
                 LoadingState.UnexpectedError -> {
                     with(binding) {
                         swipeRefreshLayout.isRefreshing = false
+                        exceededLimitText.visibility = View.GONE
                         noRecordsYet.visibility = View.VISIBLE
                         recyclerView.visibility = View.GONE
                         noInternetHeader.noInternet.visibility = View.VISIBLE
@@ -140,11 +159,6 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
             }
         })
 
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(javaClass.name, "OnStop")
     }
 
     private fun showRecordsText(isRecyclerEmpty: Boolean) {

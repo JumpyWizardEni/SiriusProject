@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_list.ui.view.viewholder
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.siriusproject.coshelek.databinding.WalletViewHolderBinding
 import com.siriusproject.coshelek.utils.CurrencyFormatter
@@ -13,7 +14,8 @@ class WalletViewHolder(val binding: WalletViewHolderBinding) :
     fun bind(model: WalletUiModel) {
         with(binding) {
             walletName.text = model.name
-            walletBalance.text = currencyFormatter.formatBigDecimal(model.balance)
+            walletBalance.text = currencyFormatter.formatBigDecimal(model.balance, "RUB")
+            exceededLimitText.visibility = if (model.isLimitReached) View.VISIBLE else View.GONE
         }
     }
 

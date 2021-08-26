@@ -74,6 +74,4 @@ class WalletsRepositoryImpl @Inject constructor(
     override suspend fun getCurrencies(): List<CurrencyModel> {
         return walletRemote.getCurrencies()
     }
-
-
 }

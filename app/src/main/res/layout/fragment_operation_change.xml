@@ -133,7 +133,7 @@
         app:layout_constraintTop_toBottomOf="@id/table_container" />
 
     <LinearLayout
-        android:id="@+id/date_container"
+        android:id="@+id/currency_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"
@@ -142,6 +142,34 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/extra_options">
+
+        <TextView
+            style="@style/MiddleSizedRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/currency" />
+
+        <TextView
+            android:id="@+id/currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="end"
+            tools:text="Рубль" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/date_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/large_padding"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/currency_container">
 
         <TextView
             style="@style/MiddleSizedRegularTextStyle"

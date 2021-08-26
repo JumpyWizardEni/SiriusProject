@@ -11,10 +11,7 @@ import com.siriusproject.coshelek.databinding.OperationViewHolderBinding
 import com.siriusproject.coshelek.databinding.ProgressViewHolderBinding
 import com.siriusproject.coshelek.utils.CurrencyFormatter
 import com.siriusproject.coshelek.utils.DateTimeConverter
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionHeaderModel
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionListItem
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionProgressBarModel
-import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
+import com.siriusproject.coshelek.wallet_information.data.model.*
 import java.time.LocalDate
 
 class TransactionsAdapter(
@@ -93,11 +90,7 @@ class TransactionsAdapter(
         isEmpty = newList?.size == 0
         asyncListDiffer.submitList(mutableListOf<TransactionListItem>().apply {
             var previousDate: LocalDate? = null
-            val sortedList: MutableList<TransactionUiModel>? = newList?.sortedBy {
-                it.date
-            }?.toMutableList()
-            sortedList?.reverse()
-            sortedList?.forEach { model ->
+            newList?.forEach { model ->
                 if (previousDate != model.date.toLocalDate()) { //Нужен новый разделитель
                     add(TransactionHeaderModel(model.date.toLocalDate()))
                     add(model)
@@ -125,8 +118,12 @@ class TransactionsAdapter(
                 categoryIc.categoryIcon.backgroundTintList =
                     ColorStateList.valueOf(model.category.color)
                 categoryText.text = model.category.name
-                opName.text = model.type.toString()
-                amount.text = formatter.formatBigDecimalWithSign(model.amount, model.type)
+                opName.text = when (model.type) {
+                    TransactionType.Income -> binding.root.context.getString(R.string.refill)
+                    TransactionType.Expense -> binding.root.context.getString(R.string.waste)
+                }
+                amount.text =
+                    formatter.formatBigDecimalWithSign(model.amount, model.type, model.currency)
                 opTime.text = converter.getCurrentTime(model.date.toLocalTime())
             }
         }

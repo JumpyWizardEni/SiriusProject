@@ -25,5 +25,7 @@ data class WalletRemoteModel(
     @SerialName("visibility")
     val visibility: Boolean?,
     @SerialName("limit")
-    val limit: BigDecimal
+    val limit: BigDecimal,
+    @SerialName("isLimitReached")
+    val isLimitReached: Boolean?
 )
