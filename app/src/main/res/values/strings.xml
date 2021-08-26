@@ -61,4 +61,7 @@
     <string name="enter_limit">Установите лимит</string>
     <string name="limit_ready">Ввести лимит</string>
     <string name="edit_op">Изменить транзакцию</string>
+    <string name="something_wrong">Что-то пошло не так</string>
+    <string name="spending_limit_exceeded">Вы превысили лимит на траты</string>
+    <string name="exceeded_limit">Превышен лимит</string>
 </resources>

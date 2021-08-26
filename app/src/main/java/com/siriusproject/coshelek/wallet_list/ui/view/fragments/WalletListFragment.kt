@@ -136,6 +136,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     swipeRefreshLayout.isRefreshing = true
                     recyclerView.visibility = View.GONE
                     noInternetHeader.noInternet.visibility = View.GONE
+                    somethingWrongHeader.somethingWrong.visibility = View.GONE
                 }
             }
             LoadingState.NoConnection -> {
@@ -144,6 +145,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     noWalletsYet.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
                     noInternetHeader.noInternet.visibility = View.VISIBLE
+                    somethingWrongHeader.somethingWrong.visibility = View.GONE
                 }
             }
             LoadingState.UnexpectedError -> {
@@ -152,6 +154,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     noWalletsYet.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
                     noInternetHeader.noInternet.visibility = View.VISIBLE
+                    somethingWrongHeader.somethingWrong.visibility = View.VISIBLE
                 }
 
             }
@@ -161,6 +164,7 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
                     noWalletsYet.isVisible = adapter.itemCount == 0
                     recyclerView.visibility = View.VISIBLE
                     noInternetHeader.noInternet.visibility = View.GONE
+                    somethingWrongHeader.somethingWrong.visibility = View.GONE
                 }
             }
         }

@@ -209,4 +209,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <include
+        android:id="@+id/something_wrong_header"
+        layout="@layout/something_wrong_layout"
+        android:layout_width="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
