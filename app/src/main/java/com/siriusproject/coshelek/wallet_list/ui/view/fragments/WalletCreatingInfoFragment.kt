@@ -48,10 +48,6 @@ class WalletCreatingInfoFragment : Fragment(R.layout.fragment_wallet_creating_in
                 binding.walletNameText.text = it
             })
 
-            currency.collectWhenStarted(viewLifecycleOwner, {
-                binding.currencyValue.text = it
-            })
-
             limit.collectWhenStarted(viewLifecycleOwner, {
                 binding.limit.text = it.toPlainString()
             })
@@ -62,6 +58,9 @@ class WalletCreatingInfoFragment : Fragment(R.layout.fragment_wallet_creating_in
                     Toast.makeText(context, getString(R.string.try_again), Toast.LENGTH_LONG).show()
                 }
             })
+        }
+        binding.toolbarLayout.toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
         }
     }
 }

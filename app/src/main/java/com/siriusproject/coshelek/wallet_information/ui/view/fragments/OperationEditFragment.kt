@@ -61,6 +61,10 @@ class OperationEditFragment : Fragment(R.layout.fragment_operation_change) {
             transactionViewModel.onSumPressed(EDIT_FRAGMENT)
         }
 
+        binding.currencyContainer.setOnClickListener {
+            transactionViewModel.onCurrencyPressed(EDIT_FRAGMENT)
+        }
+
         binding.categoryContainer.setOnClickListener {
             transactionViewModel.onCategoryPressed(EDIT_FRAGMENT)
         }
@@ -92,8 +96,13 @@ class OperationEditFragment : Fragment(R.layout.fragment_operation_change) {
                 null -> ""
             }
         }
+
         transactionViewModel.category.filterNotNull().collectWhenStarted(this) {
             binding.category.text = it.name
+        }
+
+        transactionViewModel.currencyText.collectWhenStarted(this) {
+            binding.currency.text = it
         }
 
         transactionViewModel.date.collectWhenStarted(viewLifecycleOwner, {

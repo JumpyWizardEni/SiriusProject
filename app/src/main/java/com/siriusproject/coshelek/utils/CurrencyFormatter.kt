@@ -7,13 +7,26 @@ import java.util.*
 import javax.inject.Inject
 
 class CurrencyFormatter @Inject constructor() {
-    private val formatter = NumberFormat.getCurrencyInstance(Locale("ru", "RU"))
 
-    fun formatBigDecimal(number: BigDecimal): String {
+    private fun getLocale(currency: String): Locale {
+        return when (currency) {
+            "RUB" -> Locale("ru", "RU")
+            "USD" -> Locale("en", "US")
+            else -> Locale("es", "ES")
+        }
+    }
+
+    fun formatBigDecimal(number: BigDecimal, currency: String): String {
+        val formatter = NumberFormat.getCurrencyInstance(getLocale(currency))
         return formatter.format(number)
     }
 
-    fun formatBigDecimalWithSign(number: BigDecimal, type: TransactionType): String {
+    fun formatBigDecimalWithSign(
+        number: BigDecimal,
+        type: TransactionType,
+        currency: String
+    ): String {
+        val formatter = NumberFormat.getCurrencyInstance(getLocale(currency))
         return when (type) {
             TransactionType.Expense ->
                 "-" + formatter.format(number)

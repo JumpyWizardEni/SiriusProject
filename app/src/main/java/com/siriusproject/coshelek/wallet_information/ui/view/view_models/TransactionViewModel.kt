@@ -41,15 +41,18 @@ class TransactionViewModel @Inject constructor(
     private val loadingStateData = MutableStateFlow(LoadingState.Initial)
     val loadingState = loadingStateData as StateFlow<LoadingState>
     private val dateData = MutableStateFlow(LocalDateTime.now())
+    private val currencyData = MutableStateFlow(context.getString(R.string.russian_ruble))
     private val mutableCategories =
         MutableStateFlow<LoadResult<List<CategoryUiModel>>>(LoadResult.Loading)
     private val errorChannel = Channel<String>()
     private var transactionId = 0
+    private var currency = "RUB"
     val errorFlow = errorChannel.receiveAsFlow()
     val date: StateFlow<LocalDateTime> = dateData
     val amount = mutableAmount as StateFlow<String?>
     val type = mutableType as StateFlow<TransactionType?>
     val category = mutableCategory as StateFlow<CategoryUiModel?>
+    val currencyText = currencyData as StateFlow<String>
     var walletId = 0
     val categories: Flow<LoadResult<List<CategoryUiModel>>> =
         mutableCategories
@@ -91,15 +94,22 @@ class TransactionViewModel @Inject constructor(
                         amount.value!!.toBigDecimal(),
                         type.value!!,
                         category.value!!.id,
-                        "RUB",
+                        currency,
                         date.value
                     )
                     navigationDispatcher.emit { navController ->
                         navController.navigate(R.id.action_operationChangeFragment_to_walletFragment)
                     }
+                    resetStandartData()
+
                 }
             }
         }
+    }
+
+    private fun resetStandartData() {
+        currencyData.value = context.getString(R.string.russian_ruble)
+        dateData.value = LocalDateTime.now()
     }
 
     fun onSumReadyPressed(prevFragment: Int, currFragment: Int) {
@@ -205,6 +215,35 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    fun onCurrencyPressed(fragmentId: Int) {
+        val data = Bundle()
+        data.putInt(PREVIOUS_FRAGMENT, fragmentId)
+        navigationDispatcher.emit { navController ->
+            when (fragmentId) {
+                R.layout.fragment_wallet_creating_info -> navController.navigate(
+                    R.id.action_operationChangeFragment_to_currencySelectionFragment,
+                    data
+                )
+                EDIT_FRAGMENT -> navController.navigate(
+                    R.id.action_operationEditFragment_to_currencySelectionFragment,
+                    data
+                )
+            }
+        }
+    }
+
+    fun onCurrencyReadyPressed(prevFragment: Int) {
+        if (prevFragment == R.layout.fragment_wallet_creating_info) {
+            navigationDispatcher.emit { navController ->
+                navController.navigate(R.id.action_currencySelectionFragment_to_operationChangeFragment)
+            }
+        } else {
+            navigationDispatcher.emit { navController ->
+                navController.navigate(R.id.action_currencySelectionFragment_to_operationEditFragment)
+            }
+        }
+    }
+
     fun onEditTransactionPressed() {
         viewModelScope.launch {
             checkOperation(loadingStateData) {
@@ -213,12 +252,14 @@ class TransactionViewModel @Inject constructor(
                     amount.value?.toBigDecimal(),
                     type.value,
                     category.value?.id,
-                    "RUB",
+                    currency,
                     dateData.value
                 )
                 navigationDispatcher.emit { navController ->
                     navController.navigate(R.id.action_operationEditFragment_to_walletFragment)
                 }
+                resetStandartData()
+
             }
         }
     }
@@ -227,6 +268,8 @@ class TransactionViewModel @Inject constructor(
         mutableAmount.value = model.amount.toPlainString()
         mutableCategory.value = model.category
         mutableType.value = model.type
+        currencyData.value = model.currency
+        dateData.value = model.date
         transactionId = model.id
     }
 
@@ -258,6 +301,12 @@ class TransactionViewModel @Inject constructor(
             errorChannel.trySend(context.getString(R.string.qr_error))
         }
 
+    }
+
+
+    fun setCurrency(value: String, text: String) {
+        currency = value
+        currencyData.value = text
     }
 
 

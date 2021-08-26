@@ -43,10 +43,15 @@ class WalletViewModel @Inject constructor(
     private val balanceData = MutableStateFlow(BigDecimal.ZERO)
     private val incomeData = MutableStateFlow(BigDecimal.ZERO)
     private val expenceData = MutableStateFlow(BigDecimal.ZERO)
+    private val limitReachedData = MutableStateFlow(false)
     private var pageNumber = 0
+    private val currencyData = MutableStateFlow<String?>(null)
+    private var isTransactionsFetching = false
+    val currency = currencyData as StateFlow<String?>
     val transactions: StateFlow<List<TransactionUiModel>> = transactionsData
     var firstCollect: Boolean = true
     val loadingState: StateFlow<LoadingState> = loadingStateData
+    val limitReached: StateFlow<Boolean> = limitReachedData
     val isAllLoaded: MutableStateFlow<Boolean> = MutableStateFlow(false)
     var walletId: Int = 0
     val balance: StateFlow<BigDecimal> = balanceData
@@ -56,8 +61,8 @@ class WalletViewModel @Inject constructor(
     fun fetchTransactions() {
 
         pageNumber = 0
-        firstCollect = true
         isAllLoaded.value = false
+        isTransactionsFetching = true
         viewModelScope.launch {
             loadingStateData.value = LoadingState.Loading
             repos.getTransactions(walletId, PAGE_SIZE, pageNumber).collect {
@@ -69,6 +74,7 @@ class WalletViewModel @Inject constructor(
                         totalNumberOfItems = it.data.second
                         transactionsData.value = it.data.first
                         isAllLoaded.value = (it.data.first.size.toLong() == totalNumberOfItems)
+
                     }
                     is LoadResult.Loading -> {
                         loadingStateData.value = LoadingState.Loading
@@ -82,13 +88,14 @@ class WalletViewModel @Inject constructor(
                         Log.e(javaClass.name, "NoConnection: $it")
                     }
                 }
+                isTransactionsFetching = false
             }
 
         }
     }
 
     fun loadNewPage() {
-        if (isAllLoaded.value) {
+        if (isAllLoaded.value || isTransactionsFetching) {
             return
         }
         viewModelScope.launch {
@@ -139,6 +146,7 @@ class WalletViewModel @Inject constructor(
         viewModelScope.launch {
             checkOperation(loadingStateData) {
                 repos.deleteTransaction(id)
+                getWalletInfo(walletId)
                 transactionsData.value = transactions.value.filter {
                     it.id != id
                 }
@@ -157,11 +165,14 @@ class WalletViewModel @Inject constructor(
 
     fun getWalletInfo(walletId: Int) {
         viewModelScope.launch {
+            limitReachedData.value = false
             checkOperation(loadingStateData) {
                 walletRepos.getWalletInfo(walletId).collect {
                     balanceData.value = it.balance
                     incomeData.value = it.income
                     expenceData.value = it.expense
+                    currencyData.value = it.currency
+                    limitReachedData.value = it.isLimitReached
                 }
 
             }

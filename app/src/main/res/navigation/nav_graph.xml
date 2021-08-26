@@ -51,6 +51,9 @@
             app:destination="@id/enterSumFragment"
             app:popUpTo="@id/enterSumFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_operationChangeFragment_to_currencySelectionFragment"
+            app:destination="@id/currencySelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/walletFragment"
@@ -120,5 +123,23 @@
         <action
             android:id="@+id/action_operationEditFragment_to_typeOperationFragment"
             app:destination="@id/typeOperationFragment" />
+        <action
+            android:id="@+id/action_operationEditFragment_to_currencySelectionFragment"
+            app:destination="@id/currencySelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currencySelectionFragment"
+        android:name="com.siriusproject.coshelek.wallet_information.ui.view.fragments.CurrencySelectionFragment"
+        android:label="CurrencySelectionFragment">
+        <action
+            android:id="@+id/action_currencySelectionFragment_to_operationEditFragment"
+            app:destination="@id/operationEditFragment"
+            app:popUpTo="@id/operationEditFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_currencySelectionFragment_to_operationChangeFragment"
+            app:destination="@id/operationChangeFragment"
+            app:popUpTo="@id/operationChangeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

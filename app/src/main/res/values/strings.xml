@@ -54,7 +54,7 @@
     <string name="decline">Отменить</string>
     <string name="delete_message">Уверены что хотите удалить кошелек?</string>
     <string name="no_internet">Нет соединения с интернетом</string>
-    <string name="try_again">Error, try again</string>
+    <string name="try_again">Ошибка, попробуйте снова</string>
     <string name="delete_transaction_message">Уверены, что хотите удалить транзакцию?</string>
     <string name="pick_type">Выберите тип операции</string>
     <string name="pick_category">Выберите категорию</string>
@@ -80,4 +80,8 @@
     <string name="usa_dollar">Доллар США (USD)</string>
     <string name="eur">Евро (EUR)</string>
     <string name="save">Сохранить</string>
+    <string name="wrong_wallet_name">Введите корректное название</string>
+    <string name="waste">Траты</string>
+    <string name="refill">Пополнение</string>
+    <string name="loading_error">Ошибка, проверьте подключение к интернету</string>
 </resources>

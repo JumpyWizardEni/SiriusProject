@@ -47,38 +47,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/currency_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="18dp"
-        android:orientation="horizontal"
-        android:paddingBottom="18dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/wallet_name_layout">
-
-        <TextView
-            android:id="@+id/currency"
-            style="@style/MiddleSizedRegularTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_weight="0.5"
-            android:text="@string/currency" />
-
-        <TextView
-            android:id="@+id/currency_value"
-            style="@style/GrayTextWithArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/normal_margin"
-            android:layout_weight="0.5"
-            android:gravity="end"
-            tools:text="Российский рубль" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
         android:id="@+id/limit_layout"
         android:paddingTop="18dp"
         android:paddingBottom="18dp"
@@ -86,7 +54,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/currency_layout">
+        app:layout_constraintTop_toBottomOf="@id/wallet_name_layout">
 
         <TextView
             style="@style/MiddleSizedRegularTextStyle"

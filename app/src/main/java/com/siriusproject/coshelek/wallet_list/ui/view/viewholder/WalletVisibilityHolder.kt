@@ -25,9 +25,6 @@ class WalletVisibilityHolder(private val binding: HiddenWalletsHeaderBinding) :
                 R.drawable.ic_up_arrow_blue
             }
             binding.arrow.setImageResource(image)
-
         }
     }
-
-
 }

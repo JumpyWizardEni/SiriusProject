@@ -8,14 +8,15 @@ import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
-import com.siriusproject.coshelek.utils.LoadingState
 import com.siriusproject.coshelek.utils.DateTimeConverter
 import com.siriusproject.coshelek.utils.DateTimeDialog
+import com.siriusproject.coshelek.utils.LoadingState
 import com.siriusproject.coshelek.utils.collectWhenStarted
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
+import java.time.LocalDateTime
 
 
 @AndroidEntryPoint
@@ -29,6 +30,9 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
         super.onViewCreated(view, savedInstanceState)
 
         setSummary()
+
+        transactionViewModel.pushDateTime(LocalDateTime.now())
+        transactionViewModel.setCurrency("RUB", requireContext().getString(R.string.russian_ruble))
 
         binding.toolbarHolder.toolbar.title = getString(R.string.create_op)
         binding.createOpButton.setOnClickListener {
@@ -51,6 +55,10 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
 
         binding.categoryContainer.setOnClickListener {
             transactionViewModel.onCategoryPressed(R.layout.fragment_wallet_creating_info)
+        }
+
+        binding.currencyContainer.setOnClickListener {
+            transactionViewModel.onCurrencyPressed(R.layout.fragment_wallet_creating_info)
         }
 
         binding.typeContainer.setOnClickListener {
@@ -82,6 +90,10 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
         transactionViewModel.category.filterNotNull().collectWhenStarted(this) {
             binding.category.text = it.name
         }
+        transactionViewModel.currencyText.collectWhenStarted(this) {
+            binding.currency.text = it
+        }
+
         transactionViewModel.date.collectWhenStarted(viewLifecycleOwner, {
             val formatter = DateTimeConverter(requireContext())
             binding.opDate.text = getString(

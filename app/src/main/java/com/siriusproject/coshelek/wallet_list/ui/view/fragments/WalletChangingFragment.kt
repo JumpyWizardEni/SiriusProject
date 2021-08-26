@@ -41,14 +41,13 @@ class WalletChangingFragment : Fragment(R.layout.fragment_wallet_changing) {
         binding.limitLayout.setOnClickListener {
             walletCreatingViewModel.onLimitPressed(R.layout.fragment_wallet_changing)
         }
+        binding.toolbarLayout.toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
 
         with(walletCreatingViewModel) {
             walletName.collectWhenStarted(viewLifecycleOwner, {
                 binding.walletNameText.text = it
-            })
-
-            currency.collectWhenStarted(viewLifecycleOwner, {
-                binding.currencyValue.text = it
             })
 
             limit.collectWhenStarted(viewLifecycleOwner, {
@@ -62,8 +61,5 @@ class WalletChangingFragment : Fragment(R.layout.fragment_wallet_changing) {
                 }
             })
         }
-
     }
-
-
 }

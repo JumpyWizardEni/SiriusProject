@@ -21,7 +21,8 @@ class MockServerRemote @Inject constructor() : WalletService {
             BigDecimal(100),
             "руб",
             true,
-            BigDecimal(100)
+            BigDecimal(100),
+            true
         )
     )
 
@@ -42,7 +43,8 @@ class MockServerRemote @Inject constructor() : WalletService {
             wallet.expense!!,
             "RUB",
             true,
-            wallet.limit
+            wallet.limit,
+            true
         )
     }
 
@@ -57,7 +59,8 @@ class MockServerRemote @Inject constructor() : WalletService {
                 BigDecimal(0),
                 body.currency,
                 true,
-                body.limit
+                body.limit,
+                true
             )
         )
 
@@ -76,7 +79,8 @@ class MockServerRemote @Inject constructor() : WalletService {
             wallet.expense,
             body.currency ?: wallet.currency,
             body.visibility ?: wallet.visibility,
-            body.limit ?: wallet.limit
+            body.limit ?: wallet.limit,
+            true
         )
         wallets.removeAt(walletId)
         wallets.add(walletId, newModel)

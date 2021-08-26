@@ -26,17 +26,18 @@ class WalletCreatingViewModel @Inject constructor(
 
     private var currWalletId = 0
     val walletName = MutableStateFlow("")
-    val currency = MutableStateFlow("Российский рубль")
     val limit = MutableStateFlow(BigDecimal.ZERO)
     val loadingState = MutableStateFlow(LoadingState.Initial)
     fun onNameReadyPressed(name: String, previosId: Int) {
         Log.d(javaClass.name, "OnNameReadyPressed($name)")
         walletName.value = name
         when (previosId) {
-            R.layout.fragment_wallet_list, R.layout.fragment_wallet_creating_info -> navigationDispatcher.emit { navController ->
-                Log.d(javaClass.name, "Navigating to WalletCreatingInfoFragment")
-                navController.navigate(R.id.action_walletNameFragment_to_walletCreatingInfoFragment)
-            }
+            R.layout.fragment_wallet_list, R.layout.fragment_wallet_creating_info ->
+                navigationDispatcher.emit { navController ->
+                    Log.d(javaClass.name, "Navigating to WalletCreatingInfoFragment")
+                    navController
+                        .navigate(R.id.action_walletNameFragment_to_walletCreatingInfoFragment)
+                }
             else ->
                 navigationDispatcher.emit { navController ->
                     navController.navigate(R.id.action_walletNameFragment_to_walletChangingFragment)
@@ -71,10 +72,11 @@ class WalletCreatingViewModel @Inject constructor(
                 loadingState.value = LoadingState.Loading
                 walletRepos.createWallet(
                     walletName.value,
-                    currency.value,
+                    "RUB",
                     BigDecimal(0),
                     limit.value
                 )
+                limit.value = BigDecimal.ZERO
                 navigationDispatcher.emit { navController ->
                     navController.navigate(R.id.action_walletCreatingInfoFragment_to_walletListFragment)
                 }
@@ -88,7 +90,6 @@ class WalletCreatingViewModel @Inject constructor(
         viewModelScope.launch {
             walletRepos.getWalletInfo(id).collect { model ->
                 walletName.value = model.name
-                currency.value = model.currency
                 limit.value = model.limit
             }
 
@@ -99,6 +100,7 @@ class WalletCreatingViewModel @Inject constructor(
         viewModelScope.launch {
             checkOperation(loadingState) {
                 walletRepos.changeWallet(currWalletId, walletName.value, null, limit.value, null)
+                limit.value = BigDecimal.ZERO
                 navigationDispatcher.emit { navController ->
                     navController.navigate(R.id.action_walletChangingFragment_to_walletListFragment)
                 }

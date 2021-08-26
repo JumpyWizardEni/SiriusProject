@@ -3,6 +3,7 @@ package com.siriusproject.coshelek.wallet_information.ui.view.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,7 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
         setHasOptionsMenu(true)
         binding.catToolbar.toolbar.inflateMenu(R.menu.select_category_menu)
         binding.catToolbar.toolbar.menu.findItem(R.id.add_category).setOnMenuItemClickListener {
+            it.isEnabled = false
             startActivity(Intent(activity, AddCategoryActivity::class.java))
             true
         }
@@ -41,6 +43,7 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
         initCategories()
 
         binding.catNextBtn.setOnClickListener {
+            binding.catNextBtn.isEnabled = false
             viewModel.onCategoryReadyPressed(requireArguments().getInt(PREVIOUS_FRAGMENT))
         }
 
@@ -86,7 +89,9 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
     }
 
     private fun showError() {
-        //TODO("Not yet implemented")
+        binding.catNextBtn.isEnabled = true
+        Toast.makeText(requireContext(), getString(R.string.loading_error), Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun showDataReady() {

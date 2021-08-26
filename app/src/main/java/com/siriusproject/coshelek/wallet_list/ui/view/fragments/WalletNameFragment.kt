@@ -7,6 +7,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentWalletNameBinding
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletCreatingViewModel
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
@@ -22,6 +23,15 @@ class WalletNameFragment : Fragment(com.siriusproject.coshelek.R.layout.fragment
         super.onViewCreated(view, savedInstanceState)
         binding.toolbarHolder.toolbar.title =
             getString(com.siriusproject.coshelek.R.string.set_wallet_name)
+        binding.sumEditText.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrEmpty() || text.contains("\n") || text.isBlank()) {
+                binding.enterButton.isEnabled = false
+                binding.textField.error = resources.getString(R.string.wrong_wallet_name)
+            } else {
+                binding.enterButton.isEnabled = true
+                binding.textField.error = null
+            }
+        }
         binding.enterButton.setOnClickListener {
             Log.d(javaClass.name, "EnterButton pressed")
             walletCreatingViewModel.onNameReadyPressed(
@@ -29,11 +39,8 @@ class WalletNameFragment : Fragment(com.siriusproject.coshelek.R.layout.fragment
                 requireArguments().getInt(PREVIOUS_FRAGMENT)
             )
         }
-        binding.toolbarHolder.toolbar.inflateMenu(com.siriusproject.coshelek.R.menu.main_screen_menu)
-        binding.sumEditText.doOnTextChanged { text, start, before, count ->
-            val button = binding.enterButton
-            button.isEnabled = !text.isNullOrEmpty()
+        binding.toolbarHolder.toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
         }
     }
-
 }
