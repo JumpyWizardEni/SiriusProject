@@ -10,6 +10,7 @@ import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentTypeOperationBinding
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
+import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,7 +43,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation) {
 
         binding.enterButton.setOnClickListener {
             setCategoryType()
-            viewModel.onTypeReadyPressed()
+            viewModel.onTypeReadyPressed(requireArguments().getInt(PREVIOUS_FRAGMENT))
         }
     }
 
@@ -55,7 +56,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation) {
         viewModel.pushType(
             when (binding.imageCheckIncome.isVisible) {
                 true -> TransactionType.Income
-                false -> TransactionType.Expence
+                false -> TransactionType.Expense
             }
         )
     }

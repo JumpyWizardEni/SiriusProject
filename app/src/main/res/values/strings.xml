@@ -58,4 +58,7 @@
     <string name="delete_transaction_message">Уверены, что хотите удалить транзакцию?</string>
     <string name="pick_type">Выберите тип операции</string>
     <string name="pick_category">Выберите категорию</string>
+    <string name="enter_limit">Установите лимит</string>
+    <string name="limit_ready">Ввести лимит</string>
+    <string name="edit_op">Изменить транзакцию</string>
 </resources>

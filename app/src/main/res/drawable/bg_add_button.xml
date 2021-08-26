@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true" android:state_enabled="false">
+        <ripple android:color="@color/white_60">
+            <item>
+                <shape>
+                    <corners android:radius="8dp" />
+                    <solid android:color="@color/gray_primary" />
+                </shape>
+            </item>
+        </ripple>
+    </item>
     <item android:state_enabled="false">
         <ripple android:color="@color/white_60">
             <item>
@@ -11,7 +21,7 @@
             </item>
         </ripple>
     </item>
-    <item>
+    <item android:state_enabled="true">
         <ripple android:color="@color/white_60">
             <item>
                 <shape>

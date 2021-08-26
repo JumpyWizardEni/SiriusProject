@@ -139,35 +139,26 @@
             android:paddingBottom="12dp">
 
             <include
-                android:id="@+id/include"
+                android:id="@+id/usd"
                 layout="@layout/currency_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/normal_margin"
-                android:layout_weight="1"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/eur"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <include
-                android:id="@+id/include2"
-                layout="@layout/currency_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:layout_constraintEnd_toStartOf="@+id/include3"
-                app:layout_constraintStart_toEndOf="@+id/include"
-                app:layout_constraintTop_toTopOf="@+id/include" />
 
             <include
-                android:id="@+id/include3"
+                android:id="@+id/eur"
                 layout="@layout/currency_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/normal_margin"
-                android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/include" />
+                app:layout_constraintStart_toEndOf="@id/usd"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -180,6 +171,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/currency_container">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
@@ -191,7 +183,7 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/add_wallet"
         style="@style/GrayNextButton"
         android:layout_width="match_parent"
@@ -209,10 +201,10 @@
         android:id="@+id/no_internet_header"
         layout="@layout/no_internet_layout"
         android:layout_width="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

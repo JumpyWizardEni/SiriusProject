@@ -13,24 +13,24 @@ interface TransactionsRepository {
         id: Int,
         numberOfItems: Int,
         pageNumber: Int
-    ): Flow<LoadResult<List<TransactionUiModel>>>
+    ): Flow<LoadResult<Pair<List<TransactionUiModel>, Long>>>
 
     suspend fun createTransaction(
         walletId: Int,
         amount: BigDecimal,
         type: TransactionType,
-        category: String,
+        category: Long,
         currency: String,
         date: LocalDateTime
     )
 
     suspend fun editingTransaction(
         id: Int,
-        amount: BigDecimal,
-        type: TransactionType,
-        category: String,
-        currency: String,
-        date: LocalDateTime
+        amount: BigDecimal?,
+        type: TransactionType?,
+        category: Long?,
+        currency: String?,
+        date: LocalDateTime?
     )
 
     suspend fun deleteTransaction(id: Int)

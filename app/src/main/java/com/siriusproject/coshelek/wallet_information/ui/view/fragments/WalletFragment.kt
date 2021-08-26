@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,16 +12,23 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentWalletBinding
+import com.siriusproject.coshelek.utils.CurrencyFormatter
 import com.siriusproject.coshelek.utils.collectWhenStarted
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.ui.adapters.TransactionsAdapter
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel
+import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_ID
 import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_NAME
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class WalletFragment : Fragment(R.layout.fragment_wallet) {
 
+    @Inject
+    lateinit var currencyFormatter: CurrencyFormatter
     private val binding by viewBinding(FragmentWalletBinding::bind)
 
     private lateinit var recyclerAdapter: TransactionsAdapter
@@ -42,16 +50,22 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
                 .show()
         }
 
-        val onEditClickLambda: (Int) -> Unit = {
+        val onEditClickLambda: (TransactionUiModel) -> Unit = {
             walletViewModel.onEditWalletPressed(it)
         }
-        recyclerAdapter = TransactionsAdapter(deleteClickLambda, onEditClickLambda)
+        val loadPageLambda: () -> Unit = {
+            walletViewModel.loadNewPage()
+        }
+        recyclerAdapter = TransactionsAdapter(deleteClickLambda, onEditClickLambda, loadPageLambda)
 
         val walletId = requireActivity().intent!!.getIntExtra(WALLET_ID, 0)
         walletViewModel.walletId = walletId
         binding.walletLabel.text = requireActivity().intent?.getStringExtra(WALLET_NAME)
         binding.addOperation.setOnClickListener {
             walletViewModel.onAddOperationClicked(walletId)
+        }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            walletViewModel.fetchTransactions()
         }
         binding.toolbarHolder.toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
@@ -62,11 +76,68 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
                 context, LinearLayoutManager.VERTICAL, false
             )
         }
-        walletViewModel.transactions.collectWhenStarted(viewLifecycleOwner, {
-            recyclerAdapter.setTransactions(it)
-            showRecordsText(recyclerAdapter.itemCount == 0)
+        walletViewModel.transactions.combine(
+            walletViewModel.isAllLoaded
+        ) { transactions, isAllLoaded ->
+            Pair(transactions, isAllLoaded)
+        }.collectWhenStarted(viewLifecycleOwner, { (transactions, isAllLoaded) ->
+            if (!walletViewModel.firstCollect) {
+                recyclerAdapter.setTransactions(transactions, isAllLoaded)
+            } else {
+                walletViewModel.firstCollect = false
+            }
+            showRecordsText(recyclerAdapter.isEmpty)
+
         })
+        walletViewModel.balance.collectWhenStarted(viewLifecycleOwner, {
+            binding.currentVolume.text = currencyFormatter.formatBigDecimal(it)
+        })
+        walletViewModel.income.collectWhenStarted(viewLifecycleOwner, {
+            binding.income.text = currencyFormatter.formatBigDecimal(it)
+        })
+        walletViewModel.expence.collectWhenStarted(viewLifecycleOwner, {
+            binding.expence.text = currencyFormatter.formatBigDecimal(it)
+        })
+        walletViewModel.getWalletInfo(walletId)
         walletViewModel.fetchTransactions()
+        walletViewModel.loadingState.collectWhenStarted(viewLifecycleOwner, {
+            when (it) {
+                LoadingState.Loading -> {
+                    with(binding) {
+                        noRecordsYet.visibility = View.GONE
+                        swipeRefreshLayout.isRefreshing = true
+                        recyclerView.visibility = View.GONE
+                        noInternetHeader.noInternet.visibility = View.GONE
+                    }
+                }
+                LoadingState.NoConnection -> {
+                    with(binding) {
+                        swipeRefreshLayout.isRefreshing = false
+                        noRecordsYet.visibility = View.VISIBLE
+                        recyclerView.visibility = View.GONE
+                        noInternetHeader.noInternet.visibility = View.VISIBLE
+                    }
+                }
+                LoadingState.UnexpectedError -> {
+                    with(binding) {
+                        swipeRefreshLayout.isRefreshing = false
+                        noRecordsYet.visibility = View.VISIBLE
+                        recyclerView.visibility = View.GONE
+                        noInternetHeader.noInternet.visibility = View.VISIBLE
+                    }
+
+                }
+                LoadingState.Ready -> {
+                    with(binding) {
+                        swipeRefreshLayout.isRefreshing = false
+                        noRecordsYet.isVisible = recyclerAdapter.isEmpty
+                        recyclerView.visibility = View.VISIBLE
+                        noInternetHeader.noInternet.visibility = View.GONE
+                    }
+                }
+            }
+        })
+
     }
 
     private fun showRecordsText(isRecyclerEmpty: Boolean) {

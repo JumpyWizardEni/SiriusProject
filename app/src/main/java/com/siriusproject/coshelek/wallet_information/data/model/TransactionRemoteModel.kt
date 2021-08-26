@@ -2,6 +2,7 @@
 
 package com.siriusproject.coshelek.wallet_information.data.model
 
+import com.siriusproject.coshelek.categories_info.data.model.Category
 import com.siriusproject.coshelek.utils.BigDecimalSerializer
 import com.siriusproject.coshelek.utils.LocalDateTimeISO8601Serializer
 import kotlinx.serialization.SerialName
@@ -16,13 +17,10 @@ data class TransactionRemoteModel(
     @SerialName("id")
     val id: Int,
 
-    @SerialName("name")
-    val name: String,
-
     @SerialName("category")
-    val category: String,
+    val category: Category,
 
-    @SerialName("ammount")
+    @SerialName("amount")
     val amount: BigDecimal,
 
     @SerialName("currency")
@@ -32,9 +30,5 @@ data class TransactionRemoteModel(
     val type: String,
 
     @SerialName("date")
-    val date: LocalDateTime,
-
-    @SerialName("limit")
-    val limit: BigDecimal
-
+    val date: LocalDateTime
 ) 

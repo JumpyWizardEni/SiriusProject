@@ -5,9 +5,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Category(
-    val id: Int,
+    @SerialName("id")
+    val id: Long,
+    @SerialName("name")
     val name: String,
+    @SerialName("type")
     val type: String,
+    @SerialName("picture")
     val picture: String,
     @SerialName("colour")
     val color: Int

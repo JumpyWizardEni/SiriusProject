@@ -6,7 +6,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class TransactionInfo(
 
-    val transactionsRemoteModel: List<TransactionRemoteModel>,
+    @SerialName("transactionList")
+    val transactionList: List<TransactionRemoteModel>,
 
     @SerialName("totalNumOfItems")
     val totalNumOfItems: Long

@@ -10,13 +10,18 @@
         android:name="com.siriusproject.coshelek.wallet_information.ui.view.fragments.EnterSumFragment"
         android:label="EnterSumFragment">
         <action
-            android:id="@+id/action_enterSumFragment_to_walletFragment"
-            app:destination="@id/walletFragment"
+            android:id="@+id/action_enterSumFragment_to_operationChangeFragment"
+            app:destination="@id/operationChangeFragment"
             app:popUpTo="@id/walletFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_enterSumFragment_to_typeOperationFragment"
             app:destination="@id/typeOperationFragment" />
+        <action
+            android:id="@+id/action_enterSumFragment_to_operationEditFragment"
+            app:destination="@id/operationEditFragment"
+            app:popUpTo="@id/operationEditFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/operationChangeFragment"
@@ -33,6 +38,16 @@
             app:destination="@id/categorySelectFragment"
             app:popUpTo="@id/categorySelectFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_operationChangeFragment_to_typeEditFragment"
+            app:destination="@id/typeOperationFragment"
+            app:popUpTo="@id/typeOperationFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_operationChangeFragment_to_sumEditFragment"
+            app:destination="@id/enterSumFragment"
+            app:popUpTo="@id/enterSumFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/walletFragment"
@@ -41,6 +56,9 @@
         <action
             android:id="@+id/action_walletFragment_to_enterSumFragment"
             app:destination="@id/enterSumFragment" />
+        <action
+            android:id="@+id/action_walletFragment_to_operationEditFragment"
+            app:destination="@id/operationEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/typeOperationFragment"
@@ -48,13 +66,18 @@
         android:label="fragment_type_operation"
         tools:layout="@layout/fragment_type_operation">
         <action
-            android:id="@+id/action_typeOperationFragment_to_enterSumFragment"
-            app:destination="@id/enterSumFragment"
-            app:popUpTo="@id/enterSumFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_typeOperationFragment_to_categorySelectFragment"
             app:destination="@id/categorySelectFragment" />
+        <action
+            android:id="@+id/action_typeOperationFragment_to_operationEditFragment"
+            app:destination="@id/operationEditFragment"
+            app:popUpTo="@id/operationEditFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_typeOperationFragment_to_operationChangeFragment"
+            app:destination="@id/operationChangeFragment"
+            app:popUpTo="@id/operationChangeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/categorySelectFragment"
@@ -68,5 +91,31 @@
         <action
             android:id="@+id/action_categorySelectFragment_to_operationChangeFragment"
             app:destination="@id/operationChangeFragment" />
+        <action
+            android:id="@+id/action_categorySelectFragment_to_operationEditFragment"
+            app:destination="@id/operationEditFragment"
+            app:popUpTo="@id/operationEditFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/operationEditFragment"
+        android:name="com.siriusproject.coshelek.wallet_information.ui.view.fragments.OperationEditFragment"
+        android:label="OperationEditFragment">
+        <action
+            android:id="@+id/action_operationEditFragment_to_walletFragment"
+            app:destination="@id/walletFragment"
+            app:popUpTo="@id/walletFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_operationEditFragment_to_enterSumFragment"
+            app:destination="@id/enterSumFragment"
+            app:popUpTo="@id/enterSumFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_operationEditFragment_to_categorySelectFragment"
+            app:destination="@id/categorySelectFragment" />
+        <action
+            android:id="@+id/action_operationEditFragment_to_typeOperationFragment"
+            app:destination="@id/typeOperationFragment" />
     </fragment>
 </navigation>

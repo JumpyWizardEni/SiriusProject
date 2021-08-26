@@ -30,8 +30,8 @@ class CategoriesMapper : (List<Category>) -> List<CategoryUiModel> {
     private fun intTypeToTransactionType(type: String): TransactionType =
         when (type) {
             "INCOME" -> TransactionType.Income
-            "EXPENSE" -> TransactionType.Expence
-            else -> TransactionType.Expence
+            "EXPENSE" -> TransactionType.Expense
+            else -> TransactionType.Expense
         }
 
 }

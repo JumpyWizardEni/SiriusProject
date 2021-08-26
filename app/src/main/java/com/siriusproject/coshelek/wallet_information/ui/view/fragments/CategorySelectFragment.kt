@@ -13,6 +13,7 @@ import com.siriusproject.coshelek.utils.LoadResult
 import com.siriusproject.coshelek.utils.collectWhenStarted
 import com.siriusproject.coshelek.wallet_information.ui.adapters.CategoriesListAdapter
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
+import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +30,7 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
         initCategories()
 
         binding.catNextBtn.setOnClickListener {
-            viewModel.onCategoryReadyPressed()
+            viewModel.onCategoryReadyPressed(requireArguments().getInt(PREVIOUS_FRAGMENT))
         }
 
         binding.catNextBtn.isEnabled = false
@@ -37,6 +38,7 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
         binding.catToolbar.toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
+
     }
 
     private fun initCategories() {

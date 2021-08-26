@@ -8,6 +8,7 @@
     android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/currency"
         style="@style/GraySmallText_60"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,6 +17,7 @@
 
 
     <TextView
+        android:id="@+id/amount"
         style="@style/GraySmallText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

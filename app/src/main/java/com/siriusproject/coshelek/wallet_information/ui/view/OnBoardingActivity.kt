@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
+import com.siriusproject.coshelek.wallet_list.ui.view.WalletListActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -69,7 +70,7 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     private fun startWalletActivity() {
-        val intent = Intent(this, MainScreenActivity::class.java)
+        val intent = Intent(this, WalletListActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         startActivity(intent)
         finish()
