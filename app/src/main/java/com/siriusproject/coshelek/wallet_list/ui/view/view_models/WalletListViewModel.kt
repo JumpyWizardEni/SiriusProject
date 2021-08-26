@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.utils.LoadResult
+import com.siriusproject.coshelek.wallet_list.data.model.CurrencyModel
 import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
 import com.siriusproject.coshelek.wallet_list.ui.model.WalletUiModel
 import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
@@ -35,10 +36,7 @@ class WalletListViewModel @Inject constructor(
     val income = MutableStateFlow(BigDecimal(0))
     val expense = MutableStateFlow(BigDecimal(0))
     val loadingState = MutableStateFlow(LoadingState.Loading)
-
-    init {
-        fetchWallets()
-    }
+    val currencies = MutableStateFlow<List<CurrencyModel>>(listOf())
 
     fun fetchWallets() {
         viewModelScope.launch {
@@ -47,7 +45,7 @@ class WalletListViewModel @Inject constructor(
                 when (it) {
                     is LoadResult.Success -> {
                         loadingState.value = LoadingState.Ready
-                        wallets.value = it.data!!
+                        wallets.value = it.data
                         mainBalance.value = wallets.value.sumOf { it.balance }
                         income.value = wallets.value.sumOf { it.income }
                         expense.value = wallets.value.sumOf { it.expense }
@@ -108,6 +106,25 @@ class WalletListViewModel @Inject constructor(
             val data = Bundle()
             data.putInt(WALLET_ID, id)
             navController.navigate(R.id.action_walletListFragment_to_walletChangingFragment, data)
+        }
+    }
+
+    fun setVisibility(id: Int, visibility: Boolean) {
+
+    }
+
+    fun getCurrencies() {
+        viewModelScope.launch {
+            try {
+                currencies.value = repos.getCurrencies()
+            } catch (e: Exception) {
+                if (e is ConnectException) {
+                    loadingState.value = LoadingState.NoConnection
+                } else {
+                    loadingState.value = LoadingState.UnexpectedError
+
+                }
+            }
         }
     }
 

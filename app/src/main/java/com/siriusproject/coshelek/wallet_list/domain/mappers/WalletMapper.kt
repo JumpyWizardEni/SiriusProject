@@ -1,7 +1,6 @@
 package com.siriusproject.coshelek.wallet_list.domain.mappers
 
 import com.siriusproject.coshelek.wallet_list.data.model.WalletDb
-import com.siriusproject.coshelek.wallet_list.data.model.WalletInfoRemoteModel
 import com.siriusproject.coshelek.wallet_list.data.model.WalletRemoteModel
 import com.siriusproject.coshelek.wallet_list.ui.model.WalletUiModel
 import java.math.BigDecimal
@@ -21,7 +20,7 @@ class WalletMapper {
     }
 
     fun map(
-        model: WalletInfoRemoteModel,
+        model: WalletRemoteModel,
         id: Int,
         currency: String,
         visibility: Boolean

@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
+import java.net.ConnectException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -66,7 +67,7 @@ class WalletCreatingViewModel @Inject constructor(
     fun onCreateWalletPressed() {
         Log.d(javaClass.name, "OnCreateWalletPressed")
         viewModelScope.launch {
-            try {
+            checkOperation {
                 loadingState.value = LoadingState.Loading
                 walletRepos.createWallet(
                     walletName.value,
@@ -77,10 +78,7 @@ class WalletCreatingViewModel @Inject constructor(
                 navigationDispatcher.emit { navController ->
                     navController.navigate(R.id.action_walletCreatingInfoFragment_to_walletListFragment)
                 }
-            } catch (e: Exception) {
-                loadingState.value = LoadingState.UnexpectedError
             }
-
         }
 
     }
@@ -88,26 +86,69 @@ class WalletCreatingViewModel @Inject constructor(
     fun getWalletInfo(id: Int) {
         currWalletId = id
         viewModelScope.launch {
-            walletRepos.getWalletInfo(id, currency.value, true).collect { model ->
+            walletRepos.getWalletInfo(id).collect { model ->
                 walletName.value = model.name
                 currency.value = model.currency
                 limit.value = model.limit
             }
+
         }
     }
 
     fun onEditWalletPressed() {
         viewModelScope.launch {
-            try {
-                loadingState.value = LoadingState.Loading
-                walletRepos.changeWallet(currWalletId, walletName.value, null, null, null)
+            checkOperation {
+                walletRepos.changeWallet(currWalletId, walletName.value, null, limit.value, null)
                 navigationDispatcher.emit { navController ->
                     navController.navigate(R.id.action_walletChangingFragment_to_walletListFragment)
                 }
-            } catch (e: Exception) {
-                loadingState.value = LoadingState.UnexpectedError
             }
         }
     }
 
+    fun onLimitReadyPressed(newLimit: BigDecimal, previousId: Int) {
+        limit.value = newLimit
+        when (previousId) {
+            R.layout.fragment_wallet_list, R.layout.fragment_wallet_creating_info -> navigationDispatcher.emit { navController ->
+                Log.d(javaClass.name, "Navigating to WalletCreatingInfoFragment")
+                navController.navigate(R.id.action_walletLimitFragment_to_walletCreatingInfoFragment)
+            }
+            else ->
+                navigationDispatcher.emit { navController ->
+                    navController.navigate(R.id.action_walletLimitFragment_to_walletChangingFragment)
+                }
+        }
+    }
+
+    fun onLimitPressed(fragmentLayout: Int) {
+        val data = Bundle()
+        data.putInt(PREVIOUS_FRAGMENT, fragmentLayout)
+        navigationDispatcher.emit { navController ->
+            when (fragmentLayout) {
+                R.layout.fragment_wallet_creating_info -> navController.navigate(
+                    R.id.action_walletCreatingInfoFragment_to_walletLimitFragment,
+                    data
+                )
+                R.layout.fragment_wallet_changing -> navController.navigate(
+                    R.id.action_walletChangingFragment_to_walletLimitFragment,
+                    data
+                )
+            }
+
+        }
+    }
+
+    suspend fun checkOperation(op: suspend () -> Unit) {
+        try {
+            loadingState.value = LoadingState.Loading
+            op()
+            loadingState.value = LoadingState.Ready
+        } catch (e: Exception) {
+            if (e is ConnectException) {
+                loadingState.value = LoadingState.NoConnection
+            } else {
+                loadingState.value = LoadingState.UnexpectedError
+            }
+        }
+    }
 }

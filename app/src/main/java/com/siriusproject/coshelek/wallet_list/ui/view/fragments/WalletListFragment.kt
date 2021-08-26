@@ -7,22 +7,20 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.siriusproject.coshelek.R
+import com.siriusproject.coshelek.databinding.CurrencyContainerBinding
 import com.siriusproject.coshelek.databinding.FragmentWalletListBinding
 import com.siriusproject.coshelek.utils.CurrencyFormatter
+import com.siriusproject.coshelek.utils.collectWhenStarted
 import com.siriusproject.coshelek.wallet_information.ui.view.MainScreenActivity
+import com.siriusproject.coshelek.wallet_list.data.model.CurrencyModel
 import com.siriusproject.coshelek.wallet_list.ui.adapters.WalletListAdapter
 import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -68,46 +66,37 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
             context, LinearLayoutManager.VERTICAL, false
         )
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletsViewModel.wallets.collect { it ->
-                    adapter.setItems(it)
-                    showRecordsText(adapter.itemCount == 0)
+        with(walletsViewModel) {
+            wallets.collectWhenStarted(viewLifecycleOwner, { it ->
+                adapter.setItems(it)
+                showRecordsText(adapter.itemCount == 0)
+            })
+
+            mainBalance.collectWhenStarted(viewLifecycleOwner, {
+                binding.balance.text = formatter.formatBigDecimal(it)
+            })
+
+            income.collectWhenStarted(viewLifecycleOwner, {
+                binding.incomeAmount.text = formatter.formatBigDecimal(it)
+            })
+
+            expense.collectWhenStarted(viewLifecycleOwner, {
+                binding.expenseAmount.text = formatter.formatBigDecimal(it)
+            })
+
+            loadingState.collectWhenStarted(viewLifecycleOwner, {
+                showState(it)
+            })
+            currencies.collectWhenStarted(viewLifecycleOwner, {
+                with(binding) {
+                    if (!it.isEmpty()) {
+                        setCurrency(usd, it[0])
+                        setCurrency(eur, it[1])
+                    }
                 }
-            }
+            })
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletsViewModel.mainBalance.collect {
-                    binding.balance.text = formatter.formatBigDecimal(it)
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletsViewModel.income.collect {
-                    binding.incomeAmount.text = formatter.formatBigDecimal(it)
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletsViewModel.expense.collect {
-                    binding.expenseAmount.text = formatter.formatBigDecimal(it)
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletsViewModel.loadingState.collect {
-                    showState(it)
-                }
-            }
-        }
 
         binding.addWallet.setOnClickListener {
             Log.d(javaClass.name, "Button pressed")
@@ -119,7 +108,24 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
         }
 
         walletsViewModel.fetchWallets()
+//        walletsViewModel.getCurrencies()
 
+    }
+
+    private fun setCurrency(binding: CurrencyContainerBinding, model: CurrencyModel) {
+        with(binding) {
+            amount.text = model.rate.toPlainString()
+            currency.text = model.name
+            val icon = when (model.dynamic) {
+                "UP" -> R.drawable.ic_green_arrow
+                "DOWN" -> R.drawable.ic_red_arrow
+                else -> R.drawable.ic_red_arrow
+            }
+            amount.setCompoundDrawablesWithIntrinsicBounds(
+                0, 0,
+                icon, 0
+            )
+        }
     }
 
     private fun showState(loadingState: LoadingState) {

@@ -1,4 +1,4 @@
-package com.siriusproject.coshelek.wallet_information.ui.view.fragments
+package com.siriusproject.coshelek.wallet_list.ui.view.fragments
 
 import android.os.Bundle
 import android.view.View
@@ -7,29 +7,28 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
-import com.siriusproject.coshelek.databinding.FragmentEnterSumBinding
-import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
-import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_ID
+import com.siriusproject.coshelek.databinding.FragmentWalletLimitBinding
+import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletCreatingViewModel
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
+class WalletLimitFragment : Fragment(R.layout.fragment_wallet_limit) {
 
-    private val binding by viewBinding(FragmentEnterSumBinding::bind)
+    private val binding by viewBinding(FragmentWalletLimitBinding::bind)
 
-    private val viewModel: TransactionViewModel by activityViewModels()
+    private val viewModel: WalletCreatingViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.enterButton.isEnabled = false
-        binding.toolbarHolder.toolbar.title = getString(R.string.enter_sum)
+        binding.toolbarHolder.toolbar.title = getString(R.string.enter_limit)
         binding.toolbarHolder.toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
 
-        binding.sumEditText.doOnTextChanged { text, _, _, _ ->
+        binding.limitEditText.doOnTextChanged { text, _, _, _ ->
             if (text.isNullOrEmpty()) {
                 binding.enterButton.isEnabled = false
                 binding.textField.error = resources.getString(R.string.wrong_amount)
@@ -40,17 +39,11 @@ class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
         }
 
         binding.enterButton.setOnClickListener {
-            setAmount()
-            viewModel.onSumReadyPressed(
-                requireArguments().getInt(PREVIOUS_FRAGMENT),
-                R.layout.fragment_enter_sum
+            viewModel.onLimitReadyPressed(
+                binding.limitEditText.text.toString().toBigDecimal(),
+                requireArguments().getInt(PREVIOUS_FRAGMENT)
             )
         }
-        viewModel.walletId = requireArguments().getInt(WALLET_ID)
 
-    }
-
-    private fun setAmount() {
-        viewModel.pushAmount(binding.sumEditText.text.toString())
     }
 }

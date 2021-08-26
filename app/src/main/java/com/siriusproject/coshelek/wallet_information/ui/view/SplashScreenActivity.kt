@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
+import com.siriusproject.coshelek.wallet_list.ui.view.WalletListActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,7 +37,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun startMainScreen() {
-        val intent = Intent(this, MainScreenActivity::class.java)
+        val intent = Intent(this, WalletListActivity::class.java)
         startActivity(intent)
     }
 }

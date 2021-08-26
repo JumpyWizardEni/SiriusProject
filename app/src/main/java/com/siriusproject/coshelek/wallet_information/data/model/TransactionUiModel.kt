@@ -1,5 +1,6 @@
 package com.siriusproject.coshelek.wallet_information.data.model
 
+import com.siriusproject.coshelek.categories_info.data.model.CategoryUiModel
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -11,9 +12,9 @@ enum class TransactionType {
             return "INCOME"
         }
     },
-    Expence {
+    Expense {
         override fun toString(): String {
-            return "EXPENCE"
+            return "EXPENSE"
         }
     }
 }
@@ -24,8 +25,7 @@ sealed class TransactionListItem : Serializable
 
 data class TransactionUiModel(
     val id: Int,
-    val name: String,
-    val category: String,
+    val category: CategoryUiModel,
     val type: TransactionType,
     val amount: BigDecimal,
     val currency: String,
@@ -35,3 +35,5 @@ data class TransactionUiModel(
 data class TransactionHeaderModel(
     val date: LocalDate
 ) : TransactionListItem()
+
+object TransactionProgressBarModel : TransactionListItem()

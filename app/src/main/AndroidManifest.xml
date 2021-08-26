@@ -16,13 +16,14 @@
         <activity
             android:name="com.siriusproject.coshelek.wallet_information.ui.view.MainScreenActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.siriusproject.coshelek.wallet_information.ui.view.SplashScreenActivity" />
-        <activity android:name=".wallet_information.ui.view.OnBoardingActivity" />
         <activity
             android:name=".wallet_list.ui.view.WalletListActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".wallet_information.ui.view.OnBoardingActivity" />
+        <activity
+            android:name=".wallet_information.ui.view.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.SiriusProject"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/Theme.SiriusProject">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

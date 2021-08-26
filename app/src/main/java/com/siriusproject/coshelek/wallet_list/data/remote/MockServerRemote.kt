@@ -1,8 +1,8 @@
 package com.siriusproject.coshelek.wallet_list.data.remote
 
+import com.siriusproject.coshelek.wallet_list.data.model.CurrencyModel
 import com.siriusproject.coshelek.wallet_list.data.model.WalletChangeBody
 import com.siriusproject.coshelek.wallet_list.data.model.WalletCreateBody
-import com.siriusproject.coshelek.wallet_list.data.model.WalletInfoRemoteModel
 import com.siriusproject.coshelek.wallet_list.data.model.WalletRemoteModel
 import kotlinx.coroutines.delay
 import java.math.BigDecimal
@@ -30,15 +30,18 @@ class MockServerRemote @Inject constructor() : WalletService {
         return wallets
     }
 
-    override suspend fun getWalletInfo(id: Int): WalletInfoRemoteModel {
+    override suspend fun getWalletInfo(id: Int): WalletRemoteModel {
         val wallet = wallets.find {
             it.id == id
         }!!
-        return WalletInfoRemoteModel(
+        return WalletRemoteModel(
+            0,
             wallet.name,
             wallet.balance!!,
             wallet.income!!,
             wallet.expense!!,
+            "RUB",
+            true,
             wallet.limit
         )
     }
@@ -83,5 +86,13 @@ class MockServerRemote @Inject constructor() : WalletService {
         wallets = wallets.filter {
             it.id != id
         }.toMutableList()
+    }
+
+    override suspend fun getCurrencies(): List<CurrencyModel> {
+        return listOf(
+            CurrencyModel("EUR", BigDecimal(80), "UP"),
+            CurrencyModel("USD", BigDecimal(70), "UP")
+        )
+
     }
 }

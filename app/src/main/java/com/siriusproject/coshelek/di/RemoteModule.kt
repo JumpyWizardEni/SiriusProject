@@ -4,6 +4,7 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.siriusproject.coshelek.BuildConfig
 import com.siriusproject.coshelek.categories_info.data.remote.CategoriesApi
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
+import com.siriusproject.coshelek.wallet_information.data.network.TransactionService
 import com.siriusproject.coshelek.wallet_list.data.remote.WalletService
 import dagger.Module
 import dagger.Provides
@@ -43,8 +44,8 @@ object RemoteModule {
     fun provideOkHttpClient(authRepos: GoogleAuthRepository): OkHttpClient {
         val builder = OkHttpClient.Builder().addInterceptor { chain ->
             val newRequest: Request = chain.request().newBuilder()
-                .addHeader("Authorization", authRepos.token)
-                .addHeader("email", authRepos.email)
+                .addHeader("Authorization", "Bearer aaa12332")
+                .addHeader("email", "email12")
                 .build()
             chain.proceed(newRequest)
         }
@@ -70,9 +71,9 @@ object RemoteModule {
     fun provideCategoriesRemoteSource(retrofit: Retrofit): CategoriesApi =
         retrofit.create(CategoriesApi::class.java)
 
-//    @Provides
-//    @Singleton
-//    fun provideTransactionService(retrofit: Retrofit): TransactionService =
-//        retrofit.create(TransactionService::class.java)
+    @Provides
+    @Singleton
+    fun provideTransactionService(retrofit: Retrofit): TransactionService =
+        retrofit.create(TransactionService::class.java)
 
 }

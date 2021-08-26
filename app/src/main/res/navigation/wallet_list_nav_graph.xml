@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_walletCreatingInfoFragment_to_walletChangingFragment"
             app:destination="@id/walletChangingFragment" />
+        <action
+            android:id="@+id/action_walletCreatingInfoFragment_to_walletLimitFragment"
+            app:destination="@id/walletLimitFragment" />
     </fragment>
     <fragment
         android:id="@+id/walletChangingFragment"
@@ -70,5 +73,26 @@
         <action
             android:id="@+id/action_walletChangingFragment_to_walletNameFragment"
             app:destination="@id/walletNameFragment" />
+        <action
+            android:id="@+id/action_walletChangingFragment_to_walletLimitFragment"
+            app:destination="@id/walletLimitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletLimitFragment"
+        android:name="com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletLimitFragment"
+        android:label="fragment_wallet_limit"
+        tools:layout="@layout/fragment_wallet_limit">
+        <action
+            android:id="@+id/action_walletLimitFragment_to_walletCreatingInfoFragment"
+            app:destination="@id/walletCreatingInfoFragment"
+            app:enterAnim="@anim/from_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/walletCreatingInfoFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_walletLimitFragment_to_walletChangingFragment"
+            app:destination="@id/walletChangingFragment"
+            app:popUpTo="@id/walletChangingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

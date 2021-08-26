@@ -17,10 +17,10 @@ data class TransactionCreateBody(
     val amount: BigDecimal,
 
     @SerialName("type")
-    val type: TransactionType,
+    val type: String,
 
-    @SerialName("category")
-    val category: String,
+    @SerialName("categoryId")
+    val category: Long,
 
     @SerialName("currency")
     val currency: String,

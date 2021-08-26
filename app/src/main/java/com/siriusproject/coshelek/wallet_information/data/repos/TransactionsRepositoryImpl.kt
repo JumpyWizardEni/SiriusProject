@@ -1,7 +1,10 @@
 package com.siriusproject.coshelek.wallet_information.data.repos
 
 import com.siriusproject.coshelek.utils.LoadResult
-import com.siriusproject.coshelek.wallet_information.data.model.*
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionCreateBody
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionEditBody
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
+import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.data.network.TransactionService
 import com.siriusproject.coshelek.wallet_information.domain.mapper.TransactionMapper
 import kotlinx.coroutines.Dispatchers
@@ -22,21 +25,20 @@ class TransactionsRepositoryImpl @Inject constructor(
         id: Int,
         numberOfItems: Int,
         pageNumber: Int
-    ): Flow<LoadResult<List<TransactionUiModel>>> =
+    ): Flow<LoadResult<Pair<List<TransactionUiModel>, Long>>> =
         flow {
             try {
-                val list = transactionRemote.getTransactions(
+                val result = transactionRemote.getTransactions(
                     id,
-                    TransactionInfoBody(
-                        numberOfItems,
-                        pageNumber,
-                        LocalDateTime.now(),
-                        LocalDateTime.now()
-                    )
-                ).transactionsRemoteModel.map {
+                    numberOfItems,
+                    pageNumber,
+                    null,
+                    null
+                )
+                val list = result.transactionList.map {
                     mapper.map(it)
                 }
-                emit(LoadResult.Success(list))
+                emit(LoadResult.Success(Pair(list, result.totalNumOfItems)))
             } catch (e: Exception) {
                 if (e is ConnectException) {
                     emit(LoadResult.NoConnection(e))
@@ -52,27 +54,27 @@ class TransactionsRepositoryImpl @Inject constructor(
         walletId: Int,
         amount: BigDecimal,
         type: TransactionType,
-        category: String,
+        category: Long,
         currency: String,
         date: LocalDateTime
     ) {
         transactionRemote.createTransaction(
             walletId,
-            TransactionCreateBody(amount, type, category, currency, date)
+            TransactionCreateBody(amount, type.toString(), category, currency, date)
         )
     }
 
     override suspend fun editingTransaction(
         id: Int,
-        amount: BigDecimal,
-        type: TransactionType,
-        category: String,
-        currency: String,
-        date: LocalDateTime
+        amount: BigDecimal?,
+        type: TransactionType?,
+        category: Long?,
+        currency: String?,
+        date: LocalDateTime?
     ) {
         transactionRemote.editingTransaction(
             id,
-            TransactionEditBody(amount, type, category, currency, date)
+            TransactionEditBody(amount, type?.toString(), category, currency, date)
         )
     }
 

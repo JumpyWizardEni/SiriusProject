@@ -50,8 +50,8 @@
         android:id="@+id/currency_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="18dp"
         android:orientation="horizontal"
+        android:paddingTop="18dp"
         android:paddingBottom="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/wallet_name_layout">
@@ -80,11 +80,11 @@
 
     <LinearLayout
         android:id="@+id/limit_layout"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/currency_layout">
 
@@ -107,6 +107,7 @@
             android:gravity="end"
             tools:text="Не установлен" />
     </LinearLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/edit_wallet"

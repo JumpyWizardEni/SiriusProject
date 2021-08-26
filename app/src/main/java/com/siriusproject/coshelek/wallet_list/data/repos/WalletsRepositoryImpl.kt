@@ -1,6 +1,7 @@
 package com.siriusproject.coshelek.wallet_list.data.repos
 
 import com.siriusproject.coshelek.utils.LoadResult
+import com.siriusproject.coshelek.wallet_list.data.model.CurrencyModel
 import com.siriusproject.coshelek.wallet_list.data.model.WalletChangeBody
 import com.siriusproject.coshelek.wallet_list.data.model.WalletCreateBody
 import com.siriusproject.coshelek.wallet_list.data.remote.WalletService
@@ -41,11 +42,9 @@ class WalletsRepositoryImpl @Inject constructor(
 
     override suspend fun getWalletInfo(
         id: Int,
-        currency: String,
-        visibility: Boolean
     ): Flow<WalletUiModel> {
         return flow {
-            emit(mapper.map(walletRemote.getWalletInfo(id), id, currency, visibility))
+            emit(mapper.map(walletRemote.getWalletInfo(id)))
         }.flowOn(Dispatchers.IO)
     }
 
@@ -70,6 +69,10 @@ class WalletsRepositoryImpl @Inject constructor(
 
     override suspend fun deleteWallet(id: Int) {
         walletRemote.deleteWallet(id)
+    }
+
+    override suspend fun getCurrencies(): List<CurrencyModel> {
+        return walletRemote.getCurrencies()
     }
 
 
