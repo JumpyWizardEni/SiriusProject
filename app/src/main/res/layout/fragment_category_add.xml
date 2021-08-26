@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include
+        layout="@layout/app_toolbar"
+        android:id="@+id/toolbar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/main_screen_menu"
+        app:title="@string/new_category" />
+
+    <LinearLayout
+        android:id="@+id/category_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+        android:background="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/category_title"
+            style="@style/MiddleSizedRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.5"
+            android:text="@string/category_title" />
+
+        <TextView
+            android:id="@+id/category_title_text"
+            style="@style/GrayTextWithArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_weight="0.5"
+            android:gravity="end"
+            tools:text="@string/new_category" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/category_type_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="18dp"
+        android:orientation="horizontal"
+        android:paddingBottom="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category_title_layout"
+        android:background="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/category_type"
+            style="@style/MiddleSizedRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_weight="0.5"
+            android:text="@string/type" />
+
+        <TextView
+            android:id="@+id/category_type_text"
+            style="@style/GrayTextWithArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_weight="0.5"
+            android:gravity="end"
+            tools:text="Доход" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/icon_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category_type_layout">
+
+        <TextView
+            style="@style/MiddleSizedRegularTextStyle"
+            android:paddingTop="@dimen/normal_padding"
+            android:paddingBottom="@dimen/normal_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_weight="0.5"
+            android:text="@string/category_icon" />
+
+
+        <TextView
+            android:id="@+id/category_color"
+            android:textSize="16sp"
+            tools:textColor="@color/blue_card_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/normal_margin"
+            android:paddingTop="@dimen/normal_padding"
+            android:paddingBottom="@dimen/normal_padding"
+            android:layout_weight="0.5"
+            android:gravity="end"
+            android:text="@string/pick_color"
+            android:background="?android:attr/selectableItemBackground" />
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/GrayNextButton"
+        android:id="@+id/create_category_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:layout_marginBottom="@dimen/normal_margin"
+        android:text="@string/create_category"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categories_icon_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/normal_margin"
+        android:paddingEnd="@dimen/normal_margin"
+        app:layout_constraintBottom_toTopOf="@+id/create_category_button"
+        app:layout_constraintTop_toBottomOf="@+id/icon_layout"
+        tools:layout_editor_absoluteX="1dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

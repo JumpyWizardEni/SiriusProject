@@ -6,10 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.utils.LoadResult
+import com.siriusproject.coshelek.utils.LoadingState
+import com.siriusproject.coshelek.utils.checkOperation
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.data.repos.TransactionsRepository
 import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
-import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment
 import com.siriusproject.coshelek.wallet_list.ui.view.navigation.NavigationDispatcher
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
@@ -19,7 +20,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
-import java.net.ConnectException
 import javax.inject.Inject
 
 
@@ -39,7 +39,7 @@ class WalletViewModel @Inject constructor(
     private var totalNumberOfItems: Long = 0
     private var previousReceivedCount = PAGE_SIZE
     private val transactionsData = MutableStateFlow<List<TransactionUiModel>>(listOf())
-    private val loadingStateData = MutableStateFlow(LoadingState.Loading)
+    private val loadingStateData = MutableStateFlow(LoadingState.Initial)
     private val balanceData = MutableStateFlow(BigDecimal.ZERO)
     private val incomeData = MutableStateFlow(BigDecimal.ZERO)
     private val expenceData = MutableStateFlow(BigDecimal.ZERO)
@@ -137,7 +137,7 @@ class WalletViewModel @Inject constructor(
 
     fun deleteTransaction(id: Int) {
         viewModelScope.launch {
-            checkOperation {
+            checkOperation(loadingStateData) {
                 repos.deleteTransaction(id)
                 transactionsData.value = transactions.value.filter {
                     it.id != id
@@ -157,7 +157,7 @@ class WalletViewModel @Inject constructor(
 
     fun getWalletInfo(walletId: Int) {
         viewModelScope.launch {
-            checkOperation {
+            checkOperation(loadingStateData) {
                 walletRepos.getWalletInfo(walletId).collect {
                     balanceData.value = it.balance
                     incomeData.value = it.income
@@ -168,19 +168,6 @@ class WalletViewModel @Inject constructor(
         }
     }
 
-    suspend fun checkOperation(op: suspend () -> Unit) {
-        try {
-            loadingStateData.value = LoadingState.Loading
-            op()
-            loadingStateData.value = LoadingState.Ready
-        } catch (e: Exception) {
-            if (e is ConnectException) {
-                loadingStateData.value = LoadingState.NoConnection
-            } else {
-                loadingStateData.value = LoadingState.UnexpectedError
-            }
-        }
-    }
 }
 
 

@@ -10,7 +10,7 @@ class CategoriesApiMock @Inject constructor() : CategoriesApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun createCategory(body: CategoryCreatingBody): List<Category> {
+    override suspend fun createCategory(body: CategoryCreatingBody) {
         TODO("Not yet implemented")
     }
 

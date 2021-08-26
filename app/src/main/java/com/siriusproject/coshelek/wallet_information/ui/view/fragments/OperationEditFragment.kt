@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
+import com.siriusproject.coshelek.utils.LoadingState
 import com.siriusproject.coshelek.utils.DateTimeConverter
 import com.siriusproject.coshelek.utils.DateTimeDialog
 import com.siriusproject.coshelek.utils.collectWhenStarted
@@ -15,7 +16,6 @@ import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel.Companion.TRANSACTION
-import com.siriusproject.coshelek.wallet_list.ui.view.LoadingState
 import kotlinx.coroutines.flow.filterNotNull
 
 class OperationEditFragment : Fragment(R.layout.fragment_operation_change) {

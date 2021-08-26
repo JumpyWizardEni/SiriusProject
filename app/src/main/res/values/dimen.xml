@@ -6,4 +6,5 @@
     <dimen name="half_normal_margin">8dp</dimen>
     <dimen name="wallet_top_margin">8dp</dimen>
     <dimen name="large_padding">36dp</dimen>
+    <dimen name="normal_padding">18dp</dimen>
 </resources>
