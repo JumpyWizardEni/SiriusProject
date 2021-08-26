@@ -28,6 +28,8 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.categoriesOpened()
+
         setHasOptionsMenu(true)
         binding.catToolbar.toolbar.inflateMenu(R.menu.select_category_menu)
         binding.catToolbar.toolbar.menu.findItem(R.id.add_category).setOnMenuItemClickListener {
@@ -47,7 +49,9 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
         binding.catToolbar.toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
-
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.categoriesOpened()
+        }
     }
 
     private fun initCategories() {
@@ -55,12 +59,15 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
             when (state) {
                 is LoadResult.Success -> {
                     catListAdapter.setData(state.data)
+                    binding.swipeRefreshLayout.isRefreshing = false
                     showDataReady()
                 }
                 is LoadResult.Error -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
                     showError()
                 }
                 is LoadResult.NoConnection -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
                     showNoConnection()
                 }
                 is LoadResult.Loading -> {
@@ -71,7 +78,7 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
     }
 
     private fun showLoading() {
-        //TODO("Not yet implemented")
+        binding.swipeRefreshLayout.isRefreshing = true
     }
 
     private fun showNoConnection() {

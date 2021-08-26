@@ -38,13 +38,13 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <ImageView
+        <include
+            layout="@layout/ic_category"
             android:id="@+id/category_ic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_supermarket" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/category_text"
