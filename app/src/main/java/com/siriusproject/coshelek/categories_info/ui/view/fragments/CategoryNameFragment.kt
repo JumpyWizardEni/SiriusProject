@@ -2,7 +2,6 @@ package com.siriusproject.coshelek.categories_info.ui.view.fragments
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -19,9 +18,13 @@ class CategoryNameFragment : Fragment(R.layout.fragment_wallet_name) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbarHolder.toolbar.title = getString(R.string.set_category_name)
+        binding.toolbarHolder.toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
         binding.enterButton.setOnClickListener {
             viewModel.onNameReadyPressed(binding.sumEditText.text.toString())
         }
+        binding.textField.hint = getString(R.string.enter_category_name)
         binding.sumEditText.doOnTextChanged { text, start, before, count ->
             val button = binding.enterButton
             button.isEnabled = !text.isNullOrEmpty()

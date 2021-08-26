@@ -1,6 +1,5 @@
 package com.siriusproject.coshelek.categories_info.ui.view.view_models
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siriusproject.coshelek.R
@@ -71,12 +70,10 @@ class CategoryAddViewModel @Inject constructor(
     }
 
     fun pushCategoryIcon(icon: CategoryIcon) {
-        Log.d("NEW_CATEGORY", "selected icon: ${icon.drawable}")
         mutableIconState.value = icon
     }
 
     fun pushCategoryColor(color: Int) {
-        Log.d("NEW_CATEGORY", "selected color: $color")
         mutableColorState.value = color
     }
 
@@ -87,12 +84,10 @@ class CategoryAddViewModel @Inject constructor(
     }
 
     fun pushType(type: TransactionType) {
-        Log.d("NEW_CATEGORY", "selected type: $type")
         mutableTypeState.value = type
     }
 
     fun onNameReadyPressed(name: String) {
-        Log.d("NEW_CATEGORY", "selected name: $name")
         mutableNameState.value = name
         navigationDispatcher.emit {
             it.navigate(R.id.action_enterNameFragment_to_AddCategoryFragment)

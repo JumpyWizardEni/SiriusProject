@@ -67,7 +67,8 @@
     <string name="limit_ready">Ввести лимит</string>
     <string name="edit_op">Изменить транзакцию</string>
     <string name="create_category">Создать категорию</string>
-    <string name="set_category_name">Придумайте название категории</string>
+    <string name="set_category_name">Придумайте название</string>
+    <string name="enter_category_name">Введите название категории</string>
     <string name="hidden_wallets">Скрытые кошельки</string>
     <string name="hide_wallets">Скрыть</string>
     <string name="date_time">%1$s %2$s</string>

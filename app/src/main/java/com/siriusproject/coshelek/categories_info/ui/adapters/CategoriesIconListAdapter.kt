@@ -76,7 +76,8 @@ class CategoriesIconListAdapter(val onIconSelected: (CategoryIcon) -> Unit) :
     }
 
     fun setCurrentIcon(icon: CategoryIcon) {
-        onClicked(icon)
+        val newSelectedPos = icons.indexOf(icon)
+        selectedIcon = newSelectedPos
     }
 
 }
