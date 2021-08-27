@@ -56,7 +56,7 @@ class StatisticsActivity : AppCompatActivity(R.layout.activity_statistics) {
 
         cartesian.yScale().minimum(0.0)
 
-        cartesian.yAxis(0).labels().format("\${%Value}{groupsSeparator: }")
+        cartesian.yAxis(0).labels().format("P{%Value}{groupsSeparator: }")
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT)
         cartesian.interactivity().hoverMode(HoverMode.BY_X)
