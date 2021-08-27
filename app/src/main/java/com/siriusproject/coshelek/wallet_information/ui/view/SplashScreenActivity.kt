@@ -18,8 +18,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startMainScreen()
-        return
         val account = GoogleSignIn.getLastSignedInAccount(this)
         if (account != null) {
             Log.d(javaClass.toString(), "Token: ${account.idToken}, Email: ${account.email}")
