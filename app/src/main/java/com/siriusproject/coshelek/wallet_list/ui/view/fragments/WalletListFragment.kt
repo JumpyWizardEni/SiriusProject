@@ -13,6 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.CurrencyContainerBinding
 import com.siriusproject.coshelek.databinding.FragmentWalletListBinding
+import com.siriusproject.coshelek.statistics.ui.view.StatisticsActivity
 import com.siriusproject.coshelek.utils.CurrencyFormatter
 import com.siriusproject.coshelek.utils.LoadingState
 import com.siriusproject.coshelek.utils.collectWhenStarted
@@ -113,6 +114,10 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             loadNewData()
+        }
+
+        binding.buttonOpenStatistics.setOnClickListener {
+            startActivity(Intent(requireContext(), StatisticsActivity::class.java))
         }
 
         loadNewData()

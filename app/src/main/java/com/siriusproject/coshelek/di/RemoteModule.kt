@@ -3,6 +3,9 @@ package com.siriusproject.coshelek.di
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.siriusproject.coshelek.BuildConfig
 import com.siriusproject.coshelek.categories_info.data.remote.CategoriesApi
+import com.siriusproject.coshelek.statistics.data.remote.StatisticsRemote
+import com.siriusproject.coshelek.statistics.data.repos.StatisticsRepo
+import com.siriusproject.coshelek.statistics.domain.use_cases.GetStatistics
 import com.siriusproject.coshelek.utils.GoogleAuthRepository
 import com.siriusproject.coshelek.wallet_information.data.network.TransactionService
 import com.siriusproject.coshelek.wallet_list.data.remote.WalletService
@@ -72,6 +75,20 @@ object RemoteModule {
     @Singleton
     fun provideCategoriesRemoteSource(retrofit: Retrofit): CategoriesApi =
         retrofit.create(CategoriesApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideStatisticsRemoteSource(retrofit: Retrofit): StatisticsRemote =
+        retrofit.create(StatisticsRemote::class.java)
+
+    @Provides
+    @Singleton
+    fun provideStatisticsRepository(remote: StatisticsRemote): StatisticsRepo =
+        StatisticsRepo(remote)
+
+    @Provides
+    @Singleton
+    fun provideStatisticsUseCase(repo: StatisticsRepo): GetStatistics = GetStatistics(repo)
 
     @Provides
     @Singleton

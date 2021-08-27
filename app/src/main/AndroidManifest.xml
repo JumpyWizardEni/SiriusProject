@@ -22,6 +22,9 @@
             android:name=".categories_info.ui.view.AddCategoryActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".statistics.ui.view.StatisticsActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".wallet_list.ui.view.WalletListActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".wallet_information.ui.view.OnBoardingActivity" />

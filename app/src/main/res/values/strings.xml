@@ -84,4 +84,7 @@
     <string name="waste">Траты</string>
     <string name="refill">Пополнение</string>
     <string name="loading_error">Ошибка, проверьте подключение к интернету</string>
+    <string name="statistics">Статистика</string>
+    <string name="by_categories">По категориям:</string>
+    <string name="categories">Категории</string>
 </resources>
