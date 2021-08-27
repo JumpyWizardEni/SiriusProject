@@ -16,7 +16,6 @@ import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
-import java.time.LocalDateTime
 
 
 @AndroidEntryPoint
@@ -31,7 +30,6 @@ class OperationChangeFragment : Fragment(R.layout.fragment_operation_change) {
 
         setSummary()
 
-        transactionViewModel.pushDateTime(LocalDateTime.now())
         transactionViewModel.setCurrency("RUB", requireContext().getString(R.string.russian_ruble))
 
         binding.toolbarHolder.toolbar.title = getString(R.string.create_op)

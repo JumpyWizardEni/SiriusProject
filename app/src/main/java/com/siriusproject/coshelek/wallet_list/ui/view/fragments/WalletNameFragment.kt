@@ -18,13 +18,17 @@ class WalletNameFragment : Fragment(com.siriusproject.coshelek.R.layout.fragment
     private val binding by viewBinding(FragmentWalletNameBinding::bind)
     private val walletCreatingViewModel: WalletCreatingViewModel by activityViewModels()
 
+    companion object {
+        const val MAX_WALLET_NAME_LENGTH = 30
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
         binding.toolbarHolder.toolbar.title =
             getString(com.siriusproject.coshelek.R.string.set_wallet_name)
         binding.sumEditText.doOnTextChanged { text, _, _, _ ->
-            if (text.isNullOrEmpty() || text.contains("\n") || text.isBlank()) {
+            if (text.isNullOrEmpty() || text.contains("\n") || text.isBlank() || text.length > MAX_WALLET_NAME_LENGTH) {
                 binding.enterButton.isEnabled = false
                 binding.textField.error = resources.getString(R.string.wrong_wallet_name)
             } else {

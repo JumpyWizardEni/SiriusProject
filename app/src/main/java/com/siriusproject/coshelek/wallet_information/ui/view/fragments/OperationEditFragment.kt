@@ -8,14 +8,15 @@ import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.siriusproject.coshelek.R
 import com.siriusproject.coshelek.databinding.FragmentOperationChangeBinding
-import com.siriusproject.coshelek.utils.LoadingState
 import com.siriusproject.coshelek.utils.DateTimeConverter
 import com.siriusproject.coshelek.utils.DateTimeDialog
+import com.siriusproject.coshelek.utils.LoadingState
 import com.siriusproject.coshelek.utils.collectWhenStarted
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionType
 import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.TransactionViewModel
 import com.siriusproject.coshelek.wallet_information.ui.view.view_models.WalletViewModel.Companion.TRANSACTION
+import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_ID
 import kotlinx.coroutines.flow.filterNotNull
 
 class OperationEditFragment : Fragment(R.layout.fragment_operation_change) {
@@ -28,15 +29,23 @@ class OperationEditFragment : Fragment(R.layout.fragment_operation_change) {
 
     private val transactionViewModel: TransactionViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setSummary()
+    override fun onStart() {
+        super.onStart()
         arguments?.let {
             it.getSerializable(TRANSACTION)?.let {
                 transactionViewModel.setModel(it as TransactionUiModel)
             }
+            it.getInt(WALLET_ID)?.let {
+                transactionViewModel.setWallet(it)
+            }
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setSummary()
+
         binding.toolbarHolder.toolbar.title = getString(R.string.edit_op)
         binding.createOpButton.setOnClickListener {
             binding.createOpButton.isEnabled = false

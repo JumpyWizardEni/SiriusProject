@@ -37,7 +37,8 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val walletId = requireActivity().intent!!.getIntExtra(WALLET_ID, 0)
+        walletViewModel.walletId = walletId
         val deleteClickLambda: (Int) -> Unit = {
             MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialog)
                 .setMessage(resources.getString(R.string.delete_transaction_message))
@@ -51,15 +52,14 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
         }
 
         val onEditClickLambda: (TransactionUiModel) -> Unit = {
-            walletViewModel.onEditWalletPressed(it)
+            walletViewModel.onEditWalletPressed(it, walletId)
         }
         val loadPageLambda: () -> Unit = {
             walletViewModel.loadNewPage()
         }
         recyclerAdapter = TransactionsAdapter(deleteClickLambda, onEditClickLambda, loadPageLambda)
 
-        val walletId = requireActivity().intent!!.getIntExtra(WALLET_ID, 0)
-        walletViewModel.walletId = walletId
+
         binding.walletLabel.text = requireActivity().intent?.getStringExtra(WALLET_NAME)
         binding.addOperation.setOnClickListener {
             walletViewModel.onAddOperationClicked(walletId)

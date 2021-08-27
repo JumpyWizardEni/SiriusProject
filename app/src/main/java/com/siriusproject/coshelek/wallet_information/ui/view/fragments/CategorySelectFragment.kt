@@ -26,6 +26,12 @@ class CategorySelectFragment : Fragment(R.layout.fragment_category_selection) {
     private lateinit var catListAdapter: CategoriesListAdapter
     private val viewModel: TransactionViewModel by activityViewModels()
 
+    override fun onStart() {
+        super.onStart()
+        binding.catToolbar.toolbar.menu.findItem(R.id.add_category).isEnabled = true
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -47,6 +47,8 @@ class TransactionViewModel @Inject constructor(
     private val errorChannel = Channel<String>()
     private var transactionId = 0
     private var currency = "RUB"
+    private var isSumSet = false
+    private var isCategorySet = false
     val errorFlow = errorChannel.receiveAsFlow()
     val date: StateFlow<LocalDateTime> = dateData
     val amount = mutableAmount as StateFlow<String?>
@@ -110,10 +112,12 @@ class TransactionViewModel @Inject constructor(
     private fun resetStandartData() {
         currencyData.value = context.getString(R.string.russian_ruble)
         dateData.value = LocalDateTime.now()
+        isSumSet = false
     }
 
     fun onSumReadyPressed(prevFragment: Int, currFragment: Int) {
         val data = Bundle()
+        isSumSet = true
         data.putInt(PREVIOUS_FRAGMENT, currFragment)
         if (prevFragment == R.layout.fragment_wallet_creating_info) {
             navigationDispatcher.emit { navController ->
@@ -183,22 +187,28 @@ class TransactionViewModel @Inject constructor(
 
 
     fun onCategoryReadyPressed(prevFragment: Int) {
-        if (prevFragment == R.layout.fragment_wallet_creating_info) {
-            navigationDispatcher.emit { navController ->
-                navController.navigate(R.id.action_categorySelectFragment_to_operationChangeFragment)
+        isCategorySet = true
+        when (prevFragment) {
+            R.layout.fragment_wallet_creating_info -> {
+                navigationDispatcher.emit { navController ->
+                    navController.navigate(R.id.action_categorySelectFragment_to_operationChangeFragment)
+                }
             }
-        } else if (prevFragment == R.layout.fragment_enter_sum) {
-            navigationDispatcher.emit { navController ->
-                navController.navigate(R.id.action_categorySelectFragment_to_operationChangeFragment)
+            R.layout.fragment_enter_sum -> {
+                navigationDispatcher.emit { navController ->
+                    navController.navigate(R.id.action_categorySelectFragment_to_operationChangeFragment)
+                }
             }
-        } else {
-            navigationDispatcher.emit { navController ->
-                navController.navigate(R.id.action_categorySelectFragment_to_operationEditFragment)
+            else -> {
+                navigationDispatcher.emit { navController ->
+                    navController.navigate(R.id.action_categorySelectFragment_to_operationEditFragment)
+                }
             }
         }
     }
 
     fun onCategoryPressed(fragmentId: Int) {
+
         val data = Bundle()
         data.putInt(PREVIOUS_FRAGMENT, fragmentId)
         navigationDispatcher.emit { navController ->
@@ -249,7 +259,7 @@ class TransactionViewModel @Inject constructor(
             checkOperation(loadingStateData) {
                 repos.editingTransaction(
                     transactionId,
-                    amount.value?.toBigDecimal(),
+                    if (isSumSet) amount.value?.toBigDecimal() else null,
                     type.value,
                     category.value?.id,
                     currency,
@@ -268,9 +278,17 @@ class TransactionViewModel @Inject constructor(
         mutableAmount.value = model.amount.toPlainString()
         mutableCategory.value = model.category
         mutableType.value = model.type
-        currencyData.value = model.currency
+        currencyData.value = getCurrencyText(model.currency)
         dateData.value = model.date
         transactionId = model.id
+    }
+
+    private fun getCurrencyText(currency: String): String {
+        return when (currency) {
+            "EUR" -> context.getString(R.string.eur)
+            "USD" -> context.getString(R.string.usa_dollar)
+            else -> context.getString(R.string.russian_ruble)
+        }
     }
 
     fun pushDateTime(date: LocalDateTime) {
@@ -290,6 +308,7 @@ class TransactionViewModel @Inject constructor(
                 pushAmount(params["s"])
                 pushType(TransactionType.Expense)
                 val formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm")
+                Log.d(javaClass.name, LocalDateTime.parse(params["t"], formatter).toString())
                 pushDateTime(LocalDateTime.parse(params["t"], formatter))
                 val data = Bundle()
                 data.putInt(PREVIOUS_FRAGMENT, R.layout.fragment_enter_sum)
@@ -307,6 +326,10 @@ class TransactionViewModel @Inject constructor(
     fun setCurrency(value: String, text: String) {
         currency = value
         currencyData.value = text
+    }
+
+    fun setWallet(id: Int) {
+        walletId = id
     }
 
 
