@@ -12,6 +12,7 @@ import com.siriusproject.coshelek.wallet_information.data.model.TransactionUiMod
 import com.siriusproject.coshelek.wallet_information.data.repos.TransactionsRepository
 import com.siriusproject.coshelek.wallet_list.data.repos.WalletsRepository
 import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment
+import com.siriusproject.coshelek.wallet_list.ui.view.fragments.WalletListFragment.Companion.WALLET_ID
 import com.siriusproject.coshelek.wallet_list.ui.view.navigation.NavigationDispatcher
 import com.siriusproject.coshelek.wallet_list.ui.view.view_models.WalletListViewModel.Companion.PREVIOUS_FRAGMENT
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -154,11 +155,12 @@ class WalletViewModel @Inject constructor(
         }
     }
 
-    fun onEditWalletPressed(model: TransactionUiModel) {
+    fun onEditWalletPressed(model: TransactionUiModel, walletId: Int) {
         navigationDispatcher.emit { navController ->
             Log.d(javaClass.name, "Creating operation...")
             val data = Bundle()
             data.putSerializable(TRANSACTION, model)
+            data.putInt(WALLET_ID, walletId)
             navController.navigate(R.id.action_walletFragment_to_operationEditFragment, data)
         }
     }

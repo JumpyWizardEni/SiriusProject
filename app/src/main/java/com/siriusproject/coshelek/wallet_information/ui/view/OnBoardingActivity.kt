@@ -27,23 +27,30 @@ class OnBoardingActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
 
             task.addOnCompleteListener {
-                val account = task.result
-                if (account != null) {
-                    Log.d(javaClass.toString(), "Google Token: ${account.idToken}")
-                    account.email?.let { googleAuthRepository.email = it }
-                    account.idToken?.let { googleAuthRepository.token = it }
-                    startWalletActivity()
-                } else {
+                try {
+                    val account = task.result
+                    if (account != null) {
+                        Log.d(javaClass.toString(), "Google Token: ${account.idToken}")
+                        account.email?.let { googleAuthRepository.email = it }
+                        account.idToken?.let { googleAuthRepository.token = it }
+                        startWalletActivity()
+                    } else {
+                        Toast.makeText(
+                            this,
+                            resources.getString(R.string.auth_failed),
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
+                } catch (e: Exception) {
                     Toast.makeText(
                         this,
-                        resources.getString(R.string.auth_failed),
+                        resources.getString(R.string.loading_error),
                         Toast.LENGTH_LONG
                     )
                         .show()
                 }
             }
-
-
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {

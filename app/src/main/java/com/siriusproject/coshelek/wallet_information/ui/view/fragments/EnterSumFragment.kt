@@ -25,6 +25,21 @@ class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
 
     private val viewModel: TransactionViewModel by activityViewModels()
 
+
+    companion object {
+        const val MAX_TRANSACTION_LENGTH = 10
+    }
+
+    override fun onStart() {
+        super.onStart()
+        arguments?.getInt(WALLET_ID)?.let {
+            if (requireArguments().getInt(PREVIOUS_FRAGMENT) == R.layout.fragment_wallet) {
+                viewModel.walletId = it
+
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -35,7 +50,7 @@ class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
         }
 
         binding.sumEditText.doOnTextChanged { text, _, _, _ ->
-            if (text.isNullOrEmpty()) {
+            if (text.isNullOrEmpty() || !text.matches("^\\d{1,$MAX_TRANSACTION_LENGTH}(\\.\\d{1,2})?\$".toRegex())) {
                 binding.enterButton.isEnabled = false
                 binding.textField.error = resources.getString(R.string.wrong_amount)
             } else {
@@ -51,7 +66,7 @@ class EnterSumFragment : Fragment(R.layout.fragment_enter_sum) {
                 R.layout.fragment_enter_sum
             )
         }
-        viewModel.walletId = requireArguments().getInt(WALLET_ID)
+
         binding.toolbarHolder.toolbar.inflateMenu(R.menu.qr_code_menu)
         binding.toolbarHolder.toolbar.menu.findItem(R.id.qr_code).setOnMenuItemClickListener {
             IntentIntegrator.forSupportFragment(this).initiateScan();

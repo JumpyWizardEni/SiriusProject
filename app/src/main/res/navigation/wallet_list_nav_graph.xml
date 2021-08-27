@@ -11,12 +11,10 @@
         android:label="WalletListFragment">
         <action
             android:id="@+id/action_walletListFragment_to_walletNameFragment"
-            app:destination="@id/walletNameFragment"
-            app:enterAnim="@anim/from_right" />
+            app:destination="@id/walletNameFragment" />
         <action
             android:id="@+id/action_walletListFragment_to_walletChangingFragment"
-            app:destination="@id/walletChangingFragment"
-            app:enterAnim="@anim/from_right" />
+            app:destination="@id/walletChangingFragment" />
     </fragment>
     <fragment
         android:id="@+id/walletNameFragment"
@@ -26,9 +24,8 @@
         <action
             android:id="@+id/action_walletNameFragment_to_walletCreatingInfoFragment"
             app:destination="@id/walletCreatingInfoFragment"
-            app:enterAnim="@anim/from_right"
-            app:launchSingleTop="false"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/walletCreatingInfoFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_walletNameFragment_to_walletChangingFragment"
             app:destination="@id/walletChangingFragment"
@@ -43,7 +40,6 @@
         <action
             android:id="@+id/action_walletCreatingInfoFragment_to_walletListFragment"
             app:destination="@id/walletListFragment"
-            app:enterAnim="@anim/from_left"
             app:popUpTo="@id/walletListFragment"
             app:popUpToInclusive="true" />
         <action
@@ -67,7 +63,6 @@
         <action
             android:id="@+id/action_walletChangingFragment_to_walletListFragment"
             app:destination="@id/walletListFragment"
-            app:enterAnim="@anim/from_right"
             app:popUpTo="@id/walletListFragment"
             app:popUpToInclusive="true" />
         <action
@@ -85,7 +80,6 @@
         <action
             android:id="@+id/action_walletLimitFragment_to_walletCreatingInfoFragment"
             app:destination="@id/walletCreatingInfoFragment"
-            app:enterAnim="@anim/from_right"
             app:launchSingleTop="true"
             app:popUpTo="@id/walletCreatingInfoFragment"
             app:popUpToInclusive="true" />
